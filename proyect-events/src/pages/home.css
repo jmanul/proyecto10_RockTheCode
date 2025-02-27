@@ -1,0 +1,33 @@
+.events-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.events-page h1 {
+  font-size: 3rem;
+  margin-bottom: 4rem;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+}
+
+.events-page .events-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.events-page .events-list li {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #00ffcc;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+}
+
+.events-page .events-list li:last-child {
+  margin-bottom: 0;
+}

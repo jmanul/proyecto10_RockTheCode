@@ -1,5 +1,5 @@
 {
-  "name": "proyecto10-rockthecode",
+  "name": "proyect-events",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^6.0.1"
+    "vite": "^6.1.1"
+  },
+  "dependencies": {
+    "js-cookie": "^3.0.5",
+    "sass": "^1.85.0"
   }
 }

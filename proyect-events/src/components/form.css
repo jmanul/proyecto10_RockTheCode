@@ -1,0 +1,45 @@
+
+
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.create-form .form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.create-form .form-group label {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #f0f0f0;
+}
+
+.create-form .form-group input {
+  padding: 1rem;
+  border: 2px solid #00ffcc;
+  border-radius: 5px;
+  font-family: 'Rajdhani', sans-serif;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.create-form .form-group input:focus {
+  border-color: #ff00ff;
+  outline: none;
+}
+
+.create-form .button {
+  align-self: center;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}

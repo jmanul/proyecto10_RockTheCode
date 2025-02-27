@@ -1,0 +1,64 @@
+
+/* Variables globales */
+:root {
+  --neon-cyan: #00ffcc;
+  --neon-magenta: #ff00ff;
+  --neon-purple: #6a00ff;
+  --neon-yellow: #ffff00;
+  --black-matte: #000;
+  --white-neon: #f0f0f0;
+  --dark-gray: #1a1a1a;
+  --spacing-large: 4rem;
+  --spacing-medium: 2rem;
+  --spacing-small: 1rem;
+  --transition-speed: 0.3s;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: #000;
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 4rem 0;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+}
+
+.button {
+  position: relative;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  border: 2px solid #00ffcc;
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+}

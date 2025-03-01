@@ -1,26 +1,40 @@
+import { buildFetchJson } from '../api/buildFetch';
+import { createEventCard } from '../components/cardEvent';
 import './home.css';
+import { renderRegisterLoginPage } from './registerLogin';
 
 
-export function renderHomePage(container) {
-     container.innerHTML = '';
+export async function renderHomePage(container) {
+     try {
+           
+         
+          const events = await buildFetchJson("/events");
 
-     const title = document.createElement('h1');
-     title.textContent = 'Eventos Disponibles';
-     container.appendChild(title);
+          // Limpiar el contenedor antes de renderizar
+          container.innerHTML = `<h2>Eventos Disponibles</h2>`;
 
-     const eventsList = document.createElement('ul');
-     eventsList.classList.add('events-list');
-     container.appendChild(eventsList);
+          const eventsContainer = document.createElement("div");
+          eventsContainer.classList.add("events-container", "flex-container");
 
-     // api.get('/api/events')
-     //      .then((data) => {
-     //           data.events.forEach((event) => {
-     //                const listItem = document.createElement('li');
-     //                listItem.textContent = event.name;
-     //                eventsList.appendChild(listItem);
-     //           });
-     //      })
-     //      .catch((error) => {
-     //           console.error('Error al cargar eventos:', error);
-     //      });
+          if (!events || events.length === 0) {
+               eventsContainer.innerHTML = "<p>No hay eventos disponibles.</p>";
+          } else {
+               events.forEach(event => {
+                    const eventCard = createEventCard(event);
+                    eventsContainer.appendChild(eventCard);
+               });
+          }
+
+          container.appendChild(eventsContainer);
+
+          
+
+     } catch (error) {
+         
+         
+          renderRegisterLoginPage(container);
+     }
 }
+
+
+

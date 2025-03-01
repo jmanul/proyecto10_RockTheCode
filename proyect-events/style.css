@@ -8,10 +8,28 @@
   --black-matte: #000;
   --white-neon: #f0f0f0;
   --dark-gray: #1a1a1a;
+  --light-gray: #c0bebe;
+  --light-gray-slow: #f1e5e5;
   --spacing-large: 4rem;
   --spacing-medium: 2rem;
   --spacing-small: 1rem;
-  --transition-speed: 0.3s;
+  --spacing-little-bit: .5rem;
+  --padding-little-bit: .2rem;
+  --box-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.2);;
+  --box-shadow-2: 0 2px 8px rgba(0, 0, 0, 0.4);;
+ 
+}
+
+.flex-container{
+
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--spacing-little-bit);
 }
 
 /* Reset */
@@ -61,4 +79,11 @@ h1 {
 
 .button:hover {
   box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+}
+
+.events-container {
+
+  background:var(--neon-yellow)
+
+
 }

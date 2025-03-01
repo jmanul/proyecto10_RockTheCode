@@ -1,6 +1,3 @@
-
-
-
 .create-form {
   display: flex;
   flex-direction: column;
@@ -20,21 +17,21 @@
 .create-form .form-group label {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: #f0f0f0;
+  color: var(--white-neon);
 }
 
 .create-form .form-group input {
   padding: 1rem;
-  border: 2px solid #00ffcc;
+  border: 2px solid var(--neon-cyan);
   border-radius: 5px;
   font-family: 'Rajdhani', sans-serif;
-  background-color: #1a1a1a;
-  color: #f0f0f0;
+  background-color: var(--black-matte);
+  color: var(--white-neon);
   transition: border-color 0.3s ease-in-out;
 }
 
 .create-form .form-group input:focus {
-  border-color: #ff00ff;
+  border-color: var(--neon-magenta);
   outline: none;
 }
 

@@ -1,5 +1,5 @@
 import './form.css';
-export function CreateForm(fields, onSubmit) {
+export const CreateForm = (fields, onSubmit) => {
      const form = document.createElement('form');
      form.classList.add('create-form');
 
@@ -29,6 +29,7 @@ export function CreateForm(fields, onSubmit) {
 
      form.addEventListener('submit', (e) => {
           e.preventDefault();
+          console.log(e.target);
           onSubmit(e.target);
      });
 

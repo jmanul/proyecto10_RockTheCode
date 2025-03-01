@@ -2,8 +2,10 @@ import './registerLogin.css';
 import { CreateForm } from '../components/form.js';
 import { processForm } from '../utils/processForm.js';
 import { buildFetchJson } from '../api/buildFetch.js';
+import { renderHomePage } from './home.js';
 
-export function renderRegisterLoginPage(container) {
+
+export const renderRegisterLoginPage = (container) => {
      container.innerHTML = '';
 
      const loginFields = [
@@ -11,20 +13,35 @@ export function renderRegisterLoginPage(container) {
           { type: 'password', name: 'password', placeholder: 'Contraseña', required: true },
      ];
 
+     const registerFields = [...loginFields];
+
      const form = CreateForm(loginFields, async (form) => {
-          const dataForm = processForm(form); 
+          
+          try {
+               const dataForm = processForm(form);
 
-          const request = await buildFetchJson('/register/login/', 'POST', dataForm);
+               const request = await buildFetchJson('/register/login/', 'POST', dataForm);
 
-          // Acceder a los datos de la respuesta
-          console.log("Inicio de sesión exitoso:", request);
+               if (request) {
+                    console.log("Login exitoso:", request);
 
-          // Redirigir o actualizar la interfaz
-          alert("Inicio de sesión exitoso!");
-          window.location.href = "/home"; // Simular cambio de página
+                    // Redirige solo si la respuesta es válida
+                    window.location.href = "/home";
+                    await renderHomePage(container);
+                    return; // Detiene la ejecución aquí para evitar la redirección errónea
+               }
 
-        
+               console.error("Error: Respuesta inválida del servidor.");
+          } catch (error) {
+               console.error("Error en el login:", error);
+          }
+
+          // Si hay un error o `request` es null/undefined, redirige a la página de login
+          window.location.href = "/register-login";
      });
 
+
      container.appendChild(form);
+
+     
 }

@@ -1,8 +1,11 @@
+import { buildFetchFormdata, buildFetchJson } from "../api/buildFetch";
 
 
-export function processForm(form) {
+export const processForm = async (form, route, method) => {
+
      let hasFiles = false;
-     let result;
+     let data;
+     let request;
 
      Array.from(form.elements).forEach((element) => {
           if (element.name && !element.disabled) {
@@ -17,7 +20,8 @@ export function processForm(form) {
      if (hasFiles) {
 
     
-          result = new FormData();
+          data = new FormData();
+
           Array.from(form.elements).forEach((element) => {
                if (element.name && !element.disabled) {
                     const { name, type, value, files } = element;
@@ -25,27 +29,35 @@ export function processForm(form) {
 
                     if (type === 'file' && files.length > 0) {
 
-                         result.append(name, files[0]);
+                         data.append(name, files[0]);
 
                     } else if (value.trim() !== '') {
 
-                         result.append(name, value);
+                         data.append(name, value);
                     }
                }
          
           });
+
+          request = await buildFetchFormdata(route, method, data);
+
      } else {
-          result = {};
+
+          data = {};
+
           Array.from(form.elements).forEach((element) => {
                if (element.name && !element.disabled) {
                     const { name, type, value, files } = element;
 
                     if (type !== 'file' && value.trim() !== '') {
-                         result[name] = value;
+                         data[name] = value;
                     }
                }
           });
+
+          request = await buildFetchJson( route, method, data);
      }
 
-     return result;
+     return request
+
 }

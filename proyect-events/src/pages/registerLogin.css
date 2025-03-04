@@ -1,25 +1,28 @@
 .login-register-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  background-color: #000;
 }
 
 .login-register-page h1 {
   font-size: 3rem;
   margin-bottom: 4rem;
-  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
 }
 
 .login-register-page .create-form {
   padding: 2rem;
-  background-color: #1a1a1a;
   border-radius: 10px;
-  box-shadow: 0 0 20px #00ffcc;
+  box-shadow: 0 0 20px var(--neon-cyan);
 }
 
 .login-register-page .create-form .button:hover {
-  box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  box-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta);
+}
+
+.register-login-container {
+
+  background-color:var(--dark-gray);
+  width:100%;
+  height: 100vh;
+
+
 }

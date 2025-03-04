@@ -5,11 +5,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const spinner = createSpinner();
 appContainer.appendChild(spinner);
 
-export const buildFetchJson = async (route, method = "GET", dataForm = null) => {
+export const buildFetchJson = async (route, method = "GET", data = null) => {
      try {
           showSpinner(spinner);
 
-          // Configuración básica de la petición
           const options = {
                method,
                credentials: "include",
@@ -19,8 +18,8 @@ export const buildFetchJson = async (route, method = "GET", dataForm = null) => 
           };
 
           // Solo agrega el body si hay datos que enviar y el método no es GET
-          if (dataForm && method !== "GET") {
-               options.body = JSON.stringify(dataForm);
+          if (data && method !== "GET") {
+               options.body = JSON.stringify(data);
           }
 
           const response = await fetch(API_BASE_URL + route, options);
@@ -29,16 +28,19 @@ export const buildFetchJson = async (route, method = "GET", dataForm = null) => 
                throw new Error(`HTTP error! Status: ${response.status}`);
           }
 
-          // Si la respuesta no tiene contenido (ej. DELETE 204 No Content), no intentes hacer `response.json()`
-          if (response.status !== 204) {
-               return await response.json();
+          if (response.status === 204) {
+
+               return null;
+              
           }
 
-          return null; // Si es 204, simplemente devuelve `null`
+          return await response.json();
+
 
      } catch (error) {
           console.error("Error en la solicitud:", error.message);
           throw error;
+
      } finally {
           hideSpinner(spinner);
      }

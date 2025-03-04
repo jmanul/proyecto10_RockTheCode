@@ -1,11 +1,14 @@
 import './registerLogin.css';
 import { CreateForm } from '../components/form.js';
-import { processForm } from '../utils/processForm.js';
-import { buildFetchJson } from '../api/buildFetch.js';
 import { renderHomePage } from './home.js';
+import { actionRequest } from '../utils/actionRequest';
 
 
-export const renderRegisterLoginPage = (container) => {
+export const renderRegisterLoginPage = async (container) => {
+
+     const registerLoginContainer = document.createElement('div');
+     registerLoginContainer.classList.add('flex-container', 'register-login-container');
+
      container.innerHTML = '';
 
      const loginFields = [
@@ -15,33 +18,22 @@ export const renderRegisterLoginPage = (container) => {
 
      const registerFields = [...loginFields];
 
-     const form = CreateForm(loginFields, async (form) => {
+     const renderLogin = async () => {
+        
+          const formLogin = await CreateForm(loginFields, 'login');
+          registerLoginContainer.appendChild(formLogin)
+          return await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, container);
           
-          try {
-               const dataForm = processForm(form);
+     }
+     
+     await renderLogin();
 
-               const request = await buildFetchJson('/register/login/', 'POST', dataForm);
-
-               if (request) {
-                    console.log("Login exitoso:", request);
-
-                    // Redirige solo si la respuesta es válida
-                    window.location.href = "/home";
-                    await renderHomePage(container);
-                    return; // Detiene la ejecución aquí para evitar la redirección errónea
-               }
-
-               console.error("Error: Respuesta inválida del servidor.");
-          } catch (error) {
-               console.error("Error en el login:", error);
-          }
-
-          // Si hay un error o `request` es null/undefined, redirige a la página de login
-          window.location.href = "/register-login";
-     });
+     const formRegister = await CreateForm(registerFields, 'register');
+     await actionRequest(formRegister, '/register/', 'POST', renderLogin, container);
 
 
-     container.appendChild(form);
+     container.appendChild(registerLoginContainer);
+     registerLoginContainer.appendChild(formRegister)
 
      
 }

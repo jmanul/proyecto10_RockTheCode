@@ -1,11 +1,13 @@
 import './form.css';
-export const CreateForm = (fields, onSubmit) => {
-     const form = document.createElement('form');
-     form.classList.add('create-form');
+export const CreateForm = async (fields, formName) => {
 
-     fields.forEach((field) => {
+     const form = document.createElement('form');
+     form.classList.add('create-form', formName, 'flex-container');
+     form.id = formName;
+
+     await fields.forEach((field) => {
           const div = document.createElement('div');
-          div.classList.add('form-group');
+          div.classList.add('form-group', 'flex-container');
 
           const label = document.createElement('label');
           label.textContent = field.placeholder;
@@ -27,11 +29,6 @@ export const CreateForm = (fields, onSubmit) => {
      submitButton.classList.add('button');
      form.appendChild(submitButton);
 
-     form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          console.log(e.target);
-          onSubmit(e.target);
-     });
-
      return form;
+     
 }

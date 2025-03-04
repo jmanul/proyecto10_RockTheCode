@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Honk&family=Itim&family=Lilita+One&family=Outfit:wght@100..900&display=swap');
 
-/* Variables globales */
+
+
 :root {
   --neon-cyan: #00ffcc;
   --neon-magenta: #ff00ff;
@@ -15,16 +17,31 @@
   --spacing-small: 1rem;
   --spacing-little-bit: .5rem;
   --padding-little-bit: .2rem;
-  --box-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.2);;
-  --box-shadow-2: 0 2px 8px rgba(0, 0, 0, 0.4);;
- 
+  --box-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --box-shadow-2: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --box-shadow-3: 0 2px 15px var(--neon-magenta);
+  --border-radius: 50%;
+  --border-radius-circle: 50%;
+  --border-radius-big: 16px;
+  --border-radius-small: 8px;
+
+  --font-regular: "Lilita One",
+    sans-serif;
+  --font-italic: "Caveat", cursive;
+  --font-shadow: "Honk",
+    system-ui;
+  --font-regulat-itim: "Itim",
+    cursive;
+  --font-regulat-outfit: "Outfit",
+    sans-serif;
+
 }
 
-.flex-container{
+.flex-container {
 
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   align-content: center;
   flex-direction: column;
@@ -49,9 +66,9 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color: #000;
-  color: #00ffcc;
-  font-family: 'Orbitron', sans-serif;
+  background-color: var(--black-matte);
+  color: var(--neon-cyan);
+  font-family: var(--font-regulat-outfit);
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -62,28 +79,32 @@ h1 {
   font-weight: bold;
   text-align: center;
   margin: 4rem 0;
-  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
 }
 
-.button {
-  position: relative;
+button {
   padding: 1rem 2rem;
-  background-color: transparent;
-  border: 2px solid #00ffcc;
-  color: #00ffcc;
-  font-family: 'Orbitron', sans-serif;
+  background-color: var(--neon-magenta);
+  border: 1px solid var(--dark-gray);
+  color: var(--dark-gray);
+  font-family: var(--font-regulat-outfit);
+  ;
   font-size: 1rem;
   cursor: pointer;
+  box-shadow: 0 1px 6px var(--dark-gray);
   transition: box-shadow 0.3s ease-in-out;
+  border-radius: var(--border-radius-small);
+
+  &:hover {
+    box-shadow: 0 1px 7px var(--neon-cyan);
+    color: var(--light-gray-slow);
+
+  }
 }
 
-.button:hover {
-  box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-}
+
 
 .events-container {
 
-  background:var(--neon-yellow)
-
-
+  background: var(--neon-yellow)
 }

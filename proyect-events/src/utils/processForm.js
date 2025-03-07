@@ -1,7 +1,7 @@
 import { buildFetchFormdata, buildFetchJson } from "../api/buildFetch";
 
 
-export const processForm = async (form, route, method) => {
+export const processForm = async (form, route, method, messageContainer) => {
 
      let hasFiles = false;
      let data;
@@ -39,7 +39,7 @@ export const processForm = async (form, route, method) => {
          
           });
 
-          request = await buildFetchFormdata(route, method, data);
+          request = await buildFetchFormdata(route, method, data, messageContainer);
 
      } else {
 
@@ -55,7 +55,7 @@ export const processForm = async (form, route, method) => {
                }
           });
 
-          request = await buildFetchJson( route, method, data);
+          request = await buildFetchJson( route, method, data, messageContainer);
      }
 
      return request

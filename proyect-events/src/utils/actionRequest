@@ -1,7 +1,7 @@
 import { processForm } from "./processForm";
 
 
-export const actionRequest = async (form, route, method, renderFunction, container) => {
+export const actionRequest = async (form, route, method, renderFunction, container, messageContainer) => {
 
     await form.addEventListener('submit', async (e) => {
 
@@ -9,19 +9,21 @@ export const actionRequest = async (form, route, method, renderFunction, contain
 
           try {
 
-               const request = await processForm(form, route, method);
+               const request = await processForm(form, route, method, messageContainer);
 
                if (request) {
-                    console.log("Login exitoso:", request);
 
+                    createMessage(container, data.message, 'success', messageContainer);
+                    
+                    console.log("exitoso:", request.message);
                     await renderFunction(container);
-                    return;
+                    return request;
                }
 
                console.error("Error: Respuesta inválida del servidor.");
 
           } catch (error) {
-               console.error("Error en el login:", error);
+               console.error("Error :", error);
           }
      });
 }

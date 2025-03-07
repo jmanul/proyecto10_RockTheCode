@@ -6,7 +6,7 @@
   max-width: 400px;
   padding: var(--spacing-medium);
   border-radius:var(--border-radius-big);
-  box-shadow: var(--box-shadow-3);
+  box-shadow: var(--box-shadow-5);
 }
 
 .form-group {
@@ -29,10 +29,22 @@
   background-color: var(--light-gray-slow);
   color: var(--dark-gray);
   transition: border-color 0.3s ease-in-out;
+  pla
   &:focus {
       border-color: var(--neon-magenta);
       outline: none;
     }
+
+    &::placeholder {
+    
+      font-family: var(--font-regulat-itim);
+      font-size: large;
+      font-style: italic;
+      color:var(--light-gray)
+    
+    }
+
+    
 }
 
 

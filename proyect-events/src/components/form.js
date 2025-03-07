@@ -25,7 +25,7 @@ export const CreateForm = async (fields, formName) => {
 
      const submitButton = document.createElement('button');
      submitButton.type = 'submit';
-     submitButton.textContent = 'Enviar';
+     submitButton.textContent = formName;
      submitButton.classList.add('button');
      form.appendChild(submitButton);
 

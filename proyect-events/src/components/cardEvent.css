@@ -28,7 +28,7 @@
 
 .event-image {
      width: 100%;
-     height: auto;
+     aspect-ratio: 16 / 9;
      object-fit: cover;
      padding: var(--padding-little-bit);
      border-top-left-radius: 8px;

@@ -39,6 +39,29 @@
 
 }
 
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+
+    --background-color: var(--dark-gray);
+    --text-color: var(--light-gray-slow);
+    --box-shadow: var(--box-shadow-5);
+  }
+}
+
+[data-theme="dark"] {
+  --background-color: var(--dark-gray);
+    --text-color: var(--light-gray-slow);
+    --box-shadow: var(--box-shadow-5);
+}
+
+[data-theme="light"] {
+    --background-color: var(--light-gray-slow);
+    --text-color: vvar(--dark-gray);
+    --box-shadow: var(--box-shadow-1);
+}
+
 .flex-container {
 
   display: flex;
@@ -58,10 +81,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+ 
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+a {
+
+  color:var(--light-gray);
+  font-family: var(--font-regulat-outfit);
+  font-size: large;
+  font-weight: 800;
 }
 
 body {
@@ -69,7 +103,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background-color: var(--black-matte);
-  color: var(--neon-cyan);
+  color: var(--black-matte);
   font-family: var(--font-regulat-outfit);
   margin: 0;
   padding: 0;
@@ -81,7 +115,20 @@ h1 {
   font-weight: bold;
   text-align: center;
   margin: 4rem 0;
+  color:#000;
   text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+
+  
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  h2 {
+    color: var(--neon-cyan);
+    background: var(--black-matte);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 button {
@@ -104,6 +151,31 @@ button {
   }
 }
 
+input {
+  padding: .7rem;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--border-radius-small);
+  font-family: var(--font-regulat-outfit);
+  font-size: 1rem;
+  background-color: var(--light-gray-slow);
+  color: var(--dark-gray);
+  transition: border-color 0.3s ease-in-out;
+
+  &:focus {
+    border-color: var(--neon-cyan);
+    outline: none;
+  }
+
+  &::placeholder {
+
+    font-family: var(--font-regulat-itim);
+    font-size: large;
+    font-style: italic;
+    color: var(--light-gray)
+  }
+
+
+}
 
 
 .events-container {
@@ -111,3 +183,35 @@ button {
   background: var(--neon-yellow)
 }
 
+footer {
+ 
+  width: 100%;
+  height: auto;
+  background: var(--dark-gray);
+}
+
+.making {
+ 
+  width: 100%;
+  height: 50px;
+}
+
+.making a {
+  color: var(--light-gray);
+}
+
+.pasttri-logo {
+  height: 25px;
+
+}
+
+.pasttri-logo img {
+  height: 100%;
+}
+
+.making>span {
+  flex-direction: row;
+  font-size: small;
+  font-family: var(--font-regulat-itim);
+  color: var(--light-gray);
+}

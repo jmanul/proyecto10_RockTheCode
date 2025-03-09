@@ -1,5 +1,5 @@
 .login-register-page {
-   
+
   height: 100vh;
 }
 
@@ -21,13 +21,13 @@
 
 .register-login-group {
 
-  background:var(--dark-gray);
+  background: var(--light-gray-slow);
   padding: var(--spacing-little-bit);
   border-radius: var(--border-radius-big);
-  box-shadow: var(--box-shadow-5);
+  box-shadow: var(--box-shadow-1);
   width: 100%;
   max-width: 400px;
-  
+  border: 1px solid var(--light-gray)
 }
 
 .register-login-group h2 {
@@ -37,8 +37,12 @@
 
 .register-login-container {
   position: relative;
-  background-color:var(--dark-gray);
-  width:100%;
+  background-color: var(--light-gray-slow);
+  /* background-image: url('/public/assets/events-icon.svg');
+  background-size: 15px;
+  background-position: center;
+  background-repeat: repeat; */
+  width: 100%;
   min-height: 100vh;
   padding: var(--spacing-large);
 

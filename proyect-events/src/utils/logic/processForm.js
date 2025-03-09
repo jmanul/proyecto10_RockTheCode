@@ -1,5 +1,4 @@
-import { buildFetchFormdata, buildFetchJson } from "../api/buildFetch";
-
+import { buildFetchFormdata, buildFetchJson } from "../../api/buildFetch";
 
 export const processForm = async (form, route, method, messageContainer) => {
 

@@ -110,6 +110,8 @@ body {
   overflow-x: hidden;
 }
 
+
+
 h1 {
   font-size: 4rem;
   font-weight: bold;
@@ -183,35 +185,3 @@ input {
   background: var(--neon-yellow)
 }
 
-footer {
- 
-  width: 100%;
-  height: auto;
-  background: var(--dark-gray);
-}
-
-.making {
- 
-  width: 100%;
-  height: 50px;
-}
-
-.making a {
-  color: var(--light-gray);
-}
-
-.pasttri-logo {
-  height: 25px;
-
-}
-
-.pasttri-logo img {
-  height: 100%;
-}
-
-.making>span {
-  flex-direction: row;
-  font-size: small;
-  font-family: var(--font-regulat-itim);
-  color: var(--light-gray);
-}

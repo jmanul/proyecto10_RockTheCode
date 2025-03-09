@@ -1,0 +1,13 @@
+import './footer.css';
+
+export const createFooter = () => {
+
+     const footer = document.createElement('footer');
+     footer.id = 'footer';
+     footer.className = 'footer';
+     document.body.append(footer);
+     const footerMaking = document.createElement('div');
+     footerMaking.classList.add('flex-container', 'making');
+     footer.append(footerMaking);
+     footerMaking.innerHTML = `<span class="flex-container"><strong>Hecho con 🤍 por Jmanul</strong><div class="pasttri-logo"><img src="/public/assets/logoPastri.svg" alt="logo pasttri"></div></span>`;
+}

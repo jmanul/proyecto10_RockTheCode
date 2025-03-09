@@ -1,8 +1,8 @@
 import './registerLogin.css';
 import { CreateForm } from '../components/form.js';
 import { renderHomePage } from './home.js';
-import { actionRequest } from '../utils/actionRequest';
 import { renderLoginPage } from './login.js';
+import { actionRequest } from '../utils/logic/actionRequest.js';
 
 
 export const renderRegisterLoginPage = async (container) => {

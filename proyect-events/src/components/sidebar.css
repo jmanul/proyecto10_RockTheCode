@@ -10,4 +10,5 @@
      width: min-content;
      box-shadow: var(--box-shadow-1);
      border-right: 1px solid var(--light-gray);
+     display:none;
 }

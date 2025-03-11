@@ -1,25 +1,34 @@
 
 
-// const themeToggle = document.getElementById('theme-toggle');
-// const body = document.body;
+export const darkLightAction = (darkLightButton, textTheme) => {
 
-// const savedTheme = localStorage.getItem('theme');
-// if (savedTheme) {
-//      body.setAttribute('data-theme', savedTheme);
-//      updateButtonText(savedTheme);
-// }
+     const app = document.getElementById('app');
 
-// themeToggle.addEventListener('click', () => {
-//      if (body.getAttribute('data-theme') === 'dark') {
-//           body.setAttribute('data-theme', 'light');
-//           localStorage.setItem('theme', 'light');
-//      } else {
-//           body.setAttribute('data-theme', 'dark');
-//           localStorage.setItem('theme', 'dark');
-//      }
-//      updateButtonText(body.getAttribute('data-theme'));
-// });
+     const updateButtonText = (theme) => {
+          darkLightButton.className = theme === 'dark' ? 'dark-theme-button' : 'light-theme-button';
+          textTheme.textContent = theme === 'dark' ? 'dark' : 'light';
+          
+     }
+   
 
-// function updateButtonText(theme) {
-//      themeToggle.textContent = theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro';
-// }
+     const savedTheme = localStorage.getItem('theme');
+     if (savedTheme) {
+          app.setAttribute('data-theme', savedTheme);
+          updateButtonText(savedTheme);
+     }
+
+     darkLightButton.addEventListener('click', () => {
+          if (app.getAttribute('data-theme') === 'dark') {
+               app.setAttribute('data-theme', 'light');
+               localStorage.setItem('theme', 'light');
+          } else {
+               app.setAttribute('data-theme', 'dark');
+               localStorage.setItem('theme', 'dark');
+          }
+          updateButtonText(app.getAttribute('data-theme'));
+     });
+
+ 
+}
+
+//darkLightButton.style.flex-direction = "row-reverse"

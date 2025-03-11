@@ -43,7 +43,8 @@
   background-position: center;
   background-repeat: repeat; */
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
+  top:200px;
   padding: var(--spacing-large);
 
 }

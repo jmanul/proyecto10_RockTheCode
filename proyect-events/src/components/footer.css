@@ -1,9 +1,9 @@
 
 footer {
-
      width: 100%;
      height: auto;
-     background: var(--dark-gray);
+     background: var(--black-matte);
+     border-top: 1px solid var(--light-gray);
 }
 
 .making {

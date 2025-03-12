@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
    
 });
 
-createFooter();
+const footer = createFooter();
+document.body.appendChild(footer);
 
 

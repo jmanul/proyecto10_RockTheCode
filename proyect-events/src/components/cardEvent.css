@@ -1,8 +1,8 @@
 .event-card {
-     background-color: var(--white-neon);
+     background-color: var(--background-color);
      border: 1px solid var(--light-gray);
      border-radius: 8px;
-     box-shadow: var(--box-shadow-2);
+     box-shadow: var(--box-shadow);
      width: 50%;
      max-width: 500px;
      height: auto;
@@ -33,20 +33,20 @@
      padding: var(--padding-little-bit);
      border-top-left-radius: 8px;
      border-top-right-radius: 8px;
-     box-shadow: var(--box-shadow-1);
+     box-shadow: var(--box-shadow);
 }
 
 .event-name {
      font-size: 1.2rem;
      margin: 10px 0 5px;
-     color: var(--black-matte)
+     color: var(--text-color)
 }
 
 .event-type,
 .event-city,
 .event-date {
      font-size: 1.2rem;
-     color: var(--dark-gray);
+     color: var(--text-color);
      font-weight: 400;
      margin: 5px 0;
 }
@@ -54,7 +54,7 @@
 .event-type {
 
      padding: 5px;
-     box-shadow: var(--box-shadow-1);
+     box-shadow: var(--box-shadow);
      width: 100%;
      border-radius: 8px;
 

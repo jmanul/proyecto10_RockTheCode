@@ -2,7 +2,7 @@ import './message.css';
 
 export const createMessage = (container, text, optionClassResponse) => {
 
-  
+  console.log('estoy encreatemessage');
 
      const messageContainer = document.createElement('div');
      messageContainer.classList.add('flex-container', 'message-container', 'hide', optionClassResponse);
@@ -11,6 +11,8 @@ export const createMessage = (container, text, optionClassResponse) => {
      message.innerText = text;
      container.appendChild(messageContainer);
      messageContainer.appendChild(message);
+
+     console.log(message.innerText);
     
 
      setTimeout(() => {

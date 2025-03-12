@@ -1,0 +1,40 @@
+
+
+.light-theme-button,
+.dark-theme-button {
+     position: fixed;
+     top: 20px;
+     right: 20px;
+     background: var(--dark-gray);
+     border: none;
+     padding: 1px 5px 1px 1px;
+     border-radius: 50px;
+     border: 2px solid var(--light-gray);
+     cursor: pointer;
+     transition: all 0.3s;
+     display: flex;
+     gap: 1px;
+     box-shadow: var(--box-shadow-4);
+     color: var(--light-gray)
+}
+
+.dark-theme-button {
+
+     box-shadow: var(--box-shadow-3);
+     padding: 1px 1px 1px 5px;
+     flex-direction: row-reverse;
+     transition: all 0.5s;
+}
+
+.light-theme-button button,
+.dark-theme-button button {
+
+     border-radius: 100%;
+     padding: 10px;
+
+}
+
+.light-theme-button:hover {
+
+     box-shadow: var(--box-shadow-5);
+}

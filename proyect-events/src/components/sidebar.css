@@ -5,10 +5,11 @@
      top: 0;
      z-index: 10;
      padding: var(--spacing-large) ;
-     background-color:var(--dark-gray);
+     background-color:var(--background-color);
      height: 100vh;
      width: min-content;
-     box-shadow: var(--box-shadow-1);
+     box-shadow: var(--box-shadow);
      border-right: 1px solid var(--light-gray);
      display:none;
+     color: var(--text-color);
 }

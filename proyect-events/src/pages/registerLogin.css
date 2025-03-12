@@ -1,18 +1,13 @@
 .login-register-page {
 
-  height: 100vh;
+  min-height: 100vh;
 }
 
-.login-register-page h1 {
-  font-size: 3rem;
-  margin-bottom: 4rem;
-  text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-}
 
 .login-register-page .create-form {
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px var(--neon-cyan);
+  box-shadow: 0 0 20px var(--box-shadow);
 }
 
 .login-register-page .create-form .button:hover {
@@ -20,30 +15,30 @@
 }
 
 .register-login-group {
-
-  background: var(--light-gray-slow);
+  margin-top: 200px;
+  background: var(--background-color);
   padding: var(--spacing-little-bit);
   border-radius: var(--border-radius-big);
-  box-shadow: var(--box-shadow-1);
+  box-shadow: var(--box-shadow);
   width: 100%;
   max-width: 400px;
-  border: 1px solid var(--light-gray)
+  border: 1px solid var(--light-gray);
+  color: var(--text-color);
 }
 
 .register-login-group h2 {
-
+  color:var(--text-color);
   padding: var(--spacing-little-bit);
 }
 
 .register-login-container {
-  position: relative;
-  background-color: var(--light-gray-slow);
+ 
+  background-color: var(--background-color);
   /* background-image: url('/public/assets/events-icon.svg');
   background-size: 15px;
   background-position: center;
   background-repeat: repeat; */
   width: 100%;
-  min-height: 80vh;
   top:200px;
   padding: var(--spacing-large);
 

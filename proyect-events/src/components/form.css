@@ -1,19 +1,19 @@
 .create-form {
 
-  background-color:var(--light-gray-slow);
+  background-color:var(--background-color);
   gap: var(--spacing-medium);
   width: 100%;
   max-width: 400px;
   padding: var(--spacing-medium);
   border-radius:var(--border-radius-big);
-  box-shadow: var(--box-shadow-1);
+  box-shadow: var(--box-shadow);
   border: 1px solid var(--light-gray);
-
+/* 
     [data-theme="dark"] & {
 
         background-color: var(--black-matte);
         
-      }
+      } */
 }
 
 .form-group {
@@ -24,7 +24,7 @@
 
 .create-form .form-group label {
   font-size: 1.2rem;
-  color: var(--dark-gray);
+  color: var(--text-color);
 }
 
 

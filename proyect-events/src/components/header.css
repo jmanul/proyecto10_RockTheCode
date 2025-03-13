@@ -5,7 +5,6 @@ header {
      height: 200px;
      width: 100%;
      z-index: 100;
-     border-bottom: 1px solid var(--light-gray);
      background-color:var(--black-matte);
      color:var(--light-gray);
      box-shadow:var(--box-shadow-6);

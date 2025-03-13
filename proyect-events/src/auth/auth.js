@@ -1,10 +1,5 @@
 
 
-import Cookies from 'js-cookie';
-
-
-
-
 export function logout() {
      // Elimina las cookies de forma segura
      Cookies.remove('accessToken', { path: '/', secure: true, sameSite: 'strict' });

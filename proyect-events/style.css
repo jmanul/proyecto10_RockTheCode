@@ -27,7 +27,8 @@
   --border-radius-circle: 50%;
   --border-radius-big: 16px;
   --border-radius-small: 8px;
-
+  --background-gradient-radial-1: radial-gradient(circle, rgba(189, 52, 254, 0.4318102240896359) 0%, rgba(0, 255, 204, 1) 100%); 
+  --background-gradient-radial-2:radial-gradient(circle, rgba(13, 12, 13, 1) 0%, rgba(189, 52, 254, 1) 100%);
   --font-regular: "Lilita One",
     sans-serif;
   --font-italic: "Caveat", cursive;

@@ -6,7 +6,7 @@ import { actionRequest } from '../utils/logic/actionRequest.js';
 
 
 export const renderRegisterLoginPage = async (container) => {
-     history.pushState({}, "", '/login');
+     window.history.pushState({}, "", '/login');
 
      const registerLoginContainer = document.createElement('div');
      registerLoginContainer.classList.add('flex-container', 'register-login-container');

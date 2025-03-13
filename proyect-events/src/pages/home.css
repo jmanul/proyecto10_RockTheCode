@@ -1,10 +1,16 @@
 .events-page {
+ 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: var(--background-color);
+}
+
+h2 {
+
+  padding-top: 200px;
 }
 
 .events-page h1 {

@@ -8,7 +8,7 @@ export async function renderHomePage(container) {
      try {
            
          
-          const events = await buildFetchJson("/events");
+          const events = await buildFetchJson({ route :"/events", container });
 
           // Limpiar el contenedor antes de renderizar
           container.innerHTML = `<h2>Eventos Disponibles</h2>`;

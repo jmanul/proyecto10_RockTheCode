@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const spinner = createSpinner();
 appContainer.appendChild(spinner);
 
-export const buildFetchJson = async (route, method = "GET", bodyData = null, messageContainer) => {
+export const buildFetchJson = async ({ route, method = "GET", bodyData = null, container }) => {
      try {
           showSpinner(spinner);
 
@@ -29,12 +29,11 @@ export const buildFetchJson = async (route, method = "GET", bodyData = null, mes
 
           if (!response.ok) {
 
-                createMessage(messageContainer, data.message, 'error');
-               
-                throw new Error(`HTTP error! Status: ${data.message}`);
+                createMessage(data.message, 'error', container);
+   
+               throw new Error(`HTTP error! Status: ${data.message}`);
              
 
-               
           }
 
           if (response.status === 204) {
@@ -43,12 +42,15 @@ export const buildFetchJson = async (route, method = "GET", bodyData = null, mes
               
           }
           
-          history.pushState({}, "", route);
+          window.history.pushState({}, "", route);
+
+          createMessage(data.message, 'success', container);
 
           return data;
 
 
      } catch (error) {
+          
           console.error("Error en la solicitud:", error.message);
           throw error;
          
@@ -60,7 +62,7 @@ export const buildFetchJson = async (route, method = "GET", bodyData = null, mes
 
 
 
-export const buildFetchFormdata = async (route, method, dataForm, messageContainer) => {
+export const buildFetchFormdata = async (route, method, dataForm, container) => {
 
      try {
           showSpinner(spinner);
@@ -74,14 +76,19 @@ export const buildFetchFormdata = async (route, method, dataForm, messageContain
           const data = await response.json();
 
           if (!response.ok) {
+
+               createMessage(data.message, 'error', container);
                throw new Error(`HTTP error! Status: ${data.message}`);
           }
 
           history.pushState({}, "", route);
 
+          createMessage(data.message, 'success', container);
+
           return data;
 
      } catch (error) {
+
           console.error("Error en la solicitud:", error.message);
           throw error;
 

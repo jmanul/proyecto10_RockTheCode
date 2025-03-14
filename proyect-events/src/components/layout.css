@@ -8,3 +8,24 @@
      gap: 8px;
 
 }
+
+main h1 {
+
+     padding: 150px 0 0px;
+}
+
+.events-type-menu {
+     background:var(--background-color);
+     font-family: var(--font-regulat-itim);
+     gap: var(--spacing-large);
+     border-radius:var(--border-radius-big);
+     box-shadow: var(--box-shadow);
+     padding: var(--spacing-little-bit);
+     flex-direction: row;
+}
+
+.events-type-menu li {
+
+     font-family: var(--font-regulat-itim);
+     cursor: pointer;
+}

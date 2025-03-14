@@ -359,7 +359,7 @@ export const  createSpinner = () => {
      return spinnerContainer;
 }
 
-// Función para mostrar el spinner
+// mostrar el spinner
 export const showSpinner = (spinnerContainer) => {
      if (spinnerContainer) {
           spinnerContainer.style.display = 'flex';
@@ -367,7 +367,7 @@ export const showSpinner = (spinnerContainer) => {
      }
 }
 
-// Función para ocultar el spinner
+// ocultar el spinner
 export const hideSpinner = (spinnerContainer) => {
      if (spinnerContainer) {
           spinnerContainer.style.display = 'none';

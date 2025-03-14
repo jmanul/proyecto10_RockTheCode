@@ -1,17 +1,20 @@
 import { buildFetchJson } from '../api/buildFetch';
 import { createEventCard } from '../components/cardEvent';
+import { createLayout } from '../components/layout';
 import './home.css';
 import { renderRegisterLoginPage } from './registerLogin';
 
 
 export async function renderHomePage(container) {
+
+     
      try {
            
          
           const events = await buildFetchJson({ route :"/events", container });
 
-          // Limpiar el contenedor antes de renderizar
-          container.innerHTML = `<h2>Eventos Disponibles</h2>`;
+          // // Limpiar el contenedor antes de renderizar
+          // container.innerHTML = `<h2>Eventos Disponibles</h2>`;
 
           const eventsContainer = document.createElement("div");
           eventsContainer.classList.add("events-container", "flex-container");

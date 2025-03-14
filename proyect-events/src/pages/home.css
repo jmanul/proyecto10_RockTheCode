@@ -1,39 +1,27 @@
-.events-page {
+.events-container {
  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   background-color: var(--background-color);
+  background-image: url('/assets/events-icon.svg');
+    background-size: 45px;
+    background-position: center;
+    background-repeat: repeat;
+  padding: 50px;
 }
+
+
 
 h2 {
 
-  padding-top: 200px;
+  padding: 300px 0 50px;
 }
 
-.events-page h1 {
-  font-size: 3rem;
-  margin-bottom: 4rem;
-  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-}
 
-.events-page .events-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-}
 
-.events-page .events-list li {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #00ffcc;
-  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-}
 
-.events-page .events-list li:last-child {
-  margin-bottom: 0;
-}
+
+
+
+
+
+/* plantilla de registro sin header cargar header teniendo en cuenta el roll , meter los eventos en el layout que he creado */

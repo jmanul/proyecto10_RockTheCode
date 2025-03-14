@@ -1,4 +1,4 @@
-import './list.css';
+import './layout.css';
 import { typesEventsRoutes } from "../utils/routes/routes";
 import { createList } from "./list";
 
@@ -25,6 +25,8 @@ export const createLayout = (element) => {
   <div class="div-passes"></div>
 </section>`;
      
-      main.appendChild(gridMain);
+     main.appendChild(gridMain);
+     
+     return main;
      
 }

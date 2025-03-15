@@ -13,10 +13,12 @@ header {
 
 .logo {
      position: absolute;
-     width: 190px;
+     left: 0;
+     width: 100px;
      height: 190px;
+     
      z-index: -1;
-     opacity: .2;
+     
     
 }
 

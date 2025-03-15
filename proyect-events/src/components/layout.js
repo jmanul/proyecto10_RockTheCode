@@ -5,9 +5,14 @@ import { createList } from "./list";
 export const createLayout = (element) => {
 
      const main = document.createElement('main');
-     main.classList.add('flexContainer');
+     main.classList.add('flex-container');
      main.innerHTML = "";
      element.appendChild(main);
+     const contentImageTitle = document.createElement('div');
+     contentImageTitle.classList.add('content-image-title', 'flex-container');
+     contentImageTitle.innerHTML = `<div class="image-title"><img src="/assets/propoysal-franky.png" alt="girl"></div>
+<div class="image-title"><img src="/assets/propoysal-girl.png" alt="girl"></div>`;
+     main.append(contentImageTitle);
      const title = document.createElement('h1');
      title.textContent = 'Propo y Sal';
      const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);

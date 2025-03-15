@@ -9,9 +9,33 @@
 
 }
 
-main h1 {
+.content-image-title{
 
-     padding: 150px 0 0px;
+     margin: 250px 20px 0 20px;
+     width: 100%;
+     height: 15rem;
+    
+     flex-direction: row;
+     justify-content: space-between;
+}
+
+.image-title{
+
+  
+     width: 25%;
+     height: 100%;
+    
+}
+
+.image-title img {
+
+     height: 100%;
+}
+
+main h1 {
+     font-family: var(--font-rock);
+     position: absolute;
+     top: 320px;
 }
 
 .events-type-menu {

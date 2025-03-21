@@ -1,13 +1,14 @@
 header {
-
+     
      position: fixed;
      top:0;
-     height: 200px;
+     height: max-content;
      width: 100%;
      z-index: 100;
      background-color:var(--black-matte);
      color:var(--light-gray);
      box-shadow:var(--box-shadow-6);
+     
     
 }
 

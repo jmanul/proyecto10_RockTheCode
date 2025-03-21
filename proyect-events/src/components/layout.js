@@ -1,6 +1,7 @@
 import './layout.css';
 import { typesEventsRoutes } from "../utils/routes/routes";
 import { createList } from "./list";
+import { createTitle } from './title';
 
 export const createLayout = (element) => {
 
@@ -11,10 +12,9 @@ export const createLayout = (element) => {
      const contentImageTitle = document.createElement('div');
      contentImageTitle.classList.add('content-image-title', 'flex-container');
      contentImageTitle.innerHTML = `<div class="image-title"><img src="/assets/propoysal-franky.png" alt="girl"></div>
-<div class="image-title"><img src="/assets/propoysal-girl.png" alt="girl"></div>`;
+<div class="image-title"><img src="/assets/propoysal-girl-pink.png" alt="girl"></div>`;
      main.append(contentImageTitle);
-     const title = document.createElement('h1');
-     title.textContent = 'Propo y Sal';
+     const title = createTitle();
      const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);
      main.appendChild(title);
      main.appendChild(eventsTypeMenu);

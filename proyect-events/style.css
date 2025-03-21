@@ -22,15 +22,15 @@
   --box-shadow-3: 0 2px 15px var(--neon-magenta);
   --box-shadow-4: 0 2px 10px var(--light-gray-slow);
   --box-shadow-5: 0 2px 10px var(--neon-cyan);
-  --box-shadow-6: inset 0px 2px 10px   var(--light-gray); 
-  --box-shadow-7: inset 0px 0px 5px   var(--dark-gray);  
-  --box-shadow-8: inset 0px 2px 10px   var(--neon-magenta);
+  --box-shadow-6: inset 0px 2px 10px var(--light-gray);
+  --box-shadow-7: inset 0px 0px 5px var(--dark-gray);
+  --box-shadow-8: inset 0px 2px 10px var(--neon-magenta);
   --border-radius: 50%;
   --border-radius-circle: 50%;
   --border-radius-big: 16px;
   --border-radius-small: 8px;
-  --background-gradient-radial-1: radial-gradient(circle, rgba(189, 52, 254, 0.4318102240896359) 0%, rgba(0, 255, 204, 1) 100%); 
-  --background-gradient-radial-2:radial-gradient(circle, rgba(13, 12, 13, 1) 0%, rgba(189, 52, 254, 1) 100%);
+  --background-gradient-radial-1: radial-gradient(circle, rgba(189, 52, 254, 0.4318102240896359) 0%, rgba(0, 255, 204, 1) 100%);
+  --background-gradient-radial-2: radial-gradient(circle, rgba(13, 12, 13, 1) 0%, rgba(189, 52, 254, 1) 100%);
   --font-regular: "Lilita One",
     sans-serif;
   --font-italic: "Caveat", cursive;
@@ -40,7 +40,7 @@
     cursive;
   --font-regulat-outfit: "Outfit",
     sans-serif;
-  --font-rock :"Rock Salt", cursive;
+  --font-rock: "Rock Salt", cursive;
 
 }
 
@@ -57,33 +57,35 @@
 
 
 
-  [data-theme="dark"] {
-      --background-color: var(--dark-gray);
-      --text-color: var(--light-gray-slow);
-      --box-shadow: var(--box-shadow-4);
-      --box-shadow-inset: var(--box-shadow-8);
-      --hover-shadow: var(--box-shadow-5);
-      --border-slim: 1px solid var(--light-gray-slow); 
-      --border: 3px solid var(--light-gray-slow); 
-      --text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-    }
-  
-    [data-theme="light"] {
-      --background-color: var(--light-gray-slow);
-      --text-color: var(--dark-gray);
-      --box-shadow: var(--box-shadow-1);
-      --box-shadow-inset: var(--box-shadow-7);
-      --hover-shadow: var(--box-shadow-7);
-      --border-slim: 1px solid var(--dark-gray);
-      --border: 3px solid var(--dark-gray);
-      --text-shadow: var(--box-shadow-2);
-    }
+[data-theme="dark"] {
+  --background-color: var(--dark-gray);
+  --background-color-transparent: rgba(0, 0, 0, 0.363);
+  --text-color: var(--light-gray-slow);
+  --box-shadow: var(--box-shadow-4);
+  --box-shadow-inset: var(--box-shadow-8);
+  --hover-shadow: var(--box-shadow-5);
+  --border-slim: 1px solid var(--light-gray-slow);
+  --border: 3px solid var(--light-gray-slow);
+  --text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+}
+
+[data-theme="light"] {
+  --background-color: var(--light-gray-slow);
+  --background-color-transparent: #f0f0f09a;
+  --text-color: var(--dark-gray);
+  --box-shadow: var(--box-shadow-1);
+  --box-shadow-inset: var(--box-shadow-7);
+  --hover-shadow: var(--box-shadow-7);
+  --border-slim: 1px solid var(--dark-gray);
+  --border: 3px solid var(--dark-gray);
+  --text-shadow: var(--box-shadow-2);
+}
 
 
 .flex-container {
 
   display: flex;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
   justify-content: center;
   align-content: center;
@@ -101,16 +103,23 @@
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
- 
+
 }
 
-html {
+body {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--light-gray) var(--light-gray-slow);
+  
 }
+
+
+
+
 
 a {
 
-  color:var(--text-color);
+  color: var(--text-color);
   font-family: var(--font-regulat-outfit);
   font-size: large;
   font-weight: 800;
@@ -141,11 +150,10 @@ h1 {
   font-size: 4rem;
   font-weight: bold;
   text-align: center;
-  margin: 4rem 0;
   color: var(--text-color);
   text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
 
-  
+
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
@@ -203,7 +211,3 @@ input {
 
 
 }
-
-
-
-

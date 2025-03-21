@@ -5,11 +5,10 @@
      box-shadow: var(--box-shadow);
      max-width: 500px;
      height: auto;
-     overflow: hidden;
      text-align: center;
      transition: transform 0.3s ease;
-     position: relative;
-     gap: 0;
+    
+    
      
 
      &:hover{
@@ -18,6 +17,7 @@
         
      }
 }
+
 
 
 
@@ -68,10 +68,11 @@
 
 .type-container span {
 
-     border: var(--border-slim);
+     border-right: var(--border-slim);
+     border-left: var(--border-slim);
      box-shadow: var(--box-shadow-inset);
-     border-radius: var(--border-radius-big);
-     padding: 0 5px;
+     border-radius: var(--border-radius-small);
+     padding:  5px;
 }
 
 .event-type,

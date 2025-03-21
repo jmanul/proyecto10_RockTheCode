@@ -1,11 +1,12 @@
 .message-container {
-
+     backdrop-filter: blur(15px);
      padding: 2rem;
      width: max-content;
      height: auto;
-     background: var(--background-color);
+     background: var(--background-color-transparent);
      position: absolute;
      z-index: 999;
+     top: 200px;
      border-radius: var(--border-radius-small);
      box-shadow: var(--box-shadow);
      /* border: 3px solid var(--neon-purple); */
@@ -25,15 +26,15 @@
 
      color: var(--text-color);
      font-family: var(--font-regulat-outfit);
-     font-size: 1rem;
+     font-size: 1.2rem;
 }
 
 .success {
    
-     border: 3px solid #21c547;
+     border: 3px solid var(--neon-cyan);
 }
 
 .error {
     
-     border: 3px solid #dd0b20;
+     border: 3px solid var(--neon-magenta);
 }

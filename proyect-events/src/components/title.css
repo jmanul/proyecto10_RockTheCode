@@ -1,0 +1,56 @@
+h1 {
+
+     font-family: var(--font-rock);
+
+
+}
+
+
+
+.title-container {
+
+     position: relative;
+     height: max-content;
+     
+
+
+}
+
+
+.title-up {
+     border-top: 3px solid var(--text-color);
+     border-left: 1px solid var(--text-color);
+     border-right: 1px solid var(--text-color);
+     width: 100%;
+     height: 20px;
+     border-top-left-radius: var(--border-radius-big);
+     border-top-right-radius: var(--border-radius-big);
+
+}
+
+.title-title{
+
+    
+     width:max-content;
+     
+}
+
+.title-down {
+
+     flex-direction: row;
+     width: 100%;
+     justify-content: space-between;
+     position: absolute;
+     
+
+}
+
+.left-down,
+.right-down {
+     
+     border-bottom: 3px solid var(--text-color);
+     width: 47%;
+     height: 230px;
+     border-radius: var(--border-radius-circle);
+
+}

@@ -1,6 +1,6 @@
 import './registerLogin.css';
 import { CreateForm } from '../components/form.js';
-import { renderHomePage } from './home.js';
+import { renderEventsPage } from './events.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 
 
@@ -27,7 +27,7 @@ export const renderLoginPage = async (container) => {
 
           const formLogin = await CreateForm(loginFields, 'login');
           registerLoginGroup.appendChild(formLogin)
-          return await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, container);
+          return await actionRequest(formLogin, '/register/login/', 'POST', renderEventsPage, container);
 
      }
 

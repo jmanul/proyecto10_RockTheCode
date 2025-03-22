@@ -1,15 +1,15 @@
+
+
 .message-container {
+     position: absolute;
      backdrop-filter: blur(15px);
      padding: 2rem;
      width: max-content;
      height: auto;
      background: var(--background-color-transparent);
-     position: absolute;
      z-index: 999;
-     top: 200px;
      border-radius: var(--border-radius-small);
      box-shadow: var(--box-shadow);
-     /* border: 3px solid var(--neon-purple); */
      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
      opacity: 1;
      transform: translateY(0);

@@ -6,8 +6,6 @@ export const createMessage = (text, optionClassResponse, container = null) => {
 
      setTimeout(() => {
 
-          console.log('Creando mensaje...');
-
           const messageContainer = document.createElement('div');
           messageContainer.classList.add('flex-container', 'message-container', 'hide', optionClassResponse);
 
@@ -17,7 +15,7 @@ export const createMessage = (text, optionClassResponse, container = null) => {
           closebutton.textContent = `cerrar`;
           messageContainer.appendChild(message);
           messageContainer.appendChild(closebutton);
-          container.appendChild(messageContainer);
+          container.appendChild(messageContainer)
 
           closebutton.addEventListener('click', () => {
                messageContainer.remove();

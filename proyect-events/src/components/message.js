@@ -1,14 +1,16 @@
 import './message.css';
 
 export const createMessage = (text, optionClassResponse, container = null) => {
+
+     const appContainer = document.getElementById('app');
      
-     container = container || document.body;
+     container = container || appContainer;
 
      setTimeout(() => {
 
           const messageContainer = document.createElement('div');
           messageContainer.classList.add('flex-container', 'message-container', 'hide', optionClassResponse);
-
+          
           const message = document.createElement('p');
           message.innerText = text;
           const closebutton = document.createElement('button');
@@ -32,6 +34,6 @@ export const createMessage = (text, optionClassResponse, container = null) => {
                     messageContainer.remove();
                }, { once: true });
 
-          }, 7000);
+          }, 2000);
      }, 1000);
 }

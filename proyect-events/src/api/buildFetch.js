@@ -27,24 +27,28 @@ export const buildFetchJson = async ({ route, method = "GET", bodyData = null, c
 
           const data = await response.json();
 
-          if (!response.ok) {
+          if (!response.ok && data.message) {
 
                 createMessage(data.message, 'error', container);
-   
-               throw new Error(`HTTP error! Status: ${data.message}`);
-             
+                
+               return;
 
           }
 
           if (response.status === 204) {
 
-               return null;
-              
-          }
-          
-          window.history.pushState({}, "", route);
+               createMessage('No se encontro ningun resultado', 'error', container);
 
-          createMessage(data.message, 'success', container);
+               return null;
+                   
+          }
+
+          if (response.ok && data.message) {
+
+               window.history.pushState({}, "", route);
+               createMessage(data.message, 'success', container);
+
+          };
 
           return data;
 
@@ -75,15 +79,28 @@ export const buildFetchFormdata = async (route, method, dataForm, container) => 
 
           const data = await response.json();
 
-          if (!response.ok) {
+          if (!response.ok && data.message) {
 
                createMessage(data.message, 'error', container);
-               throw new Error(`HTTP error! Status: ${data.message}`);
+
+               return;
+             
           }
 
-          history.pushState({}, "", route);
+          if (response.status === 204) {
 
-          createMessage(data.message, 'success', container);
+               createMessage('No se encontro ningun resultado', 'error', container);
+
+               return null;
+
+          }
+
+          if (response.ok && data.message) {
+               
+               window.history.pushState({}, "", route);
+               createMessage(data.message, 'success', container);
+
+          };
 
           return data;
 

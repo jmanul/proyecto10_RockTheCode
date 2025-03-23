@@ -15,10 +15,6 @@ export const actionRequest = async (form, route, method, renderFunction, contain
 
                if (request) {
 
-                    createMessage(request.message, 'success', container);
-                    
-                    console.log("exitoso:", request.message);
-
                     await renderFunction(container);
                     return request;
                }

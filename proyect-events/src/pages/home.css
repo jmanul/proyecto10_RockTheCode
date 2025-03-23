@@ -1,0 +1,23 @@
+
+.grid-events, .div-passes {
+
+    height: min-content;
+}
+
+
+.grid-events  img,
+.div-passes  img{
+
+   width: 100%;
+   height:min-content;
+}
+
+.text-events h2,
+.text-passes h2{
+
+     padding: var(--spacing-medium) var(--spacing-small);
+     box-shadow: var(--box-shadow);
+     border-radius: var(--border-radius-small);
+     font-family: var(--font-regulat-itim);
+     background-color: var(--background-color);
+}

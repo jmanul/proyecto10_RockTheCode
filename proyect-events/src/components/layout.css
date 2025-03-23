@@ -2,6 +2,7 @@
 
      position:relative;
      width: 100%;
+     max-width: 1000px;
      display: grid;
      grid-template-rows: 2fr;
      grid-template-columns: 2fr 1fr;
@@ -12,8 +13,7 @@
 
 .grid-main section {
      
-     max-width: 800px;
-     height: auto;
+     height: max-content;
      padding:var(--spacing-little-bit);
      margin: var(--spacing-large) 0;
      background:var(--background-gradient-radial-1);
@@ -25,7 +25,7 @@
 
 .content-image-title{
 
-     margin: 200px 20px 0 20px;
+     margin: 0 20px;
      width: 100%;
      height: 15rem;
     
@@ -44,6 +44,7 @@
 .image-title img {
 
      height: 100%;
+     margin-top: 200px;
 }
 
 main .title-container {
@@ -59,6 +60,7 @@ main .title-container {
      border-radius:var(--border-radius-big);
      box-shadow: var(--box-shadow);
      padding: var(--spacing-little-bit);
+     margin-top: 200px;
      flex-direction: row;
 }
 

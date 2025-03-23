@@ -5,17 +5,15 @@ import './events.css';
 import { renderRegisterLoginPage } from './registerLogin';
 
 
-export async function renderEventsPage(container) {
+export async function renderEventsPage() {
 
-     
      try {
-           
-         
-          const request = await buildFetchJson({ route: "/events", container });
-          
-          const events = request.events;
 
-          container.innerHTML = '';
+          const eventsSection = document.getElementById('events-section');
+
+          const request = await buildFetchJson({ route: "/events" });
+
+          const events = request.events;
 
           const eventsContainer = document.createElement("div");
           eventsContainer.classList.add("events-container", "flex-container");
@@ -29,16 +27,18 @@ export async function renderEventsPage(container) {
                });
           }
 
-          container.appendChild(eventsContainer);
-
-          
+          eventsSection.appendChild(eventsContainer);
 
      } catch (error) {
          
-         
-          renderRegisterLoginPage(container);
+          renderRegisterLoginPage();
      }
-}
+
+};
+
+
+
+
 
 
 

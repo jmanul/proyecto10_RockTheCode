@@ -34,15 +34,10 @@
 
 .register-login-container {
 
-  background-color: var(--background-color);
-  background-image: url('/assets/events-icon.svg');
-  background-size: 45px;
-  background-position: center;
-  background-repeat: repeat;
   width: 100%;
   border-radius: var(--border-radius-small);
   min-height: 100vh;
-  top: 20px;
   padding: var(--spacing-large);
+  margin: 140px 0 0 0;
 
 }

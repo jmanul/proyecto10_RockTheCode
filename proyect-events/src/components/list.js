@@ -1,4 +1,5 @@
 
+import { navigate } from '../utils/logic/navigate';
 import './list.css';
    
 
@@ -20,7 +21,11 @@ export const createList = (nameClass, list) => {
           const li = document.createElement('li');
           li.className = 'flex-container'
           a.append(li);
-          a.addEventListener('click', (e) => console.log('funcion que navega a la ruta',e));
+          a.addEventListener('click', (e) => {
+
+               e.preventDefault();
+               return item.action();
+          });
 
           if (item.icon) {
                const img = document.createElement('img');

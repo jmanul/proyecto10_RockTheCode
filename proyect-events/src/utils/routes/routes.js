@@ -1,7 +1,7 @@
 import { renderEventsPage } from "../../pages/events";
 
 export const routes = [
-     { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events.svg', url: '/events' }, { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/you' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg' }, { id: 'salir', name: 'Salir', action: '', icon: 'salir.svg', url: '/exit' }
+     { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events.svg', url: '/events' }, { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: '', icon: 'salir.svg', url: '/logout' }
 ];
 
 export const typesEventsRoutes = [

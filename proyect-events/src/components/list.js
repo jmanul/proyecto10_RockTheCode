@@ -6,6 +6,8 @@ import './list.css';
 export const createList = (nameClass, list) => {
 
      const nav = document.createElement('nav');
+     nav.id = `nav-${nameClass}`;
+     nav.className = `nav-${nameClass}`;
      const ulList = document.createElement('ul');
      ulList.classList.add(nameClass, 'flex-container');
      ulList.id = nameClass;

@@ -16,7 +16,7 @@
      height: max-content;
      padding:var(--spacing-little-bit);
      margin: var(--spacing-large) 0;
-     background:var(--background-gradient-radial-1);
+     background:var(--background-color);
      border-radius: var(--border-radius-big)
     
              
@@ -59,7 +59,7 @@ main .title-container {
      gap: var(--spacing-large);
      border-radius:var(--border-radius-big);
      box-shadow: var(--box-shadow);
-     padding: var(--spacing-little-bit);
+     padding: var(--spacing-little-bit) var(--spacing-small);
      margin-top: 200px;
      flex-direction: row;
 }

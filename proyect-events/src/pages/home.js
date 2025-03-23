@@ -1,10 +1,11 @@
 import "./home.css"
-import { buildFetchJson } from "../api/buildFetch";
+
 import { createFooter } from "../components/footer";
 import { createHeader } from "../components/header";
 import { createLayout } from "../components/layout";
 import { createSidebar } from "../components/sidebar";
-import { createLogo } from "../components/logo";
+import { initHomeMenu } from "../utils/logic/init";
+
 
 export const renderHomePage = async () => {
      
@@ -13,11 +14,8 @@ export const renderHomePage = async () => {
      appContainer.classList.add('app', 'flex-container');
      document.body.append(appContainer); 
      appContainer.innerHTML = '';
-     const request = await buildFetchJson({ route: "/users/user" });
-     
-     console.log('esto es el user',request);
-     createHeader();
-     createSidebar();
+     const user = await initHomeMenu();
+     console.log(user);
      createLayout(appContainer);
    
      const eventsSection = document.querySelector('.grid-events');
@@ -26,10 +24,11 @@ export const renderHomePage = async () => {
      const pasesSection = document.querySelector('.div-passes');
      const textPasses = document.querySelector('.text-passes');
      textPasses.innerHTML = `<h2>Descubrelos!!</h2>`;
-     eventsSection.innerHTML = `<img src="/assets/art-home.png" alt="art-home-image">`;
-     pasesSection.innerHTML = `<img src="/assets/passes-home.png" alt="peoples-home-image">`;
+     eventsSection.innerHTML = `<img src="/assets/peoples-fest.webp" alt="art-home-image">`;
+     pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
      const footer = createFooter();
      document.body.appendChild(footer);
 
 
 }
+

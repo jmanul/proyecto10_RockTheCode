@@ -1,7 +1,16 @@
 import { renderEventsPage } from "../../pages/events";
+import { renderRegisterLoginPage } from "../../pages/registerLogin";
 
-export const routes = [
-     { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events.svg', url: '/events' }, { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: '', icon: 'salir.svg', url: '/logout' }
+export const adminRoutes = [
+     { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: '', icon: 'salir.svg', url: '/logout' }
+];
+
+export const userRoutes = [
+     { id: 'crear', name: 'Crear', action: '', icon: 'events.svg', url: '/events/new' }, { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'entradas', name: 'entradas', action: '', icon: 'entrada.svg', url: '/passes' }, { id: 'salir', name: 'Salir', action: '', icon: 'salir.svg', url: '/logout' }
+];
+
+export const loginRoutes = [{
+     id: 'entrar', name: 'Entrar', action: renderRegisterLoginPage, icon: 'login.svg', url: '/login' }
 ];
 
 export const typesEventsRoutes = [

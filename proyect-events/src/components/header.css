@@ -5,30 +5,33 @@ header {
      height: max-content;
      width: 100%;
      z-index: 100;
-     background-color:var(--black-matte);
+     background-color:var(--dark-transparent);
+     backdrop-filter: blur(52px);
      color:var(--light-gray);
-     box-shadow:var(--box-shadow-6);
+     box-shadow:var(--box-shadow-6); 
+}
+
+.nav-menu-header-web  {
      
-    
+     width: 90%;
+     justify-items: right;
 }
 
 .logo {
      position: absolute;
      left: 0;
      width: 100px;
-     height: 190px;
-     
-     z-index: -1;
-     
+     height: 190px;  
+     z-index: -1;   
     
 }
-
 
 .menu-header-web,
 .menu-header-web li{
 
      flex-direction: row;
      padding: var(--spacing-medium);
+  
 }
 
 .menu-header-web div {

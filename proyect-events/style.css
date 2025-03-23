@@ -12,6 +12,7 @@
   --dark-gray: #1a1a1a;
   --light-gray: #c0bebe;
   --light-gray-slow: #f1e5e5;
+  --dark-transparent: rgba(7, 0, 0, 0.568);
   --spacing-large: 4rem;
   --spacing-medium: 2rem;
   --spacing-small: 1rem;
@@ -110,7 +111,7 @@ body {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--light-gray) var(--light-gray-slow);
-  
+
 }
 
 
@@ -136,6 +137,11 @@ a {
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-regulat-outfit);
+  background-color: var(--background-color);
+  background-image: url('/assets/background-event.webp');
+  background-position: center;
+  background-size: cover;
+
   margin: 0;
   padding: 0;
   overflow-x: hidden;

@@ -12,8 +12,8 @@ export const createLayout = (container) => {
      main.innerHTML = "";
      const contentImageTitle = document.createElement('div');
      contentImageTitle.classList.add('content-image-title', 'flex-container');
-     contentImageTitle.innerHTML = `<div class="image-title"><img src="/assets/propoysal-franky.png" alt="girl"></div>
-<div class="image-title"><img src="/assets/propoysal-girl-pink.png" alt="girl"></div>`;
+     contentImageTitle.innerHTML = `<div class="image-title"><img src="/assets/propoysal-franky.webp" alt="girl"></div>
+<div class="image-title"><img src="/assets/propoysal-girl-pink.webp" alt="girl"></div>`;
      main.append(contentImageTitle);
      const title = createTitle();
      const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);

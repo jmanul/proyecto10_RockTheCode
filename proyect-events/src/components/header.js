@@ -15,6 +15,10 @@ export const createHeader = (routes) => {
      const darkLightButton = createThemeButton();
      header.appendChild(menuHeader);
      header.appendChild(darkLightButton);
-     document.body.appendChild(header);
+     document.body.prepend(header);
 
 };
+
+
+
+//todo:remove header y footer siempre se deja

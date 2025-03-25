@@ -2,19 +2,13 @@
 
   padding: var(--spacing-medium);
   border-radius: var(--border-radius-big);
-  background-color: var(--background-color);
+  background-color: var(--background-color-transparent);
   background-image: url('/assets/events-icon.svg');
   background-size: 45px;
   background-position: center;
   background-repeat: repeat;
   width: 100%;
   flex-wrap: nowrap;
-  /* height: 100vh;
-  overflow-y: auto; */
-  
-
- 
-
 }
 
 .events-container .event-card:first-child {

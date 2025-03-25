@@ -9,7 +9,9 @@ export async function renderEventsPage() {
 
      try {
 
-          const eventsSection = document.getElementById('events-section');
+          const eventsSection = document.querySelector('.grid-events');
+
+          eventsSection.innerHTML = '';
 
           const request = await buildFetchJson({ route: "/events" });
 
@@ -17,6 +19,7 @@ export async function renderEventsPage() {
 
           const eventsContainer = document.createElement("div");
           eventsContainer.classList.add("events-container", "flex-container");
+         
 
           if (!events || events.length === 0) {
                eventsContainer.innerHTML = "<p>No hay eventos disponibles.</p>";

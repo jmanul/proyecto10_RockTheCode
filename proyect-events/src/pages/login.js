@@ -6,12 +6,12 @@ import { renderLogin } from './registerLogin.js';
 export const renderLoginPage = async () => {
 
      history.pushState({}, "", '/login');
-     const main = document.getElementById('main');
-     main.innerHTML = '';
+     const app = document.getElementById('app');
+     app.innerHTML = '';
 
      const login = await renderLogin();
 
-     main.appendChild(login);
+     app.appendChild(login);
 
      console.log(login);
 

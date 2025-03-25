@@ -21,10 +21,9 @@ const registerFields = [...loginFields, { type: 'email', name: 'email', placehol
 
 
 export const renderRegisterLoginPage = async () => {
-     
-     const main = document.getElementById('main');
-     main.innerHTML = '';
-
+     registerLoginGroup.innerHTML = '';
+     const app = document.getElementById('app');
+     app.innerHTML = '';
      const textLogin = document.createElement('h2');
      textLogin.innerText = 'Inicia sesión'
      registerLoginGroup.appendChild(textLogin);
@@ -41,7 +40,7 @@ export const renderRegisterLoginPage = async () => {
          
           registerLoginGroup.appendChild(formRegister)
         
-          return await actionRequest(formRegister, '/register/', 'POST', renderLoginPage, main);
+          return await actionRequest(formRegister, '/register/', 'POST', renderLoginPage, app);
 
      };
 
@@ -49,7 +48,7 @@ export const renderRegisterLoginPage = async () => {
 
     
 
-     main.appendChild(registerLoginContainer);
+     app.appendChild(registerLoginContainer);
      registerLoginContainer.appendChild(registerLoginGroup)
 
 }
@@ -60,7 +59,7 @@ export const renderLogin = async () => {
 
      const formLogin = await CreateForm(loginFields, 'login');
      registerLoginGroup.appendChild(formLogin)
-     await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, main);
+     await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, app);
      return formLogin;
 
 }

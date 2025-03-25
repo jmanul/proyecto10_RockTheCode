@@ -5,13 +5,14 @@ import { loginRoutes, userRoutes, adminRoutes } from "../routes/routes";
 
 
 export const initHomeMenu = async () => {
-
+      
        const request = await buildFetchJson({ route: "/users/user" });
      
      if (!request || request.isAuth === false) {
-
+          
           createHeader(loginRoutes);
           createSidebar(loginRoutes);
+       
           return;
 
      };
@@ -31,3 +32,6 @@ export const initHomeMenu = async () => {
      return request.user;
 
 }
+
+
+//todo intentar eliminar el elemnto si esxite dentro de la funcion

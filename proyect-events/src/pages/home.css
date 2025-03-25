@@ -2,6 +2,7 @@
 .grid-events, .div-passes {
 
     height: min-content;
+
 }
 
 
@@ -16,6 +17,7 @@
 
 .text-events ,
 .text-passes {
+
 
      padding: var(--spacing-little-bit) ;
      box-shadow: var(--box-shadow);

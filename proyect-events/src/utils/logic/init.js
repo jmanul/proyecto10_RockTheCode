@@ -1,37 +1,35 @@
 import { buildFetchJson } from "../../api/buildFetch";
-import { createHeader } from "../../components/header";
+import { createList } from "../../components/list";
 import { createSidebar } from "../../components/sidebar";
 import { loginRoutes, userRoutes, adminRoutes } from "../routes/routes";
 
 
 export const initHomeMenu = async () => {
-      
-       const request = await buildFetchJson({ route: "/users/user" });
-     
-     if (!request || request.isAuth === false) {
-          
-          createHeader(loginRoutes);
-          createSidebar(loginRoutes);
-       
-          return;
 
-     };
+     const header = document.querySelector('header');
+     const menuHeader = document.getElementById('nav-menu-header-web');
+     menuHeader.remove();
 
-     if (request.isAuth === true && request.user.roll === 'user') {
-          
-          createHeader(userRoutes);
-          createSidebar(userRoutes);
+     const request = await buildFetchJson({ route: "/users/user" });
 
+     let routes = loginRoutes; // Por defecto, si no está autenticado
 
-     } else if (request.isAuth === true && request.user.roll === 'administrator'){
+     if (request.isAuth) {
+          if (request.user?.roll === 'user') {
+               routes = userRoutes;
+          } else if (request.user?.roll === 'administrator') {
+               routes = adminRoutes;
+          }
+     }
 
-          createHeader(adminRoutes);
-          createSidebar(adminRoutes);
-     };
+        
+     const newMenuHeader = createList('menu-header-web', routes);  
+     header.append(newMenuHeader);
+     createSidebar(routes);
 
-     return request.user;
+     return request.user || null; 
+};
 
-}
 
 
 //todo intentar eliminar el elemnto si esxite dentro de la funcion

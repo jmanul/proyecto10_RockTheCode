@@ -24,9 +24,10 @@ export const createList = (nameClass, list) => {
           li.className = 'flex-container'
           a.append(li);
           a.addEventListener('click', (e) => {
-
+               
                e.preventDefault();
                return item.action();
+              
           });
 
           if (item.icon) {

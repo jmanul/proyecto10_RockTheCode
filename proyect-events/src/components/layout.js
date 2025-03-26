@@ -8,7 +8,7 @@ export const createLayout = (container) => {
      const main = document.createElement('main');
      main.classList.add('flex-container');
      main.id = 'main';
-     container.appendChild(main);
+     container.prepend(main);
      main.innerHTML = "";
      const contentImageTitle = document.createElement('div');
      contentImageTitle.classList.add('content-image-title', 'flex-container');

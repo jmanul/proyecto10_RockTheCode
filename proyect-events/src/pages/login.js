@@ -13,7 +13,6 @@ export const renderLoginPage = async () => {
 
      app.appendChild(login);
 
-     console.log(login);
 
 }
 

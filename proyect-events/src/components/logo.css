@@ -1,5 +1,6 @@
 
 .logo img {
 
-     height: 100%;
+     height: 80%;
+     aspect-ratio: 16 / 16;
 }

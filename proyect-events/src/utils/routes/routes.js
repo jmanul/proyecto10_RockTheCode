@@ -17,49 +17,49 @@ export const typesEventsRoutes = [
      {
           id: "musica",
           name: "musica",
-          action: "",
-          url: "/events/musica"
+          action: renderEventsPage,
+          url: "/events/type/musica"
      },
      {
           id: "deporte",
           name: "Deporte",
-          action: "",
-          url: "/events/deporte"
+          action: renderEventsPage,
+          url: "/events/type/deporte"
      },
      {
           id: "fiesta",
           name: "Fiesta",
-          action: "",
-          url: "/events/fiesta"
+          action: renderEventsPage,
+          url: "/events/type/fiesta"
      },
      {
           id: "formacion",
           name: "Formación",
-          action: "",
-          url: "/events/formacion"
+          action: renderEventsPage,
+          url: "/events/type/formacion"
      },
      {
           id: "arte",
           name: "Arte",
-          action: "",
-          url: "/events/arte"
+          action: renderEventsPage,
+          url: "/events/type/arte"
      },
      {
           id: "gastronomia",
           name: "Gastronomía",
-          action: "",
-          url: "/events/gastronomia"
+          action: renderEventsPage,
+          url: "/events/type/gastronomia"
      },
      {
           id: "tecnologia",
           name: "Tecnología",
-          action: "",
-          url: "/events/tecnologia"
+          action: renderEventsPage,
+          url: "/events/type/tecnologia"
      },
      {
           id: "otros",
           name: "Otros",
-          action: "",
-          url: "/events/otros"
+          action: renderEventsPage,
+          url: "/events/type/otros"
      }
 ];

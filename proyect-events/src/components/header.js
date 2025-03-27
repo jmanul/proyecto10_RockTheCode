@@ -8,7 +8,7 @@ export const createHeader = () => {
      
      const header = document.createElement('header');
      header.className = 'flex-container';
-     const logo = createLogo('/assets/propoysal-person.webp');
+     const logo = createLogo('/assets/propoysal-person-mini.webp');
      header.appendChild(logo);
     
      const menuHeader = createList('menu-header-web', loginRoutes);  
@@ -19,7 +19,3 @@ export const createHeader = () => {
      document.body.prepend(header);
 
 };
-
-
-
-//todo:remove header y footer

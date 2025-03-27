@@ -17,16 +17,9 @@ export const renderHomePage = async () => {
      const user = await initHomeMenu();
      console.log(user);
      createLayout(appContainer);
-     if (!user) {
-
-          const navEventsMenu = document.getElementById('nav-events-type-menu');
-          navEventsMenu.style.opacity = '0';
-        
-          const eventsMenu = document.getElementById('events-type-menu');
-          eventsMenu.remove();
-
-     }
-
+     const footer = document.querySelector('footer');
+     footer.remove();
+     createFooter();
      if (user) {
 
           const userPerfilImg = document.querySelector('img.perfil');
@@ -34,6 +27,14 @@ export const renderHomePage = async () => {
           userPerfilImg.src = user.avatar;
           userPerfilName.innerText = user.userName;
           userPerfilName.style.color = '#00ffcc';
+
+     } else {
+
+          const navEventsMenu = document.getElementById('nav-events-type-menu');
+          navEventsMenu.style.opacity = '0';
+
+          const eventsMenu = document.getElementById('events-type-menu');
+          eventsMenu.remove();
 
      }
      const eventsSection = document.querySelector('.grid-events');

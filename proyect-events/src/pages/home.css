@@ -1,25 +1,26 @@
+.grid-events,
+.div-passes {
 
-.grid-events, .div-passes {
-
-    height: min-content;
+     height: min-content;
 
 }
 
 
-.grid-events  img,
-.div-passes  img{
+.grid-events img,
+.div-passes img {
 
-   width: 100%;
-   height:min-content;
-   border-radius:var(--border-radius-small);
+     width: 100%;
+     aspect-ratio: 16 / 16;
+     height: min-content;
+     border-radius: var(--border-radius-small);
 }
 
 
-.text-events ,
+.text-events,
 .text-passes {
 
 
-     padding: var(--spacing-little-bit) ;
+     padding: var(--spacing-little-bit);
      box-shadow: var(--box-shadow);
      border-radius: var(--border-radius-small);
      font-family: var(--font-regulat-itim);
@@ -28,7 +29,7 @@
 }
 
 .text-events h2,
-.text-passes h2{
+.text-passes h2 {
 
      padding: var(--spacing-medium) var(--spacing-large);
      box-shadow: var(--box-shadow);

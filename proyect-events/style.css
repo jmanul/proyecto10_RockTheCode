@@ -72,7 +72,7 @@
 
 [data-theme="light"] {
   --background-color: var(--light-gray-slow);
-  --background-color-transparent: #f0f0f09a;
+  --background-color-transparent: #f0f0f049;
   --text-color: var(--dark-gray);
   --box-shadow: var(--box-shadow-1);
   --box-shadow-inset: var(--box-shadow-7);

@@ -25,8 +25,7 @@ export const createList = (nameClass, list) => {
           a.append(li);
           a.addEventListener('click', (e) => {
                
-               e.preventDefault();
-               return item.action();
+               return navigate(e, item);
               
           });
 

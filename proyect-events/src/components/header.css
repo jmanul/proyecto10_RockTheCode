@@ -2,7 +2,7 @@ header {
 
      position: fixed;
      top: 0;
-     height: max-content;
+     min-height:140px;
      width: 100%;
      z-index: 100;
      background-color: transparent;
@@ -14,6 +14,7 @@ header {
      animation: header-transparent linear both;
      animation-timeline: scroll();
      animation-range: 0px 200px;
+   
 }
 
 @keyframes header-transparent {
@@ -42,10 +43,14 @@ header {
 
 .logo {
      position: absolute;
-     left: 0;
-     width: 100px;
-     height: 190px;
+     left: 25px;
+     margin: 25px 0;
+     width: 110px;
+     height: 110px;
      z-index: -1;
+     border-radius:200%;
+     box-shadow:var(--box-shadow-4);
+     background:var(--background-gradient-radial-1);
 
 }
 

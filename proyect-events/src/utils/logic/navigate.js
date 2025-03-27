@@ -5,7 +5,9 @@ export const navigate = (e, route) => {
 
      e.preventDefault();
 
-     return route.action();
+     window.history.pushState({}, "", route.url);
+
+     return route.action(route.url);
 };
 
 

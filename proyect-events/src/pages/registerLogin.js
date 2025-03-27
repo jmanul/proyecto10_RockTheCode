@@ -21,6 +21,9 @@ const registerFields = [...loginFields, { type: 'email', name: 'email', placehol
 
 
 export const renderRegisterLoginPage = async () => {
+
+     const menuHeader = document.querySelector('.menu-header-web a');
+     menuHeader.remove();
      registerLoginGroup.innerHTML = '';
      const app = document.getElementById('app');
      app.innerHTML = '';
@@ -50,6 +53,7 @@ export const renderRegisterLoginPage = async () => {
 
      app.appendChild(registerLoginContainer);
      registerLoginContainer.appendChild(registerLoginGroup)
+   
 
 }
 

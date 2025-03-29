@@ -1,0 +1,19 @@
+
+
+.active-route li .item-text{
+
+   color:var(--neon-cyan);
+
+}
+
+.active-route li .item-icon{
+
+     border: 3px solid var(--neon-cyan);
+     background: var(--neon-purple);
+}
+.active-route{
+
+     border-top-right-radius:var(--border-radius-big); border-bottom-right-radius:var(--border-radius-big);
+     border-right: 3px solid var(--neon-cyan);
+    
+}

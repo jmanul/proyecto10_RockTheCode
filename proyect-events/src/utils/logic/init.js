@@ -9,7 +9,7 @@ export const initHomeMenu = async () => {
      const header = document.querySelector('header');
      const menuHeader = document.getElementById('nav-menu-header-web');
      menuHeader.remove();
-
+   
      const request = await buildFetchJson({ route: "/users/user" });
 
      let routes = loginRoutes; // Por defecto, si no está autenticado

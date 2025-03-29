@@ -84,7 +84,7 @@ main .title-container {
      max-width: 1000px;
      background:var(--background-color);
      font-family: var(--font-regulat-itim);
-     gap: var(--spacing-large);
+     gap: var(--spacing-small);
      border-radius:var(--border-radius-big);
      box-shadow: var(--box-shadow);
      padding: var(--spacing-little-bit) var(--spacing-small);

@@ -3,4 +3,19 @@
 
      height: 80%;
      aspect-ratio: 16 / 16;
+     cursor:pointer;
+}
+
+
+.logo {
+     position: absolute;
+     left: 25px;
+     margin: 25px 0;
+     width: 110px;
+     height: 110px;
+     border-radius: 200%;
+     box-shadow: var(--box-shadow-4);
+     background: var(--background-gradient-radial-1);
+     cursor: pointer;
+
 }

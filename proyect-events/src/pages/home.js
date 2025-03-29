@@ -26,7 +26,7 @@ export const renderHomePage = async () => {
           const userPerfilName = document.querySelector('p.perfil');
           userPerfilImg.src = user.avatar;
           userPerfilName.innerText = user.userName;
-          userPerfilName.style.color = '#00ffcc';
+          userPerfilName.style.color = '#ff00ff';
 
      } else {
 

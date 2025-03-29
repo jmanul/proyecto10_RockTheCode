@@ -16,7 +16,7 @@ export const createList = (nameClass, list) => {
      for (const item of list) {
 
           const a = document.createElement('a');
-          a.className = 'flex-container'
+          a.className = 'menu-option'
           a.href = item.url;
           a.target = '_blank';
           ulList.append(a);
@@ -24,7 +24,11 @@ export const createList = (nameClass, list) => {
           li.className = 'flex-container'
           a.append(li);
           a.addEventListener('click', (e) => {
+
+               const activeOption = document.querySelector('.active-route');
+               activeOption?.classList.remove('active-route');
                
+               a.classList.add('active-route');
                return navigate(e, item);
               
           });

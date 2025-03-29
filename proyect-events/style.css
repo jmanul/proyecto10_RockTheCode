@@ -124,6 +124,7 @@ a {
   font-family: var(--font-regulat-outfit);
   font-size: large;
   font-weight: 800;
+  cursor:pointer;
 }
 
 

@@ -22,6 +22,49 @@ h2 {
   padding: 300px 0 50px;
 }
 
+.miniature-img{
+
+  width: 25%;
+  padding-left: 25px;
+
+}
+
+.miniature-img img {
+  
+ 
+  border: 1px solid var(--neon-cyan);
+  width: 100%;
+  border-radius:var(--border-radius);
+}
+
+.select-card{
+  
+  backdrop-filter: blur(50px);
+  background-color:var(--background-color-transparent);
+  color:var(--text-color);
+  width: 100%;
+  padding: var(--spacing-medium);
+  height: auto;
+}
+
+.select-title {
+
+  font-family: var(--font-regulat-outfit);
+  font-weight: bold;  
+  text-align: center;
+  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.3rem;
+   
+}
+
+.select-title h3 {
+
+  width: 70%;
+  padding: var(--spacing-medium);  
+ 
+}
 
 
 

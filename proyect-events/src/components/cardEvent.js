@@ -7,7 +7,7 @@ export function createEventCard(event) {
      card.classList.add('event-card', 'flex-container');
 
      const image = document.createElement('img');
-     image.src = event.image || 'https://via.placeholder.com/150'; 
+     image.src = event.image; 
      image.alt = event.name;
      image.classList.add('event-image');
 

@@ -39,12 +39,20 @@ h2 {
 
 .select-card{
   
-  backdrop-filter: blur(50px);
+  backdrop-filter: blur(90px);
   background-color:var(--background-color-transparent);
   color:var(--text-color);
   width: 100%;
   padding: var(--spacing-medium);
   height: auto;
+  border-bottom-left-radius: var(--border-radius-big);
+  border-bottom-right-radius: var(--border-radius-big);
+}
+
+.grid-events {
+
+  width: 100%;
+  
 }
 
 .select-title {
@@ -56,6 +64,7 @@ h2 {
   flex-direction: row;
   justify-content: space-between;
   font-size: 1.3rem;
+ 
    
 }
 
@@ -64,6 +73,17 @@ h2 {
   width: 70%;
   padding: var(--spacing-medium);  
  
+}
+
+.icon-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.icon-row i {
+  color: #444;
 }
 
 

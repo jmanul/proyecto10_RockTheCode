@@ -4,11 +4,25 @@ import './events.css';
 import { renderRegisterLoginPage } from './registerLogin';
 
 
+const keyMapEvent = {
+     description: { icon: "bi-info-circle" },
+     location: { icon: "bi-geo-alt" },
+     adress: { icon: "bi-buildings" },
+     city: { icon: "bi-pin-map" },
+     startDateFormatted: { icon: "bi-calendar-event" },
+     startTimeFormatted: { icon: "bi-clock" },
+     endDateFormatted: { icon: "bi-calendar-x" },
+     maxCapacity: { icon: "bi-people" },
+     eventStatus: { icon: "bi-check-all" },
+     pasesOferedIds: { icon: "bi-ticket-perforated" },
+};
+
+
 export const renderEventsPage = async (e, route) => {
-     
+
      let nameEvent = e.target.textContent;
      let numberEvents = 0;
- 
+
      try {
 
           const eventsSection = document.querySelector('.grid-events');
@@ -25,7 +39,8 @@ export const renderEventsPage = async (e, route) => {
           for (const event of events) {
 
                const eventEndDate = new Date(event.endDate);
-             
+               const eventStartDate = new Date(event.startDate);
+
                const nowDate = new Date();
 
                if (eventEndDate.getTime() > nowDate.getTime()) {
@@ -33,15 +48,30 @@ export const renderEventsPage = async (e, route) => {
                     const eventCard = createEventCard(event);
                     eventsContainer.appendChild(eventCard);
                     numberEvents++;
-                    eventCard.addEventListener('click', (e) => {
-                         textEvents.innerHTML = `<div class="flex-container select-title"><div class="miniature-img"><img src="${event.image}" alt="evento image"></div><h3>${event.name}</h3></div>`;
-                         eventsSection.innerHTML = `<div class="select-card"><p>${event.description}</p>
-<strong>Lugar:</strong><p>${event.location}</p><strong>Dirección:</strong><p>${event.adress}</p><strong>Ciudad:</strong><p>${event.city}</p><strong>Fecha de inicio:</strong><p>${dateFormat(event.startDate)}</p><strong>Fecha de fin:</strong><p>${dateFormat(eventEndDate)}</p><strong>Aforo:</strong><p>${event.maxCapacity}</p><strong>Estado:</strong><p>${event.eventStatus}</p><strong>Entradas:</strong><p>${event.pasesOferedIds}</p></div>`;
-                                      
+                    // Prepara datos adaptados para render
+                    const extendedEvent = {
+                         ...event,
+                         startDateFormatted: dateFormat(eventStartDate).date,
+                         startTimeFormatted: dateFormat(eventStartDate).time,
+                         endDateFormatted: dateFormat(eventEndDate).date
+                    };
+
+                    eventCard.addEventListener('click', () => {
+                         textEvents.innerHTML = `
+        <div class="flex-container select-title">
+          <div class="miniature-img">
+            <img src="${event.image}" alt="evento image">
+          </div>
+          <h3>${event.name}</h3>
+        </div>
+      `;
+
+                         eventsSection.innerHTML = renderItemDetails(extendedEvent, keyMapEvent);
+
                     });
-                    
-               }        
-              
+
+               }
+
           };
 
           if (!events || events.length === 0) {
@@ -54,24 +84,56 @@ export const renderEventsPage = async (e, route) => {
           eventsSection.appendChild(eventsContainer);
 
      } catch (error) {
-         
+
           renderRegisterLoginPage();
      }
 
 };
 
 
-export const dateFormat = async (date) => { 
+export const dateFormat = (date) => {
 
-   const standarDate = await date.toLocaleString('es-ES', {
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: '2-digit', minute: '2-digit', second: '2-digit',
+     // Formatear la fecha
+     const formattedDate = date.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+     });
+
+     // Formatear la hora
+     const formattedTime = date.toLocaleTimeString('es-ES', {
+          hour: '2-digit',
+          minute: '2-digit',
           hour12: false
-    }).replace(',', '');
-     
-     return standarDate;
-}; 
+     });
+
+     return {
+          date: formattedDate,
+          time: formattedTime
+     };
+};
+
+function renderItemDetails(data, keyMapEvent) {
+     let html = `<div class="select-card">`;
+
+     for (const key in keyMapEvent) {
+          const { icon } = keyMapEvent[key];
+          const value = data[key];
+
+          if (value !== undefined) {
+               html += `
+        <div class="icon-row">
+          <i class="bi ${icon}"></i>
+          <span>${value}</span>
+        </div>`;
+          }
+     }
+
+     html += `</div>`;
+     return html;
+}
 
 
 
+//todo:  añadir botnones para elegir entradas
 

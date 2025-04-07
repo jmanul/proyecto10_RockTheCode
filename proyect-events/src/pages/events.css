@@ -83,9 +83,42 @@ h2 {
 }
 
 .icon-row i {
-  color: #444;
+  color: var(--text-color);
+  font-size: 1.5rem;
 }
 
+.nav-events-type-menu {
+  margin-top: 200px;
+  width: 100%;
+  max-width: 1000px;
+
+}
+
+.events-type-menu {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--background-color);
+  font-family: var(--font-regulat-itim);
+  gap: var(--spacing-small);
+  border-radius: var(--border-radius-big);
+  box-shadow: var(--box-shadow);
+  padding: var(--spacing-little-bit) var(--spacing-small);
+  flex-direction: row;
+}
+
+.events-type-menu li {
+
+  font-family: var(--font-regulat-itim);
+  cursor: pointer;
+
+}
+
+.grid-main {
+
+
+  margin-top: 20px;
+  
+}
 
 
 

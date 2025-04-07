@@ -4,12 +4,35 @@ h1 {
      color:var(--white-neon);
 }
 
-.title-container {
 
-     position: relative;
-     height: max-content;
+
+.title-section {
+
+     flex-direction: row;
+     margin-top: 220px;
+     
+}
+
+.image-title {
+
+   
+     width: 25%;
 
 }
+
+.image-title img {
+
+     aspect-ratio: 16 / 16;
+     width: 100%;
+     
+}
+
+ .title-container {
+
+      position: relative;
+      height: max-content;
+
+ }
 
 
 .title-up {
@@ -49,3 +72,4 @@ h1 {
      border-radius: var(--border-radius-circle);
 
 }
+

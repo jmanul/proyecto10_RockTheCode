@@ -25,7 +25,8 @@
      border-radius: var(--border-radius-small);
      font-family: var(--font-regulat-itim);
      background-color: var(--background-color);
-     width: 100%;
+    
+     margin: 0 var(--spacing-little-bit);
 }
 
 .text-events h2,

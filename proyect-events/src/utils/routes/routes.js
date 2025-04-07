@@ -1,4 +1,4 @@
-import { renderEventsPage } from "../../pages/events";
+import { renderEvents, renderEventsPage } from "../../pages/events";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
 import { logout } from "../logic/logout";
 
@@ -17,49 +17,49 @@ export const typesEventsRoutes = [
      {
           id: "musica",
           name: "musica",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/musica"
      },
      {
           id: "deporte",
           name: "Deporte",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/deporte"
      },
      {
           id: "fiesta",
           name: "Fiesta",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/fiesta"
      },
      {
           id: "formacion",
           name: "Formación",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/formacion"
      },
      {
           id: "arte",
           name: "Arte",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/arte"
      },
      {
           id: "gastronomia",
           name: "Gastronomía",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/gastronomia"
      },
      {
           id: "tecnologia",
           name: "Tecnología",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/tecnologia"
      },
      {
           id: "otros",
           name: "Otros",
-          action: renderEventsPage,
+          action: renderEvents,
           url: "/events/type/otros"
      }
 ];

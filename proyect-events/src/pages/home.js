@@ -1,25 +1,19 @@
 import "./home.css"
-
-import { createFooter } from "../components/footer";
-import { createHeader } from "../components/header";
 import { createLayout } from "../components/layout";
-import { createSidebar } from "../components/sidebar";
 import { initHomeMenu } from "../utils/logic/init";
+import { createTitle } from "../components/title";
 
 
 export const renderHomePage = async () => {
      
      window.history.pushState({}, "", '/home');
-     const appContainer = document.getElementById('app');
-     appContainer.classList.add('app', 'flex-container');
-     document.body.append(appContainer); 
-     appContainer.innerHTML = '';
+    
      const user = await initHomeMenu();
-     console.log(user);
-     createLayout(appContainer);
-     const footer = document.querySelector('footer');
-     footer.remove();
-     createFooter();
+     
+    const main = createLayout();
+     const title = createTitle();
+     main.prepend(title);
+    
      if (user) {
 
           const userPerfilImg = document.querySelector('img.perfil');
@@ -28,15 +22,7 @@ export const renderHomePage = async () => {
           userPerfilName.innerText = user.userName;
           userPerfilName.style.color = '#ff00ff';
 
-     } else {
-
-          const navEventsMenu = document.getElementById('nav-events-type-menu');
-          navEventsMenu.style.opacity = '0';
-
-          const eventsMenu = document.getElementById('events-type-menu');
-          eventsMenu.remove();
-
-     }
+     } 
      const eventsSection = document.querySelector('.grid-events');
      const textEvents = document.querySelector('.text-events');
      textEvents.innerHTML = `<h2>Aqui encontraras eventos disponibles</h2>`;

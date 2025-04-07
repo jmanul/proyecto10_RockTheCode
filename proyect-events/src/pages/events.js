@@ -1,8 +1,10 @@
 import { buildFetchJson } from '../api/buildFetch';
 import { createEventCard } from '../components/cardEvent';
+import { createList } from '../components/list';
 import './events.css';
 import { renderRegisterLoginPage } from './registerLogin';
-
+import { typesEventsRoutes } from "../utils/routes/routes";
+import { createLayout } from '../components/layout';
 
 const keyMapEvent = {
      description: { icon: "bi-info-circle" },
@@ -19,6 +21,20 @@ const keyMapEvent = {
 
 
 export const renderEventsPage = async (e, route) => {
+     const appContainer = document.getElementById('app');
+     const main = createLayout(appContainer);
+     const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);
+     main.prepend(eventsTypeMenu);
+     const pasesSection = document.querySelector('.div-passes');
+     const textPasses = document.querySelector('.text-passes');
+     textPasses.innerHTML = `<h2>Descubrelos!! Crealos!!</h2>`;
+     pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
+
+     renderEvents(e, route);
+
+};
+
+export const renderEvents = async (e, route) => {
 
      let nameEvent = e.target.textContent;
      let numberEvents = 0;
@@ -88,7 +104,7 @@ export const renderEventsPage = async (e, route) => {
           renderRegisterLoginPage();
      }
 
-};
+}
 
 
 export const dateFormat = (date) => {

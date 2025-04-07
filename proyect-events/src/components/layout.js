@@ -1,25 +1,18 @@
+import { createFooter } from './footer';
 import './layout.css';
-import { typesEventsRoutes } from "../utils/routes/routes";
-import { createList } from "./list";
-import { createTitle } from './title';
 
-export const createLayout = (container) => {
 
+export const createLayout = () => {
+      const appContainer = document.getElementById('app');
+          appContainer.classList.add('app', 'flex-container');
+          document.body.append(appContainer); 
+          appContainer.innerHTML = '';
      const main = document.createElement('main');
      main.classList.add('flex-container');
      main.id = 'main';
-     container.prepend(main);
+     appContainer.prepend(main);
      main.innerHTML = "";
-     const contentImageTitle = document.createElement('div');
-     contentImageTitle.classList.add('content-image-title', 'flex-container');
-     contentImageTitle.innerHTML = `<div class="image-title"><img src="/assets/propoysal-franky.webp" alt="girl"></div>
-<div class="image-title"><img src="/assets/propoysal-girl-pink.webp" alt="girl"></div>`;
-     main.append(contentImageTitle);
-     const title = createTitle();
-     const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);
-     main.appendChild(eventsTypeMenu);
-     main.appendChild(title);
-    
+   
      const gridMain = document.createElement('div');
      gridMain.classList.add('grid-main');
    
@@ -33,6 +26,9 @@ export const createLayout = (container) => {
 </section>`;
      
      main.appendChild(gridMain);
+     const footer = document.querySelector('footer');
+     footer.remove();
+     createFooter();
      
      return main;
      

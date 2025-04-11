@@ -19,19 +19,18 @@
 .text-events,
 .text-passes {
 
-
-     padding: var(--spacing-little-bit);
      box-shadow: var(--box-shadow);
      border-radius: var(--border-radius-small);
      font-family: var(--font-regulat-itim);
      background-color: var(--background-color);
-    
+     width: 98%;
      margin: 0 var(--spacing-little-bit);
+     text-align: left;
 }
 
 .text-events h2,
 .text-passes h2 {
-
+     
      padding: var(--spacing-medium) var(--spacing-large);
      box-shadow: var(--box-shadow);
      border-radius: var(--border-radius-small);

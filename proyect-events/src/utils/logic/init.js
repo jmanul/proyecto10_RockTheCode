@@ -1,10 +1,11 @@
 import { buildFetchJson } from "../../api/buildFetch";
 import { createList } from "../../components/list";
 import { createSidebar } from "../../components/sidebar";
-import { loginRoutes, userRoutes, adminRoutes } from "../routes/routes";
+import { loginRoutes, userRoutes, adminRoutes, allRoutes } from "../routes/routes";
 
 
 export const initHomeMenu = async () => {
+
 
      const header = document.querySelector('header');
      const menuHeader = document.getElementById('nav-menu-header-web');
@@ -29,7 +30,3 @@ export const initHomeMenu = async () => {
 
      return request.user || null; 
 };
-
-
-
-//todo intentar eliminar el elemnto si esxite dentro de la funcion

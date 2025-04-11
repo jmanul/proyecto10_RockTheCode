@@ -5,6 +5,10 @@ import './events.css';
 import { renderRegisterLoginPage } from './registerLogin';
 import { typesEventsRoutes } from "../utils/routes/routes";
 import { createLayout } from '../components/layout';
+import { dateFormat } from '../utils/logic/dateFormat';
+import { renderItemDetails } from '../components/itemDetails';
+import { navigate } from '../utils/logic/navigate';
+import { renderPasesPage } from './passes';
 
 const keyMapEvent = {
      description: { icon: "bi-info-circle" },
@@ -15,8 +19,7 @@ const keyMapEvent = {
      startTimeFormatted: { icon: "bi-clock" },
      endDateFormatted: { icon: "bi-calendar-x" },
      maxCapacity: { icon: "bi-people" },
-     eventStatus: { icon: "bi-check-all" },
-     pasesOferedIds: { icon: "bi-ticket-perforated" },
+     eventStatus: { icon: "bi-check-all" }
 };
 
 
@@ -39,6 +42,8 @@ export const renderEvents = async (e, route) => {
      let nameEvent = e.target.textContent;
      let numberEvents = 0;
 
+     const { url } = route;
+
      try {
 
           const eventsSection = document.querySelector('.grid-events');
@@ -53,7 +58,7 @@ export const renderEvents = async (e, route) => {
           const textEvents = document.querySelector('.text-events');
 
           for (const event of events) {
-
+               
                const eventEndDate = new Date(event.endDate);
                const eventStartDate = new Date(event.startDate);
 
@@ -72,17 +77,14 @@ export const renderEvents = async (e, route) => {
                          endDateFormatted: dateFormat(eventEndDate).date
                     };
 
-                    eventCard.addEventListener('click', () => {
-                         textEvents.innerHTML = `
-        <div class="flex-container select-title">
-          <div class="miniature-img">
-            <img src="${event.image}" alt="evento image">
-          </div>
-          <h3>${event.name}</h3>
-        </div>
-      `;
+                    const eventRoute = { url: route + event.name }
+                    
+                    const passesRoute = { url : `/passes/event/${event._id}`, action : renderPasesPage }
 
-                         eventsSection.innerHTML = renderItemDetails(extendedEvent, keyMapEvent);
+                    eventCard.addEventListener('click', (e) => {
+                       
+                         navigate(e, eventRoute);
+                         renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos')
 
                     });
 
@@ -107,49 +109,11 @@ export const renderEvents = async (e, route) => {
 }
 
 
-export const dateFormat = (date) => {
-
-     // Formatear la fecha
-     const formattedDate = date.toLocaleDateString('es-ES', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
-     });
-
-     // Formatear la hora
-     const formattedTime = date.toLocaleTimeString('es-ES', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false
-     });
-
-     return {
-          date: formattedDate,
-          time: formattedTime
-     };
-};
-
-function renderItemDetails(data, keyMapEvent) {
-     let html = `<div class="select-card">`;
-
-     for (const key in keyMapEvent) {
-          const { icon } = keyMapEvent[key];
-          const value = data[key];
-
-          if (value !== undefined) {
-               html += `
-        <div class="icon-row">
-          <i class="bi ${icon}"></i>
-          <span>${value}</span>
-        </div>`;
-          }
-     }
-
-     html += `</div>`;
-     return html;
-}
 
 
 
-//todo:  añadir botnones para elegir entradas
+
+
+
+
 

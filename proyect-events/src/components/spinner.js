@@ -361,16 +361,18 @@ export const  createSpinner = () => {
 
 // mostrar el spinner
 export const showSpinner = (spinnerContainer) => {
-     if (spinnerContainer) {
+	if (spinnerContainer) {
+		
           spinnerContainer.style.display = 'flex';
-          console.log('mostrando spinner', spinnerContainer);
+          
      }
 }
 
 // ocultar el spinner
 export const hideSpinner = (spinnerContainer) => {
-     if (spinnerContainer) {
+	if (spinnerContainer) {
+		
           spinnerContainer.style.display = 'none';
-          console.log('quitando spinner', spinnerContainer);
+         
      }
 }

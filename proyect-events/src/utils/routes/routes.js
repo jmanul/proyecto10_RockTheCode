@@ -2,6 +2,8 @@ import { renderEvents, renderEventsPage } from "../../pages/events";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
 import { logout } from "../logic/logout";
 
+
+
 export const adminRoutes = [
      { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
 ];
@@ -63,3 +65,5 @@ export const typesEventsRoutes = [
           url: "/events/type/otros"
      }
 ];
+
+export const allRoutes = [...adminRoutes, ...userRoutes, loginRoutes, ...typesEventsRoutes];

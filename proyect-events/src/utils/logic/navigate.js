@@ -5,7 +5,10 @@ export const navigate = (e, route) => {
       
      window.history.pushState({}, "", route.url);
 
-     route.action(e, route.url);
+     if (route.action) {
+
+          route.action(e, route.url);
+     }
 
 };
 

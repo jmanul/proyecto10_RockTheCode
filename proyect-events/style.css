@@ -61,7 +61,9 @@
 [data-theme="dark"] {
   --background-color: var(--dark-gray);
   --background-color-transparent: rgba(0, 0, 0, 0.637);
+  --background-color-transparent-color: rgba(51, 22, 49, 0.849);
   --text-color: var(--light-gray-slow);
+  --color-icon: var(--neon-cyan);
   --box-shadow: var(--box-shadow-4);
   --box-shadow-inset: var(--box-shadow-8);
   --hover-shadow: var(--box-shadow-5);
@@ -73,7 +75,9 @@
 [data-theme="light"] {
   --background-color: var(--light-gray-slow);
   --background-color-transparent: #cfcdcd67;
+  --background-color-transparent-color: #b1ebded3;
   --text-color: var(--dark-gray);
+  --color-icon: var(--black-matte);
   --box-shadow: var(--box-shadow-1);
   --box-shadow-inset: var(--box-shadow-7);
   --hover-shadow: var(--box-shadow-7);

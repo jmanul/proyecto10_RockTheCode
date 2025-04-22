@@ -1,0 +1,44 @@
+.select-card .select-card > div:first-child,
+.select-card .select-card>.icon-row:first-child>i {
+   
+     font-size: 2.5rem;
+     font-weight: bold;
+     justify-self: center;
+     gap: 1rem;
+    
+}
+.select-card .select-card>.icon-row:first-child>i {
+   
+   color:var(--background-color);
+   border-radius:100%;
+   border: 1px solid var(--black-matte);
+   padding:0 .6rem ;
+   background:var(--text-color)
+    
+}
+
+.select-card .select-card>.icon-row:first-child>span {
+
+    
+     padding-bottom: 10px;
+}
+
+.icon-row {
+
+     flex-direction: row;
+     justify-content: flex-start;
+     gap: 2rem;
+}
+
+.number-tickets {
+     width: 60px;
+     height: 100%;
+     padding: 8px;
+     border: none;
+     text-align: center;
+}
+
+.add-passes-container{
+
+     flex-direction: row;
+}

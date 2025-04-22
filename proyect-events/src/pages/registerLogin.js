@@ -21,49 +21,106 @@ const registerFields = [...loginFields, { type: 'email', name: 'email', placehol
 
 
 export const renderRegisterLoginPage = async () => {
+     try {
+          // Eliminar el menú de encabezado si existe
+          const menuHeader = document.querySelector('.menu-header-web a');
+          if (menuHeader) {
+               menuHeader.remove();
+          } else {
+               console.warn("El elemento '.menu-header-web a' no fue encontrado en el DOM.");
+          }
 
-     const menuHeader = document.querySelector('.menu-header-web a');
-     menuHeader.remove();
-     registerLoginGroup.innerHTML = '';
-     const app = document.getElementById('app');
-     app.innerHTML = '';
-     const textLogin = document.createElement('h2');
-     textLogin.innerText = 'Inicia sesión'
-     registerLoginGroup.appendChild(textLogin);
+          // Limpiar el grupo de registro/inicio de sesión
+          registerLoginGroup.innerHTML = '';
 
-     await renderLogin();
+          // Limpiar el contenido principal
+          const app = document.getElementById('app');
+          if (!app) {
+               throw new Error("No se encontró el contenedor principal (#app).");
+          }
+          app.innerHTML = '';
 
-     const textRegister = document.createElement('h2');
-     textRegister.innerText = '¿Aún no tienes una cuenta? Regístrate'
-     registerLoginGroup.appendChild(textRegister);
+          // Crear el título de inicio de sesión
+          const textLogin = document.createElement('h2');
+          textLogin.innerText = 'Inicia sesión';
+          registerLoginGroup.appendChild(textLogin);
 
-     const renderRegister = async () => {
+          // Renderizar el formulario de inicio de sesión
+          await renderLogin();
 
-          const formRegister = await CreateForm(registerFields, 'register');
-         
-          registerLoginGroup.appendChild(formRegister)
-        
-          return await actionRequest(formRegister, '/register/', 'POST', renderLoginPage, app);
+          // Crear el título de registro
+          const textRegister = document.createElement('h2');
+          textRegister.innerText = '¿Aún no tienes una cuenta? Regístrate';
+          registerLoginGroup.appendChild(textRegister);
 
-     };
+          // Función para renderizar el formulario de registro
+          const renderRegister = async () => {
+               try {
+                    const formRegister = await CreateForm(registerFields, 'register');
+                    if (!formRegister) {
+                         throw new Error("No se pudo crear el formulario de registro.");
+                    }
 
-     await renderRegister();
+                    registerLoginGroup.appendChild(formRegister);
 
-    
+                    // Manejar la solicitud de registro
+                    return await actionRequest(formRegister, '/register/', 'POST', renderLoginPage, app);
+               } catch (error) {
+                    console.error("Error al renderizar el formulario de registro:", error);
+                    throw error; // Propagar el error para manejarlo en el nivel superior
+               }
+          };
 
-     app.appendChild(registerLoginContainer);
-     registerLoginContainer.appendChild(registerLoginGroup)
-   
+          // Renderizar el formulario de registro
+          await renderRegister();
 
-}
+          // Añadir el contenedor de registro/inicio de sesión al DOM
+          app.appendChild(registerLoginContainer);
+          registerLoginContainer.appendChild(registerLoginGroup);
+
+     } catch (error) {
+          console.error("Error en renderRegisterLoginPage:", error);
+
+          // Mostrar un mensaje de error genérico en el contenedor principal si existe
+          const appContainer = document.getElementById('app');
+          if (appContainer) {
+               appContainer.innerHTML = "<p>Ocurrió un error al cargar la página de registro/inicio de sesión.</p>";
+          }
+     }
+};
+
 
 export const renderLogin = async () => {
+     try {
+          // Actualizar la URL del navegador
+          window.history.pushState({}, "", '/register/login');
 
-     window.history.pushState({}, "", '/register/login');
+          // Crear el formulario de inicio de sesión
+          const formLogin = await CreateForm(loginFields, 'login');
+          if (!formLogin) {
+               throw new Error("No se pudo crear el formulario de inicio de sesión.");
+          }
 
-     const formLogin = await CreateForm(loginFields, 'login');
-     registerLoginGroup.appendChild(formLogin)
-     await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, app);
-     return formLogin;
+          // Añadir el formulario al grupo de registro/inicio de sesión
+          registerLoginGroup.appendChild(formLogin);
 
-}
+          // Manejar la solicitud de inicio de sesión
+          const app = document.getElementById('app');
+          if (!app) {
+               throw new Error("No se encontró el contenedor principal (#app).");
+          }
+          await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, app);
+
+          return formLogin;
+
+     } catch (error) {
+          console.error("Error en renderLogin:", error);
+
+          // Mostrar un mensaje de error genérico en el contenedor principal si existe
+          const appContainer = document.getElementById('app');
+          if (appContainer) {
+               appContainer.innerHTML = "<p>Ocurrió un error al cargar el formulario de inicio de sesión.</p>";
+          }
+     }
+};
+

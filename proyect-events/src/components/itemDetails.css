@@ -23,13 +23,16 @@
      width: 100%;
      padding: var(--spacing-medium);
      height: auto;
-     border-bottom-left-radius: var(--border-radius-big);
-     border-bottom-right-radius: var(--border-radius-big);
+     border-radius: var(--border-radius-big);
+   
 }
 
 .grid-events {
 
      width: 100%;
+     border-radius: var(--border-radius-big);
+     /* background:var(--background-color-transparent-color); */
+     padding: var(--spacing-small) 0;
 
 }
 
@@ -61,6 +64,6 @@
 }
 
 .icon-row i {
-     color: var(--text-color);
+     color: var(--color-icon);
      font-size: 1.5rem;
 }

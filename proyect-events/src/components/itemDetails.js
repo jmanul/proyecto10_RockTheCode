@@ -30,7 +30,7 @@ export const itemDetails = (data, keyMapEvent) => {
 
           if (value !== undefined) {
                html += `
-        <div class="icon-row">
+        <div class="icon-row flex-container">
           <i class="bi ${icon}"></i>
           <span>${value}</span>
         </div>`;

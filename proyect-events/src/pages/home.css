@@ -2,12 +2,12 @@
 .div-passes {
 
      height: min-content;
-
+    
 }
 
 
-.grid-events img,
-.div-passes img {
+.grid-events > img,
+.div-passes > img {
 
      width: 100%;
      aspect-ratio: 16 / 16;
@@ -23,18 +23,19 @@
      border-radius: var(--border-radius-small);
      font-family: var(--font-regulat-itim);
      background-color: var(--background-color);
-     width: 98%;
-     margin: 0 var(--spacing-little-bit);
+     width: 100%;
      text-align: left;
 }
 
 .text-events h2,
 .text-passes h2 {
      
-     padding: var(--spacing-medium) var(--spacing-large);
+     padding: var(--spacing-medium) ;
      box-shadow: var(--box-shadow);
      border-radius: var(--border-radius-small);
      font-family: var(--font-regulat-itim);
      color: var(--text-shadow);
      width: 100%;
+
 }
+

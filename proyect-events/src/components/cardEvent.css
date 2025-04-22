@@ -1,38 +1,56 @@
 .event-card {
-     background-color: var(--background-color);
+     position: relative;
+     /* Necesario para contener el ::before */
+     z-index: 1;
+     /* Asegura que el contenido esté encima */
      border: 1px solid var(--light-gray);
-     border-radius: 8px;
+     border-radius: var(--border-radius-small);
      box-shadow: var(--box-shadow);
      max-width: 500px;
+     min-width: 350px;
      height: auto;
      text-align: center;
      transition: transform 0.3s ease;
-    
-     &:hover{
+     gap: 0;
+     cursor:pointer;
+
+     &:hover {
 
           box-shadow: var(--hover-shadow);
-        
+          border: 3px solid var(--neon-cyan);
      }
 }
 
+
+.event-card::before {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     border-radius: 8px;
+     background-image: var(--bg-url);
+     /* La imagen solo va aquí */
+     background-size: cover;
+     filter: blur(5px) grayscale(80%);
+     z-index: -1;
+     /* Lo envía detrás del contenido */
+}
 
 
 
 .text-container {
      margin-bottom: var(--padding-little-bit);
      padding: var(--spacing-little-bit);
-     width: 99%;
-     box-shadow: var(--box-shadow);
+     width: 100%;
+     background-color: var(--background-color-transparent-color);
+     backdrop-filter: blur(1px);
      border-bottom-left-radius: var(--border-radius-small);
      border-bottom-right-radius: var(--border-radius-small);
-     cursor: pointer;
+     box-shadow: var(--box-shadow-inset);
+     
 
-     &:hover {
-     
-               box-shadow: var(--box-shadow-inset);
-     
-          }
-              
 }
 
 
@@ -41,11 +59,12 @@
      aspect-ratio: 16 / 9;
      object-fit: cover;
      padding: var(--padding-little-bit);
-     border-top-left-radius: 8px;
-     border-top-right-radius: 8px;
-    
-     
-     
+     border-top-left-radius: var(--border-radius-small);
+     border-top-right-radius: var(--border-radius-small);
+     box-shadow: var(--box-shadow-inset);
+
+
+
 }
 
 .event-name {
@@ -53,14 +72,16 @@
      margin: 10px 0 5px;
      color: var(--text-color);
      text-shadow: var(--text-shadow);
+  
+     
 }
 
 .type-container {
-
+     width:100%;
      flex-direction: row;
      justify-content: space-between;
      padding: var(--spacing-little-bit);
-   
+
 }
 
 .type-container span {
@@ -69,8 +90,14 @@
      border-left: var(--border-slim);
      box-shadow: var(--box-shadow-inset);
      border-radius: var(--border-radius-small);
-     padding:  5px;
+     padding: 5px;
+     background:var(--background-color-transparent);
+
+     color:var(--neon-magenta);
+     font-size: 1.2rem ;
 }
+
+
 
 .event-type,
 .event-city,
@@ -82,12 +109,17 @@
 }
 
 .event-type {
-     
-     color:var(--light-gray);
-     background-color:var(--dark-gray);
+
+     color: var(--light-gray);
+     background-color: var(--dark-gray);
      padding: 5px;
      box-shadow: var(--box-shadow-6);
      width: max-content;
      border-radius: 8px;
+     font-size: 1rem;
 }
 
+.not-start {
+
+     display:none;
+}

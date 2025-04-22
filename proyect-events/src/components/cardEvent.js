@@ -5,6 +5,7 @@ export function createEventCard(event) {
     
      const card = document.createElement('div');
      card.classList.add('event-card', 'flex-container');
+     card.style.setProperty('--bg-url', `url(${event.image})`);
 
      const image = document.createElement('img');
      image.src = event.image; 
@@ -12,7 +13,7 @@ export function createEventCard(event) {
      image.classList.add('event-image');
 
      const textContainer = document.createElement('div');
-     textContainer.classList.add('text-container');
+     textContainer.classList.add('text-container', 'flex-container');
 
      const name = document.createElement('h3');
      name.textContent = event.name;
@@ -25,6 +26,7 @@ export function createEventCard(event) {
      type.classList.add('event-type');
      const status = document.createElement('span');
      status.textContent = event.eventStatus;
+     event.eventStatus === 'not-start' ? status.className = 'not-start' : status.className = '';  
      
      const city = document.createElement('p');
      city.textContent = event.city;

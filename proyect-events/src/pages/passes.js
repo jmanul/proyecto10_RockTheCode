@@ -1,7 +1,7 @@
 
 import { buildFetchJson } from '../api/buildFetch';
 import { actionButton, itemDetails } from '../components/itemDetails';
-import { generateTicket } from '../components/ticket';
+import { generateTicket } from './generateTicket';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { navigate } from '../utils/logic/navigate';
 import './passes.css'

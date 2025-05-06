@@ -1,9 +1,12 @@
 
+.light-theme-button{
 
+     flex-direction: row;
+}
 .light-theme-button,
 .dark-theme-button {
      position: fixed;
-     top: 20px;
+     top: 15px;
      right: 20px;
      background: var(--dark-gray);
      border: none;
@@ -15,7 +18,8 @@
      display: flex;
      gap: 1px;
      box-shadow: var(--box-shadow-4);
-     color: var(--light-gray)
+     color: var(--light-gray);
+     
 }
 
 .dark-theme-button {
@@ -37,4 +41,10 @@
 .light-theme-button:hover {
 
      box-shadow: var(--box-shadow-5);
+}
+
+.on-off {
+
+     width: 2px;
+     height: 2px;
 }

@@ -1,5 +1,5 @@
 import './registerLogin.css';
-import { CreateForm } from '../components/form.js';
+import { createForm } from '../components/form.js';
 import { renderLoginPage } from './login.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { renderHomePage } from './home.js';
@@ -56,7 +56,7 @@ export const renderRegisterLoginPage = async () => {
           // Función para renderizar el formulario de registro
           const renderRegister = async () => {
                try {
-                    const formRegister = await CreateForm(registerFields, 'register');
+                    const formRegister = await createForm(registerFields, 'register');
                     if (!formRegister) {
                          throw new Error("No se pudo crear el formulario de registro.");
                     }
@@ -96,7 +96,7 @@ export const renderLogin = async () => {
           window.history.pushState({}, "", '/register/login');
 
           // Crear el formulario de inicio de sesión
-          const formLogin = await CreateForm(loginFields, 'login');
+          const formLogin = await createForm(loginFields, 'login');
           if (!formLogin) {
                throw new Error("No se pudo crear el formulario de inicio de sesión.");
           }

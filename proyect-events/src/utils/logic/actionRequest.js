@@ -7,11 +7,12 @@ export const actionRequest = async (form, route, method, renderFunction, contain
 
     await form.addEventListener('submit', async (e) => {
 
-          e.preventDefault();
+         e.preventDefault();
 
           try {
 
                const request = await processForm(form, route, method, container);
+               console.log(request);
 
                if (request) {
 
@@ -27,4 +28,4 @@ export const actionRequest = async (form, route, method, renderFunction, contain
      });
 }
 
-//todo: tenemos que reetornar message de error o exito y limpiar la pantalla y añadir la route
+

@@ -1,7 +1,7 @@
 
 import './cardEvent.css';
 
-export function createEventCard(event) {
+export function createEventsCard(event) {
     
      const card = document.createElement('div');
      card.classList.add('event-card', 'flex-container');

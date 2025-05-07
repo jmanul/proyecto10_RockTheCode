@@ -30,6 +30,11 @@
 
 }
 
+.grid-events {
+
+     min-height: 50vh;
+}
+
 .grid-events,
 .div-passes {
 

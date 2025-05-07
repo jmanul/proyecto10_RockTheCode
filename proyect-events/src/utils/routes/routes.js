@@ -1,15 +1,16 @@
-import { createEvent } from "../../pages/createEvent";
-import { renderEvents, renderEventsPage } from "../../pages/events";
+
+import { createEventsPage } from "../../pages/createEvents";
+import { renderEvents, eventsPage } from "../../pages/events";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
 import { logout } from "../logic/logout";
 
 
 
 export const adminRoutes = [
-     { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: renderEventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'crear', name: 'Crear', action: createEvent, icon: 'events.svg', url: '/events/new' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
+     { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: eventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'crear', name: 'Crear', action: createEventsPage, icon: 'events.svg', url: '/events/userEventsCreate' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
 ];
 
-export const userRoutes = [{ id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' },{ id: 'crear', name: 'Crear', action: createEvent, icon: 'events.svg', url: '/events/new' },  { id: 'entradas', name: 'entradas', action: '', icon: 'entrada.svg', url: '/passes' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
+export const userRoutes = [{ id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: eventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'crear', name: 'Crear', action: createEventsPage, icon: 'events.svg', url: '/events/userEventsCreate' },  { id: 'entradas', name: 'entradas', action: '', icon: 'entrada.svg', url: '/passes' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
 ];
 
 export const loginRoutes = [{

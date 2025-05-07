@@ -1,5 +1,5 @@
 import { buildFetchJson } from '../api/buildFetch';
-import { createEventCard } from '../components/cardEvent';
+import { createEventsCard } from '../components/cardEvent';
 import { createList } from '../components/list';
 import './events.css';
 import { typesEventsRoutes } from "../utils/routes/routes";
@@ -22,7 +22,7 @@ const keyMapEvent = {
 };
 
 
-export const renderEventsPage = async (e, route) => {
+export const eventsPage = async (e, route) => {
      try {
           // Crear el layout principal
           const appContainer = document.getElementById('app');
@@ -54,7 +54,7 @@ export const renderEventsPage = async (e, route) => {
           // Renderizar los eventos
           await renderEvents(e, route);
      } catch (error) {
-          console.error("Error en renderEventsPage:", error);
+          console.error("Error en eventsPage:", error);
           const appContainer = document.getElementById('app');
           if (appContainer) {
                appContainer.innerHTML = "<p>Ocurrió un error al cargar la página de eventos.</p>";
@@ -107,7 +107,7 @@ export const renderEvents = async (e, route) => {
                     // Verificar que el evento aún esté activo
                     if (eventEndDate.getTime() > nowDate.getTime()) {
                          // Crear la tarjeta del evento
-                         const eventCard = createEventCard(event);
+                         const eventCard = createEventsCard(event);
                          eventsContainer.appendChild(eventCard);
                          numberEvents++;
 

@@ -1,9 +1,9 @@
-
 .miniature-img {
 
-     width: 25%;
-     padding-left: 25px;
+     width: 8rem;
+     height: 8rem;
      padding: var(--spacing-small);
+     /* overflow: hidden; */
 
 }
 
@@ -13,7 +13,15 @@
      border: 1px solid var(--neon-cyan);
      width: 100%;
      border-radius: var(--border-radius);
+
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     /* object-position: center; */
+
 }
+
+
 
 .select-card {
 
@@ -24,7 +32,7 @@
      padding: var(--spacing-medium);
      height: auto;
      border-radius: var(--border-radius-big);
-   
+
 }
 
 .grid-events {

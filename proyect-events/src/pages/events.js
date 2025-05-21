@@ -70,6 +70,11 @@ export const renderEvents = async (e, route) => {
           // Seleccionar el contenedor de eventos
           const eventsSection = document.querySelector('.grid-events');
           eventsSection.style.scrollbarGutter = 'stable both-edges';
+          const gridMain = document.querySelector('.grid-main');
+          gridMain.style.gridTemplateColumns = 'auto auto';
+          const infoSection = document.getElementById('info-section');
+          infoSection?.remove();
+
           if (!eventsSection) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
@@ -143,6 +148,7 @@ export const renderEvents = async (e, route) => {
 
           // Añadir el contenedor de eventos al DOM
           eventsSection.appendChild(eventsContainer);
+          return events;
      } catch (error) {
           console.error("Error en renderEvents:", error);
           eventsSection.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";

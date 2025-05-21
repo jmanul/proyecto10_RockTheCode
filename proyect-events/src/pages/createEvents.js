@@ -1,11 +1,11 @@
 import './createEvents.css';
 import { createForm } from '../components/form.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
-import { createEventsCard } from '../components/cardEvent.js';
 import { createLayout } from '../components/layout.js';
 import { renderEvents } from './events.js';
 import { createList } from '../components/list.js';
-import { typesEventsRoutes } from '../utils/routes/routes.js';
+import { userEventsRoutes } from '../utils/routes/routes.js';
+import { createEventsCard } from '../components/cardEvent.js';
 
 
 const eventFields = [
@@ -49,7 +49,6 @@ const eventFields = [
      { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true }
 ];
 
-const appContainer = document.getElementById('app');
 
 export const createEventsPage = async (e, route) => {
 
@@ -62,84 +61,38 @@ export const createEventsPage = async (e, route) => {
 
           const main = createLayout(appContainer);
 
-          // Crear el menú de tipos de eventos
-          const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);
-          if (!eventsTypeMenu) {
-               throw new Error("No se pudo crear el menú de tipos de eventos.");
+          // Crear el menu de usuario
+          const eventsUserMenu = createList('events-user-menu', userEventsRoutes);
+          if (!eventsUserMenu) {
+               throw new Error("No se pudo crear menu de  evntos de usuario");
           }
-          main.prepend(eventsTypeMenu);
-
-          // Seleccionar las secciones de pases
-          const pasesSection = document.querySelector('.div-passes');
-          const textPasses = document.querySelector('.text-passes');
-
-          if (!pasesSection || !textPasses) {
-               throw new Error("No se encontraron las secciones de pases (.div-passes o .text-passes).");
-          }
-
-          // Mostrar contenido inicial en las secciones de pases
-          textPasses.innerHTML = `<h2>Descubrelos!! Crealos!!</h2>`;
-          pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
+          main.prepend(eventsUserMenu);
 
           // Renderizar los eventos
-          await renderEvents(e, route);
+          await eventsUser(e, route);
+          
+
      } catch (error) {
           console.error("Error en eventsPage:", error);
-          const appContainer = document.getElementById('app');
+        
           if (appContainer) {
                appContainer.innerHTML = "<p>Ocurrió un error al cargar la página de eventos.</p>";
           }
      }
-
-//      // Crear el layout principal
-//      const main = createLayout();
-//      if (!main) {
-//           throw new Error("No se pudo crear el layout principal.");
-//      }
-//      // Seleccionar el contenedor de eventos
-//      const eventsSection = document.querySelector('.grid-events');
-//      eventsSection.style.scrollbarGutter = 'stable both-edges';
-//      if (!eventsSection) {
-//           throw new Error("No se encontró el contenedor de eventos (.grid-events).");
-//      }
-
-//      const textEvents = document.querySelector('.text-events');
-
-//      if (!textEvents) {
-//           throw new Error("No se encontró el contenedor de texto (.text-events).");
-//      }
-
-//      textEvents.innerHTML = `<h2> Tus Eventos </h2>`;
-//      eventsSection.innerHTML = '';
-
-//   console.log(route);
-
-//      // Obtener los datos de los eventos
-//      const userEvents = await buildFetchJson({ route });
-//      const events = request?.events;
-
-//      // Validar si hay eventos disponibles
-//      if (!events || events.length === 0) {
-//           eventsSection.innerHTML = "<p>No hay resultados disponibles.</p>";
-//           return;
-//      }
 }
-
-
-
 
 export const createEvents = async (e, route) => {
 
      try {
 
           // Seleccionar el contenedor de eventos
-          const formNewEventContainer = document.querySelector('.div-passes');
-          // formNewEventContainer.style.scrollbarGutter = 'stable both-edges';
+          const formNewEventContainer = document.querySelector('.grid-events');
+           formNewEventContainer.style.scrollbarGutter = 'stable both-edges';
           if (!formNewEventContainer) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
 
-          const textNewEvents = document.querySelector('.text-passes');
+          const textNewEvents = document.querySelector('.text-events');
 
           if (!textNewEvents) {
                throw new Error("No se encontró el contenedor de texto (.text-events).");
@@ -160,17 +113,43 @@ export const createEvents = async (e, route) => {
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
 
-          await actionRequest(formNewEvent, '/events/', 'POST', NewEventPage, appContainer);
-
+          const newEvent = await actionRequest(formNewEvent, route, 'POST', pageNewEvent, formNewEventContainer, textNewEvents);
 
      } catch (error) {
           console.error("Error en renderEvents:", error);
-          eventsSection.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
+          formNewEventContainer.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
      }
 
 
 
 }
 
+export const eventsUser = async (e, route) => {
+
+     await renderEvents(e, route);
+
+     const textEventsUser = document.querySelector('.text-events');
+     textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
+
+    
+};
+
+export const pageNewEvent = async (e, route, container, requestObject) => {
+
+     // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
+
+     const { request } = requestObject;
+     const newEventCreated = request.newEvent
+     
+     // Seleccionar el contenedor de eventos y creamos la card del evento para motrarlo
+
+     const cardEvent = createEventsCard(newEventCreated);
+     const formNewEventContainer = document.querySelector('.grid-events');
+     container.innerHTML = `<h2>Nuevo evento creado</h2>`;
+     formNewEventContainer.innerHTML = '';
+     formNewEventContainer.appendChild(cardEvent);
+     
+     
+}
 
 

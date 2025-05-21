@@ -20,6 +20,8 @@
 
 li .item-text {
 
+
+
      &:hover {
      
                color: var(--neon-cyan);

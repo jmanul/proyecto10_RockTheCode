@@ -24,7 +24,6 @@ export const processForm = async (form, route, method, container) => {
           Array.from(form.elements).forEach((element) => {
                if (element.name && !element.disabled) {
                     const { name, type, value, files } = element;
-                    console.log(element);
 
                     if (type === 'file' && files.length > 0) {
 

@@ -1,5 +1,5 @@
 
-import { createEvents, createEventsPage, eventsUser } from "../../pages/createEvents";
+import { createEvent, createEventsPage, eventsUser } from "../../pages/createEvents";
 import { renderEvents, eventsPage } from "../../pages/events";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
 import { logout } from "../logic/logout";
@@ -73,7 +73,7 @@ export const userEventsRoutes = [
      {
           id: "nuevo-Evento",
           name: "Nuevo Evento",
-          action: createEvents,
+          action: createEvent,
           url: "/events"
      },
      {

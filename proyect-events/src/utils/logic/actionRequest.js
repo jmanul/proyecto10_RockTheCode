@@ -1,14 +1,23 @@
 
+import { FormBuilder } from "../../components/form";
 import { navigate } from "./navigate";
 import { processForm } from "./processForm";
 
 
 
-export const actionRequest = async (form, route, method, renderFunction, container, ...rest) => {
+export const actionRequest = async (form, builder, route, method, renderFunction, container, ...rest) => {
 
     await form.addEventListener('submit', async (e) => {
 
          e.preventDefault();
+
+         // Validación antes del envío
+         const isValid = builder ? builder.validateAllFields() : form.checkValidity();
+
+         if (!isValid) {
+              console.warn('Formulario inválido. Corrige los errores antes de enviar.');
+              return;
+         }
 
           try {
 

@@ -33,3 +33,44 @@
  
 }
 
+.error-msg {
+  color: red;
+  font-size: 0.9em;
+  display: block;
+  margin-top: 2px;
+  height: 1em;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+input.error+.error-msg {
+  opacity: 1;
+}
+
+input.error {
+  border-color: red ;
+  animation: shake 0.2s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+

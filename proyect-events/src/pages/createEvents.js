@@ -1,5 +1,5 @@
 import './createEvents.css';
-import { createForm } from '../components/form.js';
+import { FormBuilder } from '../components/form.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { createLayout } from '../components/layout.js';
 import { renderEvents } from './events.js';
@@ -8,24 +8,14 @@ import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
 
 
-const eventFields = [
-
+export const eventFields = [
      { name: 'name', type: 'text', placeholder: 'Nombre del evento', required: true },
      {
           name: 'type',
           type: 'select',
           placeholder: 'Tipo de evento',
           required: false,
-          options: [
-               'musica',
-               'deporte',
-               'fiesta',
-               'formación',
-               'arte',
-               'gastronomía',
-               'tecnología',
-               'otros'
-          ]
+          options: ['musica', 'deporte', 'fiesta', 'formación', 'arte', 'gastronomía', 'tecnología', 'otros']
      },
      { name: 'location', type: 'text', placeholder: 'Lugar', required: true },
      { name: 'adress', type: 'text', placeholder: 'Dirección', required: true },
@@ -33,20 +23,15 @@ const eventFields = [
      { name: 'description', type: 'textarea', placeholder: 'Descripción', required: true },
      { name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true },
      { name: 'endDate', type: 'datetime-local', placeholder: 'Fecha de fin', required: false },
-     // {
-     //      name: 'eventStatus',
-     //      type: 'select',
-     //      placeholder: 'Estado del evento',
-     //      required: false,
-     //      options: [
-     //           'not-start',
-     //           'postponed',
-     //           'cancelled',
-     //           'finalized'
-     //      ]
-     // },
+     {
+          name: 'eventStatus',
+          type: 'select',
+          placeholder: 'Estado del evento',
+          required: false,
+          options: ['not-start', 'postponed', 'cancelled', 'finalized']
+     },
      { name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false },
-     { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true }
+     { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true, min: 1 }
 ];
 
 
@@ -81,7 +66,7 @@ export const createEventsPage = async (e, route) => {
      }
 }
 
-export const createEvents = async (e, route) => {
+export const createEvent = async (e, route) => {
 
      try {
 
@@ -104,7 +89,8 @@ export const createEvents = async (e, route) => {
 
 
           // Crear el formulario para la creación de un nuevo evento
-          const formNewEvent = await createForm(eventFields, 'Crear');
+          const builder = await new FormBuilder(eventFields, 'Crear');
+          const formNewEvent = await builder.createForm();
 
           if (!formNewEvent) {
                throw new Error("No se pudo crear el formulario para el nuevo evento");
@@ -113,7 +99,7 @@ export const createEvents = async (e, route) => {
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
 
-          const newEvent = await actionRequest(formNewEvent, route, 'POST', pageNewEvent, formNewEventContainer, textNewEvents);
+          const newEvent = await actionRequest(formNewEvent,builder, route, 'POST', pageNewEvent, formNewEventContainer, textNewEvents);
 
      } catch (error) {
           console.error("Error en renderEvents:", error);
@@ -152,4 +138,6 @@ export const pageNewEvent = async (e, route, container, requestObject) => {
      
 }
 
+
+// todo: maneho de errores de introduccion de datos y modificacion de datos con formulario condatos existentes
 

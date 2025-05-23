@@ -1,5 +1,5 @@
 import './registerLogin.css';
-import { createForm } from '../components/form.js';
+import { FormBuilder } from '../components/form.js';
 import { renderLoginPage } from './login.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { renderHomePage } from './home.js';
@@ -56,7 +56,9 @@ export const renderRegisterLoginPage = async () => {
           // Función para renderizar el formulario de registro
           const renderRegister = async () => {
                try {
-                    const formRegister = await createForm(registerFields, 'register');
+                    const builder = new FormBuilder(registerFields, 'register');
+                    const formRegister = await builder.createForm();
+
                     if (!formRegister) {
                          throw new Error("No se pudo crear el formulario de registro.");
                     }
@@ -64,7 +66,7 @@ export const renderRegisterLoginPage = async () => {
                     registerLoginGroup.appendChild(formRegister);
 
                     // Manejar la solicitud de registro
-                    return await actionRequest(formRegister, '/register/', 'POST', renderLoginPage, app);
+                    return await actionRequest(formRegister, builder, '/register/', 'POST', renderLoginPage, app);
                } catch (error) {
                     console.error("Error al renderizar el formulario de registro:", error);
                     throw error; // Propagar el error para manejarlo en el nivel superior
@@ -96,7 +98,10 @@ export const renderLogin = async () => {
           window.history.pushState({}, "", '/register/login');
 
           // Crear el formulario de inicio de sesión
-          const formLogin = await createForm(loginFields, 'login');
+
+          const builder = await new FormBuilder(loginFields, 'login');
+          const formLogin = await builder.createForm();
+
           if (!formLogin) {
                throw new Error("No se pudo crear el formulario de inicio de sesión.");
           }
@@ -109,7 +114,7 @@ export const renderLogin = async () => {
           if (!app) {
                throw new Error("No se encontró el contenedor principal (#app).");
           }
-          await actionRequest(formLogin, '/register/login/', 'POST', renderHomePage, app);
+          await actionRequest(formLogin, builder, '/register/login/', 'POST', renderHomePage, app);
 
           return formLogin;
 

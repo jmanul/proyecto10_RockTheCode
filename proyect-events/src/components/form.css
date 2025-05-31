@@ -1,14 +1,17 @@
 .create-form {
 
-  background-color:var(--background-color);
+  background-color: var(--background-color);
   gap: var(--spacing-medium);
   width: 100%;
-  max-width: 400px;
+  max-width: 1300px;
   padding: var(--spacing-medium);
-  border-radius:var(--border-radius-big);
+  border-radius: var(--border-radius-big);
   box-shadow: var(--box-shadow);
   border: 1px solid var(--light-gray);
-/* 
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  /* 
     [data-theme="dark"] & {
 
         background-color: var(--black-matte);
@@ -17,9 +20,17 @@
 }
 
 .form-group {
+
   align-items: flex-start;
+
+  max-width: 600px;
+  min-width: 45%;
+
+}
+
+.form-group input {
+
   width: 100%;
-  
 }
 
 .create-form .form-group label {
@@ -27,11 +38,19 @@
   color: var(--text-color);
 }
 
+.button-form {
 
-.create-form button {
-  align-self: center;
- 
+
+  width: 100%;
 }
+
+.button-form button {
+
+  align-self: center;
+
+
+}
+
 
 .error-msg {
   color: red;
@@ -43,12 +62,16 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-input.error+.error-msg {
+input.error+.error-msg,
+textarea.error+.error-msg,
+select.error+.error-msg {
   opacity: 1;
 }
 
-input.error {
-  border-color: red ;
+input.error,
+textarea.error,
+select.error {
+  border-color: red;
   animation: shake 0.2s ease-in-out;
 }
 
@@ -73,4 +96,3 @@ input.error {
     transform: translateX(0);
   }
 }
-

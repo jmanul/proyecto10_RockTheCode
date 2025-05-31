@@ -9,7 +9,7 @@ export class FormBuilder {
           this.form.id = formName;
      }
 
-  async  createForm(existingValues = {}) {
+    async createForm(existingValues = {}) {
           this.fields.forEach((field) => {
                const div = document.createElement('div');
                div.classList.add('form-group', 'flex-container');
@@ -21,9 +21,6 @@ export class FormBuilder {
 
                if (field.type === 'select') {
                     input = document.createElement('select');
-                    input.name = field.name;
-                    input.required = field.required || false;
-
                     const placeholderOption = document.createElement('option');
                     placeholderOption.value = '';
                     placeholderOption.textContent = `Seleccione ${field.placeholder.toLowerCase()}`;
@@ -31,88 +28,72 @@ export class FormBuilder {
                     placeholderOption.selected = true;
                     input.appendChild(placeholderOption);
 
-                    field.options.forEach(optionValue => {
+                    field.options.forEach(opt => {
                          const option = document.createElement('option');
-                         option.value = optionValue;
-                         option.textContent = optionValue;
+                         option.value = opt;
+                         option.textContent = opt;
                          input.appendChild(option);
                     });
-
                } else if (field.type === 'textarea') {
                     input = document.createElement('textarea');
-                    input.name = field.name;
-                    input.placeholder = field.placeholder;
-                    input.required = field.required || false;
-                    input.rows = field.rows || 4;
-                    input.classList.add('textarea');
-
+                    input.rows = 4;
                } else {
                     input = document.createElement('input');
-                    input.type = field.type || 'text';
-                    input.name = field.name;
-                    input.placeholder = field.placeholder;
-                    input.required = field.required || false;
-                    if (field.type === 'number' && field.min !== undefined) input.min = field.min;
-                    if (field.type === 'datetime-local') input.min = field.min || new Date().toISOString().slice(0, 16);
+                    input.type = field.type;
                }
+
+               input.name = field.name;
+               input.placeholder = field.placeholder;
+               if (field.required) input.required = true;
+               if (field.min !== undefined) input.min = field.min;
+               if (field.max !== undefined) input.max = field.max;
 
                if (existingValues[field.name] && field.type !== 'file') {
                     input.value = existingValues[field.name];
                }
 
-               input.addEventListener('input', () => this.validateField(input, field));
+               const errorSpan = document.createElement('span');
+               errorSpan.classList.add('error-msg');
+
+               input.addEventListener('input', () => this.validateField(input, field, errorSpan));
 
                div.appendChild(label);
                div.appendChild(input);
+               div.appendChild(errorSpan);
                this.form.appendChild(div);
           });
 
-          const submitButton = document.createElement('button');
-          submitButton.type = 'submit';
-          submitButton.textContent = this.formName;
-          submitButton.classList.add('button');
-          this.form.appendChild(submitButton);
+          const buttonContainer = document.createElement('div');
+          buttonContainer.classList.add('flex-container', `button-form-${this.formName}`, 'button-form');
+          const submitBtn = document.createElement('button');
+          submitBtn.type = 'submit';
+          submitBtn.textContent = this.formName;
+          submitBtn.classList.add('button');
+          buttonContainer.appendChild(submitBtn);
+          this.form.appendChild(buttonContainer);
 
           return this.form;
      }
 
-     validateField(input, field) {
-          input.classList.remove('invalid');
-          input.setCustomValidity("");
+     validateField(input, field, errorSpan) {
+          input.classList.remove('error');
+          errorSpan.textContent = '';
 
-          const value = input.value.trim();
+          const value = input.value;
 
-          if (field.required && !value) {
-               input.classList.add('invalid');
-               input.setCustomValidity('Este campo es obligatorio.');
+          if (typeof field.validate === 'function') {
+               const result = field.validate(value, this.form);
+               if (result !== true) {
+                    input.classList.add('error');
+                    errorSpan.textContent = result;
+                    return false;
+               }
+          }
+
+          if (!input.checkValidity()) {
+               input.classList.add('error');
+               errorSpan.textContent = input.validationMessage;
                return false;
-          }
-
-          if (field.type === 'number') {
-               const min = field.min ?? 1;
-               if (Number(value) < min) {
-                    input.classList.add('invalid');
-                    input.setCustomValidity(`Debe ser mayor o igual a ${min}`);
-                    return false;
-               }
-          }
-
-          if (field.name === 'endDate') {
-               const startDate = this.form.querySelector('[name="startDate"]')?.value;
-               if (startDate && value && value < startDate) {
-                    input.classList.add('invalid');
-                    input.setCustomValidity('La fecha de fin no puede ser anterior a la de inicio.');
-                    return false;
-               }
-          }
-
-          if (field.name === 'startDate') {
-               const now = new Date().toISOString().slice(0, 16);
-               if (value < now) {
-                    input.classList.add('invalid');
-                    input.setCustomValidity('La fecha de inicio no puede ser anterior a hoy.');
-                    return false;
-               }
           }
 
           return true;
@@ -123,16 +104,11 @@ export class FormBuilder {
 
           this.fields.forEach(field => {
                const input = this.form.querySelector(`[name="${field.name}"]`);
-               if (!input) return;
-               const valid = this.validateField(input, field);
+               const errorSpan = input?.parentElement.querySelector('.error-msg');
+               if (!input || !errorSpan) return;
+               const valid = this.validateField(input, field, errorSpan);
                if (!valid) isValid = false;
           });
-
-          // Validación HTML5 adicional
-          if (!this.form.checkValidity()) {
-               this.form.reportValidity();
-               isValid = false;
-          }
 
           return isValid;
      }

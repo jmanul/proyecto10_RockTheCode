@@ -99,7 +99,7 @@ export const renderLogin = async () => {
 
           // Crear el formulario de inicio de sesión
 
-          const builder = await new FormBuilder(loginFields, 'login');
+          const builder = new FormBuilder(loginFields, 'login');
           const formLogin = await builder.createForm();
 
           if (!formLogin) {

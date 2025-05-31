@@ -74,7 +74,7 @@ export const userEventsRoutes = [
           id: "nuevo-Evento",
           name: "Nuevo Evento",
           action: createEvent,
-          url: "/events"
+          url: "/events/"
      },
      {
           id: "eventos-Creados",

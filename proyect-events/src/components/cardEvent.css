@@ -33,6 +33,7 @@
      background-image: var(--bg-url);
      /* La imagen solo va aquí */
      background-size: cover;
+     background-position:center;
      filter: blur(5px) grayscale(80%);
      z-index: -1;
      /* Lo envía detrás del contenido */

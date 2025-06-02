@@ -1,4 +1,4 @@
-import { navigate } from "../utils/logic/navigate";
+
 import { actionButton } from "./itemDetails";
 import './cardTicket.css';
 import { dateFormat } from "../utils/logic/dateFormat";

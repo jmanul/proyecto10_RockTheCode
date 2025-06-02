@@ -132,10 +132,16 @@ export const createEvent = async (e, route) => {
 
 export const eventsUser = async (e, route) => {
 
-     await renderEvents(e, route);
-
+     await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEvent });
+     
+ 
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
+
+     const eventsUser = document.querySelectorAll('.event-card');
+
+   
+  
 
 
 };
@@ -159,5 +165,11 @@ export const pageNewEvent = async (e, route, container, requestObject) => {
 }
 
 
-// todo: maneho de errores de introduccion de datos y modificacion de datos con formulario condatos existentes
+export const updateEvent = () => {
+
+     console.log('actualizar evento');
+}
+
+
+
 

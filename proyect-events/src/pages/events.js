@@ -62,8 +62,13 @@ export const eventsPage = async (e, route) => {
      }
 };
 
-export const renderEvents = async (e, route) => {
+export const renderEvents = async (e, route, options = {}) => {
      try {
+
+          const { showPastEvents = false,
+               onCardClick = null
+
+          } = options;
           let nameEvent = e.target.textContent;
           let numberEvents = 0;
 
@@ -100,40 +105,45 @@ export const renderEvents = async (e, route) => {
                throw new Error("No se encontró el contenedor de texto (.text-events).");
           }
 
+          // filtrar los eventos si hay filtros
+          const validEvents = events.filter(event => {;
+
+               if (showPastEvents) return true; //Muestra todos si es true
+               return new Date(event.endDate) > new Date();
+          });
+
           // Iterar sobre los eventos
-          for (const event of events) {
+          for (const event of validEvents) {
                try {
                     // Convertir fechas
                     const eventEndDate = new Date(event.endDate);
                     const eventStartDate = new Date(event.startDate);
 
-                    const nowDate = new Date();
+                    const eventCard = createEventsCard(event);
+                    eventsContainer.appendChild(eventCard);
+                    numberEvents++;
 
-                    // Verificar que el evento aún esté activo
-                    if (eventEndDate.getTime() > nowDate.getTime()) {
-                         // Crear la tarjeta del evento
-                         const eventCard = createEventsCard(event);
-                         eventsContainer.appendChild(eventCard);
-                         numberEvents++;
+                    // Preparar datos adaptados para render
+                    const extendedEvent = {
+                         ...event,
+                         startDateFormatted: dateFormat(eventStartDate).date,
+                         startTimeFormatted: dateFormat(eventStartDate).time,
+                         endDateFormatted: dateFormat(eventEndDate).date
+                    };
 
-                         // Preparar datos adaptados para render
-                         const extendedEvent = {
-                              ...event,
-                              startDateFormatted: dateFormat(eventStartDate).date,
-                              startTimeFormatted: dateFormat(eventStartDate).time,
-                              endDateFormatted: dateFormat(eventEndDate).date
-                         };
+                    const eventRoute = { url: route + `/${event.name}` };
+                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPasesPage };
 
-                         const eventRoute = { url: route + `/${event.name}` };
-                         const passesRoute = { url: `/passes/event/${event._id}`, action: renderPasesPage };
-
-                         // Añadir el evento de clic a la tarjeta
-                         eventCard.addEventListener('click', (e) => {
+                    // Añadir el evento de clic a la tarjeta
+                    eventCard.addEventListener('click', (e) => {
+                         if (onCardClick) {
+                              onCardClick(e, event); 
+                         } else {
                               navigate(e, eventRoute);
-                              
+
                               renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos');
-                         });
-                    }
+                         };
+                    });
                } catch (error) {
                     console.error(`Error al procesar el evento: ${event?.name}`, error);
                }
@@ -154,6 +164,7 @@ export const renderEvents = async (e, route) => {
           eventsSection.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
      }
 };
+
 
 
 

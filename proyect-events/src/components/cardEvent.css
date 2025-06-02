@@ -7,7 +7,7 @@
      border-radius: var(--border-radius-small);
      box-shadow: var(--box-shadow);
      max-width: 20rem;
-     
+     min-width: 20rem;
      height: auto;
      text-align: center;
      transition: transform 0.3s ease;

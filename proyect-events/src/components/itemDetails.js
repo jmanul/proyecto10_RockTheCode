@@ -1,7 +1,7 @@
 
 import { navigate } from '../utils/logic/navigate';
 import './itemDetails.css'
-export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route, text) => {
+export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route = null, text) => {
 
      titleContainer.innerHTML = `
         <div class="flex-container select-title">

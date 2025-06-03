@@ -1,7 +1,7 @@
 import { buildFetchJson } from "../../api/buildFetch";
 import { createList } from "../../components/list";
 import { createSidebar } from "../../components/sidebar";
-import { loginRoutes, userRoutes, adminRoutes, allRoutes } from "../routes/routes";
+import { loginRoutes, userRoutes, adminRoutes} from "../routes/routes";
 
 
 export const initHomeMenu = async () => {

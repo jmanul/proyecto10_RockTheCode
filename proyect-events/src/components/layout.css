@@ -2,7 +2,7 @@
 
      position: relative;
      margin-top: 200px;
-     width: auto;
+     width: 100%;
      max-width: 1300px;
      display: grid;
      grid-template-rows: 2fr;
@@ -36,7 +36,7 @@
 }
 
 .grid-events {
-
+     
      min-height: 50dvh;
      overflow-y: auto;
           scroll-behavior: smooth;

@@ -2,10 +2,11 @@ import './createEvents.css';
 import { FormBuilder } from '../components/form.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { createLayout } from '../components/layout.js';
-import { renderEvents } from './events.js';
+import { eventsPage, renderEvents } from './events.js';
 import { createList } from '../components/list.js';
 import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
+import { renderItemDetails } from '../components/itemDetails.js';
 
 
 const eventFields = [
@@ -38,7 +39,7 @@ const eventFields = [
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
           }
      },
-     { name: 'eventStatus', type: 'select', placeholder: 'Estado del evento', required: false, options: ['not-start', 'postponed', 'cancelled'] },
+     // { name: 'eventStatus', type: 'select', placeholder: 'Estado del evento', required: false, options: ['not-start', 'postponed', 'cancelled'] },
      {
           name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false, validate: (inputElement) => {
                if (!inputElement || !inputElement.files || inputElement.files.length === 0) return true;
@@ -134,6 +135,8 @@ export const eventsUser = async (e, route) => {
 
      await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEvent });
      
+   
+     
  
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
@@ -165,9 +168,13 @@ export const pageNewEvent = async (e, route, container, requestObject) => {
 }
 
 
-export const updateEvent = () => {
+export const updateEvent = (e, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
 
      console.log('actualizar evento');
+
+     const eventsRoute = { action: eventsPage, url: '/events' }
+
+      renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Editar');
 }
 
 

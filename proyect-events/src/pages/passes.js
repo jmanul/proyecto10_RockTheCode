@@ -5,6 +5,7 @@ import { generateTicket } from './generateTicket';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { navigate } from '../utils/logic/navigate';
 import './passes.css'
+import { eventsPage } from './events';
 
 const keyMapPass = {
      namePass: { icon: "bi bi-ticket-detailed" },
@@ -20,6 +21,8 @@ const keyMapPass = {
 
 export const renderPasesPage = async (e, route) => {
      try {
+
+        
           // Obtener los pases desde el servidor
           const passes = await buildFetchJson({ route });
 
@@ -47,7 +50,7 @@ export const renderPasesPage = async (e, route) => {
                     const nowDate = new Date();
 
                     // Verificar que el pase aún esté activo
-                    if (passEndDate.getTime() > nowDate.getTime()) {
+                    if (passEndDate.getTime() > nowDate.getTime() && pass.totalReservedPlaces < pass.maxCapacity) {
                          // Preparar datos adaptados para render
                          const extendedPass = {
                               ...pass,
@@ -86,7 +89,19 @@ export const renderPasesPage = async (e, route) => {
                               };
                               navigate(e, passRoute);
                          });
-                    }
+                    } else {
+                         
+                         eventsSection.innerHTML = `<h3>Actualmente no hay entradas disponibles para este evento</h3> `;
+
+                            const eventsRoute = { action: eventsPage, url: '/events' }
+
+                         const button = await actionButton('volver', eventsRoute, eventsSection);
+
+                          button.style.backgroundColor ='red'
+
+                       
+                          
+                    } 
                } catch (error) {
                     console.error(`Error al procesar el pase: ${pass?.name}`, error);
                }

@@ -89,6 +89,7 @@ export const renderEvents = async (e, route, options = {}) => {
           // Obtener los datos de los eventos
           const request = await buildFetchJson({ route });
           const events = request?.events;
+          const user = request?.user;
 
           // Validar si hay eventos disponibles
           if (!events || events.length === 0) {
@@ -108,7 +109,7 @@ export const renderEvents = async (e, route, options = {}) => {
           // filtrar los eventos si hay filtros
           const validEvents = events.filter(event => {;
 
-               if (showPastEvents) return true; //Muestra todos si es true
+               if (showPastEvents || user.roll === 'administrator') return true; //Muestra todos si es true
                return new Date(event.endDate) > new Date();
           });
 
@@ -130,18 +131,26 @@ export const renderEvents = async (e, route, options = {}) => {
                          startTimeFormatted: dateFormat(eventStartDate).time,
                          endDateFormatted: dateFormat(eventEndDate).date
                     };
-
+                    const eventsRoute = { action: eventsPage, url: '/events' }
                     const eventRoute = { url: route + `/${event.name}` };
                     const passesRoute = { url: `/passes/event/${event._id}`, action: renderPasesPage };
 
                     // Añadir el evento de clic a la tarjeta
                     eventCard.addEventListener('click', (e) => {
                          if (onCardClick) {
-                              onCardClick(e, event); 
+                              onCardClick(e, extendedEvent, keyMapEvent, textEvents, eventsSection, event); 
                          } else {
                               navigate(e, eventRoute);
 
-                              renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos');
+                              if (new Date(event.endDate) > new Date()) {
+                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos');
+
+                              } else {
+
+                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'volver');
+                                   
+
+                              }
                          };
                     });
                } catch (error) {

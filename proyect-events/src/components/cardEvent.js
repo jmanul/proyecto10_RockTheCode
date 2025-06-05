@@ -36,7 +36,16 @@ export function createEventsCard(event) {
      startDate.textContent = new Date(event.startDate).toLocaleDateString();
      startDate.classList.add('event-date');
 
+     const asistentNumber = document.createElement('div');
+     asistentNumber.classList.add('flex-container', 'asistent-number');
+
+     if (event.totalReservedPlaces === event.maxCapacity) {
+        
+          asistentNumber.innerHTML = `<img src="/assets/event-soldOut.png" alt="soldOut">`;
+     }
+
      card.appendChild(image);
+     card.appendChild(asistentNumber);
      card.appendChild(textContainer);
      textContainer.appendChild(typeContainer);
      typeContainer.append(type, status);

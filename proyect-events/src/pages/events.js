@@ -107,7 +107,7 @@ export const renderEvents = async (e, route, options = {}) => {
           }
 
           // filtrar los eventos si hay filtros
-          const validEvents = events.filter(event => {;
+          const validEvents = events.filter(event => {
 
                if (showPastEvents || user.roll === 'administrator') return true; //Muestra todos si es true
                return new Date(event.endDate) > new Date();
@@ -147,7 +147,7 @@ export const renderEvents = async (e, route, options = {}) => {
 
                               } else {
 
-                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'volver');
+                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Volver');
                                    
 
                               }

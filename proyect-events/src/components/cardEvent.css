@@ -125,3 +125,21 @@
 
      display:none;
 }
+
+.asistent-number {
+
+     width: 90%;
+     height: 90%;
+     position: absolute;
+     bottom: 5px;
+     flex-direction: row;
+
+
+}
+
+.asistent-number img {
+     position: absolute;
+     z-index: 1;
+     width: 100%;
+
+}

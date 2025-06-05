@@ -133,17 +133,30 @@ export const createEvent = async (e, route) => {
 
 export const eventsUser = async (e, route) => {
 
-     await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEvent });
+   const events =  await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEvent });
      
    
-     
+    console.log(events); 
  
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
 
-     const eventsUser = document.querySelectorAll('.event-card');
+     const eventsUserCar = document.querySelectorAll('.event-card');
 
-   
+     events.forEach((event, index) => {
+          
+          const eventCard = eventsUserCar[index]; 
+
+          if (!eventCard) return;
+
+          const asistentNumber = document.createElement('div');
+          asistentNumber.classList.add('flex-container', 'asistent-number');
+
+               asistentNumber.innerHTML = `<div class= "flex-container"><span><i class="bi bi-people-fill"></i></span><span>${event.totalReservedPlaces} asistentes de ${event.maxCapacity}</span></div>`;
+         
+
+          eventCard.appendChild(asistentNumber);
+     });
   
 
 

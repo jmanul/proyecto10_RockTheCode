@@ -3,7 +3,9 @@ import { createLayout } from "../components/layout";
 import { initHomeMenu } from "../utils/logic/init";
 import { createTitle } from "../components/title";
 import { createList } from "../components/list";
-import { typesEventsRoutes } from "../utils/routes/routes";
+import { adminRoutes, typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { navigate } from "../utils/logic/navigate";
+
 
 
 export const renderHomePage = async () => {
@@ -53,17 +55,49 @@ export const renderHomePage = async () => {
           const textEvents = document.querySelector('.text-events');
           const pasesSection = document.querySelector('.div-passes');
           const textPasses = document.querySelector('.text-passes');
+          const pasesGridSection = document.querySelector('.div-grid-passes');
+          const textGridPasses = document.querySelector('.text-grid-passes');
+
 
           // Validar que las secciones existan
-          if (!eventsSection || !textEvents || !pasesSection || !textPasses) {
+          if (!eventsSection || !textEvents || !pasesSection || !textPasses || !pasesGridSection || !textGridPasses) {
                throw new Error("No se encontraron todas las secciones necesarias en el DOM.");
           }
 
           // Actualizar contenido de las secciones
-          textEvents.innerHTML = `<h2>Aquí encontrarás eventos disponibles</h2>`;
-          textPasses.innerHTML = `<h2>Descúbrelos o Créalos!!</h2>`;
+          textEvents.innerHTML = `<h2>Descubre eventos disponibles</h2>`;
+          textPasses.innerHTML = `<h2>Tus eventos</h2>`;
+          textGridPasses.innerHTML = `<h2>Nuevo evento</h2>`;
           eventsSection.innerHTML = `<img src="/assets/peoples-fest.webp" alt="art-home-image">`;
           pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
+          pasesGridSection.innerHTML = `<img src="/assets/passes-grid-home.webp" alt="peoples-home-image">`;  
+          
+          let routesGrid = [];
+          
+          if (user.roll === 'user') {
+               
+                routesGrid = userRoutes
+          } else { routesGrid = adminRoutes };
+          
+          const gridEvents = document.getElementById('events-section');
+          
+          gridEvents.addEventListener('click', (e) => {
+               
+               navigate(e, routesGrid[1])
+          })
+          
+          const gridEventsUser = document.getElementById('info-section');
+
+          gridEventsUser.addEventListener('click', (e) => {
+               navigate(e, userEventsRoutes[1])
+          })
+
+          const gridNewEvent = document.getElementById('info-grid-section');
+
+          gridNewEvent.addEventListener('click', (e) => {
+               
+               navigate(e, userEventsRoutes[0])
+          })
 
      } catch (error) {
 

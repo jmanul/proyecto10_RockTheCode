@@ -1,23 +1,18 @@
-.grid-events,
-.div-passes {
-
-     height: min-content;
-    
-}
 
 
-.grid-events > img,
-.div-passes > img {
+.grid-events  img,
+.div-passes  img,
+.div-grid-passes  img {
 
      width: 100%;
      aspect-ratio: 16 / 16;
-     height: min-content;
      border-radius: var(--border-radius-small);
 }
 
 
 .text-events,
-.text-passes {
+.text-passes,
+.text-grid-passes {
 
      box-shadow: var(--box-shadow);
      border-radius: var(--border-radius-small);
@@ -28,7 +23,8 @@
 }
 
 .text-events h2,
-.text-passes h2 {
+.text-passes h2,
+.text-grid-passes h2 {
      
      padding: var(--spacing-medium) ;
      box-shadow: var(--box-shadow);

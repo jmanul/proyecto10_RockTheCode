@@ -24,7 +24,7 @@
 
 
 .select-card {
-
+    
      backdrop-filter: blur(90px);
      background-color: var(--background-color-transparent);
      color: var(--text-color);
@@ -74,4 +74,34 @@
 .icon-row i {
      color: var(--color-icon);
      font-size: 1.5rem;
+     background:var(--background-gradient-radial-3);
+     border-radius:999%;
+     width: auto;
+     height: auto;
+     padding: 0 6px;
+     border: 1px solid var(--background-color-transparent)
+}
+
+.action-container {
+     width: 100%;
+     position: relative;
+     flex-direction: row;
+     background:var(--background-color-transparent);
+     padding: var(--spacing-small);
+     border-radius:var(--border-radius-small)
+}
+
+button i {
+
+   font-size: 2rem;
+   color: var(--text-color);
+   
+}
+
+.action-container button {
+
+     /* background:var(--background-gradient-radial-3); */
+     padding: 5px 10px;
+     width:25%;
+     
 }

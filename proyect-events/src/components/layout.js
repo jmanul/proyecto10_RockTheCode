@@ -14,16 +14,22 @@ export const createLayout = () => {
      main.innerHTML = "";
    
      const gridMain = document.createElement('div');
-     gridMain.classList.add('grid-main');
+     gridMain.classList.add('grid-main', 'flex-container');
    
-     gridMain.innerHTML = `<section id= "events-section" class="events-section, flex-container">
+     gridMain.innerHTML = `<section id= "events-section" class="events-section flex-container">
     <div class="text-events"></div>
   <div class="grid-events flex-container"></div>
 </section>
-<section id= "info-section" class="info-section, flex-container">
+<section id= "info-section" class="info-section flex-container">
   <div class="text-passes"></div>
   <div class="div-passes flex-container"></div>
-</section>`;
+</section>
+<section id= "info-grid-section" class="info-grid-section flex-container">
+  <div class="text-grid-passes"></div>
+  <div class="div-grid-passes flex-container"></div>
+</section>
+
+`;
      
      main.appendChild(gridMain);
      const footer = document.querySelector('footer');

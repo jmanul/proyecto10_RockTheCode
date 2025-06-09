@@ -31,7 +31,7 @@
   --border-radius-big: 16px;
   --border-radius-small: 8px;
   --background-gradient-radial-1: radial-gradient(circle, rgba(189, 52, 254, 0.4318102240896359) 0%, rgba(0, 255, 204, 1) 100%);
-  --background-gradient-radial-2: radial-gradient(circle, rgba(13, 12, 13, 1) 0%, rgba(189, 52, 254, 1) 100%);
+  --background-gradient-radial-2: radial-gradient(circle, rgba(13, 12, 13, 1) 0%, rgba(189, 52, 254, 1) 100%);  
   --font-regular: "Lilita One",
     sans-serif;
   --font-italic: "Caveat", cursive;
@@ -62,6 +62,7 @@
   --background-color: var(--dark-gray);
   --background-color-transparent: rgba(0, 0, 0, 0.637);
   --background-color-transparent-color: rgba(51, 22, 49, 0.849);
+  --background-gradient-radial-3: radial-gradient(circle, rgb(51, 22, 49) 100%, rgba(190, 52, 254, 0.014) 90%);
   --text-color: var(--light-gray-slow);
   --color-icon: var(--neon-cyan);
   --box-shadow: var(--box-shadow-4);
@@ -76,6 +77,7 @@
   --background-color: var(--light-gray-slow);
   --background-color-transparent: #cfcdcd67;
   --background-color-transparent-color: #b1ebded3;
+  --background-gradient-radial-3: radial-gradient(circle, #b1ebded3 100%, rgba(190, 52, 254, 0.014) 90%);
   --text-color: var(--dark-gray);
   --color-icon: var(--black-matte);
   --box-shadow: var(--box-shadow-1);

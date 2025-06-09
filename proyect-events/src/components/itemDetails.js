@@ -12,10 +12,14 @@ export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataC
         </div>
       `;
 
-     dataContainer.innerHTML =  itemDetails(data, keyMapEvent);
-    const button = await actionButton(text, route, dataContainer);
+     dataContainer.innerHTML = itemDetails(data, keyMapEvent);
      
-     return button;
+     const actionContainer = document.createElement('div');
+     actionContainer.classList.add('flex-container', 'action-container');
+     dataContainer.appendChild(actionContainer);
+     await actionButton(text, route, actionContainer);
+     
+     return actionContainer;
 
 }
 
@@ -46,7 +50,8 @@ export const itemDetails = (data, keyMapEvent) => {
 export const actionButton = async (text, route, container) => {
 
      const button = document.createElement('button');
-     button.textContent = text;
+     button.innerHTML = `<span><i class="bi ${text}"></i></span>`;
+     button.classList.add(`button-${text}`);
      container.appendChild(button);
 
      button.addEventListener('click', async (e) => {

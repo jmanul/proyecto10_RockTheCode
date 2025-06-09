@@ -79,6 +79,8 @@ export const renderEvents = async (e, route, options = {}) => {
           gridMain.style.gridTemplateColumns = 'auto auto';
           const infoSection = document.getElementById('info-section');
           infoSection?.remove();
+          const infoGridSection = document.getElementById('info-grid-section');
+          infoGridSection?.remove();
 
           if (!eventsSection) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");

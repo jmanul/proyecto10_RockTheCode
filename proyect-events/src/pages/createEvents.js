@@ -6,7 +6,7 @@ import { eventsPage, renderEvents } from './events.js';
 import { createList } from '../components/list.js';
 import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
-import { renderItemDetails } from '../components/itemDetails.js';
+import { actionButton, renderItemDetails } from '../components/itemDetails.js';
 
 
 const eventFields = [
@@ -49,8 +49,9 @@ const eventFields = [
 
                return allowedTypes.includes(file.type) || 'El archivo debe ser una imagen (.jpg, .png, .webp).';
           }
-     },
-     { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true, min: 1 }
+     }
+     // ,
+     // { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true, min: 1 }
 ];
 
 
@@ -94,6 +95,13 @@ export const createEvent = async (e, route) => {
           // Seleccionar el contenedor de eventos
           const formNewEventContainer = document.querySelector('.grid-events');
           formNewEventContainer.style.scrollbarGutter = 'stable both-edges';
+          const gridMain = document.querySelector('.grid-main');
+          gridMain.style.gridTemplateColumns = 'auto auto';
+          const infoSection = document.getElementById('info-section');
+          infoSection?.remove();
+          const infoGridSection = document.getElementById('info-grid-section');
+          infoGridSection?.remove();
+          
           if (!formNewEventContainer) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
@@ -144,7 +152,7 @@ export const eventsUser = async (e, route) => {
      const eventsUserCar = document.querySelectorAll('.event-card');
 
      events.forEach((event, index) => {
-          
+
           const eventCard = eventsUserCar[index]; 
 
           if (!eventCard) return;
@@ -181,15 +189,18 @@ export const pageNewEvent = async (e, route, container, requestObject) => {
 }
 
 
-export const updateEvent = (e, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
-
-     console.log('actualizar evento');
+export const updateEvent = async(e, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
 
      const eventsRoute = { action: eventsPage, url: '/events' }
+     const passesRoute = { action: eventsPage, url: '/events' }
+     const postRoute = { action: eventsPage, url: '/events', icon: '' }
 
-      renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Editar');
+     const actionContainer = await renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'bi-pencil-fill');
+     
+     await actionButton('bi-ticket-detailed', passesRoute, actionContainer)
+     await actionButton('bi-x-circle-fill', postRoute, actionContainer)
 }
 
 
-
+//todo:modificar evento -> votones crear pases desde el evnto -> de modificar pases -> accediendo a los pases 
 

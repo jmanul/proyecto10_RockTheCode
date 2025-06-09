@@ -4,55 +4,81 @@
      margin-top: 200px;
      width: 100%;
      max-width: 1300px;
+     max-height: 150dvh;
      display: grid;
-     grid-template-rows: 2fr;
-     grid-template-columns: 2fr 1fr;
-     justify-items: center;
-          align-items: center;
-          justify-content: center;
-          align-content: center;
+     grid-template-columns: repeat(3, 1fr);
+     grid-template-rows: repeat(2, 1fr);
+     grid-template-areas:
+          "area1 area1 area2"
+          "area1 area1 area3";
+   
+     align-items: flex-start;
      gap: 8px;
-     padding: 0 var(--spacing-large);
+     padding: var(--spacing-large) var(--spacing-small) var(--spacing-little-bit) var(--spacing-small);
      border-top-left-radius: var(--border-radius-big);
      border-top-right-radius: var(--border-radius-big);
      background: var(--background-color-transparent);
      backdrop-filter: blur(50px);
-   
+
+}
+
+.events-section{
+     
+     grid-area: area1;
+}
+.info-section{
+
+     grid-area: area2;
+}
+.info-grid-section{
+
+     grid-area: area3;
 }
 
 .grid-main section {
-
+     cursor:pointer;
      width: 100%;
-     height: max-content;
+     height: 100%;
      padding: var(--spacing-little-bit);
-     margin: var(--spacing-large) 0;
-     margin-bottom: 100px;
      background: var(--background-gradient-radial-1);
      border-radius: var(--border-radius-big);
-     max-height: 100dvh;
      flex-wrap: nowrap;
      justify-content: flex-start;
+
+     &:hover {
+     
+               box-shadow: var(--hover-shadow);
+               border: 3px solid var(--neon-cyan);
+          }
 
 }
 
 .grid-events {
-     
-     min-height: 50dvh;
+
+     min-height: 40dvh;
      overflow-y: auto;
-          scroll-behavior: smooth;
-          scrollbar-width: thin;
-          scrollbar-color: var(--neon-magenta) transparent;
-          /* scrollbar-gutter: stable both-edges; */
+     scroll-behavior: smooth;
+     scrollbar-width: thin;
+     scrollbar-color: var(--neon-magenta) transparent;
+     /* scrollbar-gutter: stable both-edges; */
 }
 
-.grid-events,
-.div-passes {
 
-     
-     max-height: 100dvh;
+.grid-events,
+.div-passes,
+.div-grid-passes {
+
      flex-wrap: nowrap;
      justify-content: flex-start;
 
+}
 
+.grid-events img,
+.div-passes img,
+.div-grid-passes img {
+
+     
+     height: auto;
+     
 
 }

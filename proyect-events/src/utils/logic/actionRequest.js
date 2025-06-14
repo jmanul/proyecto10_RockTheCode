@@ -1,13 +1,15 @@
 
 
+import { createMessage } from "../../components/message";
 import { navigate } from "./navigate";
 import { processForm } from "./processForm";
 
 
 
 export const actionRequest = async (form, builder, route, method, renderFunction, container, ...rest) => {
-
-    await form.addEventListener('submit', async (e) => {
+     console.log(builder, 'builder');
+     console.log(form, 'form');
+     form.addEventListener('submit', async (e) => {
 
          e.preventDefault();
 
@@ -15,11 +17,23 @@ export const actionRequest = async (form, builder, route, method, renderFunction
          const isValid = builder ? builder.validateAllFields() : form.checkValidity();
 
          if (!isValid) {
-              console.warn('Formulario inválido. Corrige los errores antes de enviar.');
+              createMessage('Formulario inválido. Corrige los errores antes de enviar.', 'alert-action');
               return;
          }
+     
 
           try {
+
+               if (method === 'PUT') {
+                    
+                    // eliminamos del fromulario los campos que no han sido modificados
+                    const changedData = builder.getChangedFields();
+
+                    for (const key in changedData) {
+                         form.append(key, changedData[key]);
+                    }
+                  
+               }
 
                const request = await processForm(form, route, method, container);
 
@@ -31,10 +45,11 @@ export const actionRequest = async (form, builder, route, method, renderFunction
                     return request;
                }
 
-               console.error("Error: Respuesta inválida del servidor.");
+               createMessage("Error: Respuesta inválida del servidor.");
 
           } catch (error) {
-               console.error("Error :", error);
+
+               createMessage("Error :", error);
           }
      });
 }

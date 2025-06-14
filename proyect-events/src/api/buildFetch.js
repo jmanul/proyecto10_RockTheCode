@@ -1,14 +1,14 @@
 import { createMessage } from "../components/message";
 import { createSpinner, hideSpinner, showSpinner } from "../components/spinner";
 
-const appContainer = document.getElementById('app');
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const spinner = createSpinner();
-appContainer.appendChild(spinner);
+document.body.appendChild(spinner);
 
 export const buildFetchJson = async ({ route, method = "GET", bodyData = null, container }) => {
      try {
-          showSpinner(spinner);
+
+          showSpinner(spinner);    
 
           const options = {
                method,

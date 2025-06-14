@@ -3,7 +3,7 @@ import { createLayout } from "../components/layout";
 import { initHomeMenu } from "../utils/logic/init";
 import { createTitle } from "../components/title";
 import { createList } from "../components/list";
-import { adminRoutes, typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { navigate } from "../utils/logic/navigate";
 
 
@@ -72,18 +72,11 @@ export const renderHomePage = async () => {
           pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
           pasesGridSection.innerHTML = `<img src="/assets/passes-grid-home.webp" alt="peoples-home-image">`;  
           
-          let routesGrid = [];
-          
-          if (user.roll === 'user') {
-               
-                routesGrid = userRoutes
-          } else { routesGrid = adminRoutes };
-          
           const gridEvents = document.getElementById('events-section');
           
           gridEvents.addEventListener('click', (e) => {
                
-               navigate(e, routesGrid[1])
+               navigate(e, userRoutes[1])
           })
           
           const gridEventsUser = document.getElementById('info-section');

@@ -363,7 +363,8 @@ export const  createSpinner = () => {
 export const showSpinner = (spinnerContainer) => {
 	if (spinnerContainer) {
 		
-          spinnerContainer.style.display = 'flex';
+		spinnerContainer.style.display = 'flex';
+		
           
      }
 }
@@ -372,7 +373,8 @@ export const showSpinner = (spinnerContainer) => {
 export const hideSpinner = (spinnerContainer) => {
 	if (spinnerContainer) {
 		
-          spinnerContainer.style.display = 'none';
+		spinnerContainer.style.display = 'none';
+		
          
      }
 }

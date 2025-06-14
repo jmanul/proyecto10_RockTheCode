@@ -9,7 +9,7 @@ export class FormBuilder {
           this.form.id = formName;
      }
 
-    async createForm(existingValues = {}) {
+     async createForm(existingValues = {}) {
           this.fields.forEach((field) => {
                const div = document.createElement('div');
                div.classList.add('form-group', 'flex-container');
@@ -34,9 +34,25 @@ export class FormBuilder {
                          option.textContent = opt;
                          input.appendChild(option);
                     });
+
                } else if (field.type === 'textarea') {
                     input = document.createElement('textarea');
                     input.rows = 4;
+
+               } else if (field.type === 'file') {
+                    input = document.createElement('input');
+                    input.type = 'file';
+                    input.classList.add('file-Input');
+
+                    if (existingValues[field.name] && this.isImage(existingValues[field.name])) {
+                         const imagePreview = document.createElement('img');
+                         imagePreview.src = existingValues[field.name];
+                         imagePreview.alt = 'Archivo actual';
+                         imagePreview.classList.add('preview-img');
+                         div.appendChild(imagePreview);
+                         div.classList.add('group-file');
+                    }
+
                } else {
                     input = document.createElement('input');
                     input.type = field.type;
@@ -48,8 +64,20 @@ export class FormBuilder {
                if (field.min !== undefined) input.min = field.min;
                if (field.max !== undefined) input.max = field.max;
 
-               if (existingValues[field.name] && field.type !== 'file') {
-                    input.value = existingValues[field.name];
+               // Asignar valor existente si no es archivo
+               if (field.type !== 'file' && existingValues[field.name] !== undefined) {
+                    if (field.type === 'datetime-local') {
+                         const rawDate = new Date(existingValues[field.name]);
+                         if (!isNaN(rawDate.getTime())) {
+                              const formattedDate = rawDate.toISOString().slice(0, 16);
+
+                              input.value = formattedDate;
+                              input.dataset.originalValue = formattedDate;
+                         }
+                    } else {
+                         input.value = existingValues[field.name];
+                         input.dataset.originalValue = existingValues[field.name];
+                    }
                }
 
                const errorSpan = document.createElement('span');
@@ -74,6 +102,7 @@ export class FormBuilder {
 
           return this.form;
      }
+
 
      validateField(input, field, errorSpan) {
           input.classList.remove('error');
@@ -111,6 +140,45 @@ export class FormBuilder {
           });
 
           return isValid;
+
+     }
+
+     getChangedFields() {
+          const changedFields = {};
+          const inputs = this.form.querySelectorAll('input, select, textarea');
+
+          inputs.forEach(input => {
+               // Ignorar campos deshabilitados o sin nombre
+               if (!input.name || input.disabled) return;
+
+               const originalValue = input.dataset.originalValue;
+               let currentValue;
+
+               if (input.type === 'file') {
+                    if (input.files.length > 0) {
+                         changedFields[input.name] = input.files[0]; // archivo nuevo
+                    }
+                    return; // los archivos no tienen valor original
+               }
+
+               if (input.type === 'checkbox' || input.type === 'radio') {
+                    currentValue = input.checked.toString();
+               } else {
+                    currentValue = input.value;
+               }
+
+               // Si no hay valor original, o ha cambiado
+               if (originalValue === undefined || currentValue !== originalValue) {
+                    changedFields[input.name] = currentValue;
+               }
+          });
+
+          return changedFields;
+     }
+
+
+     isImage(url) {
+          return /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(url);
      }
 }
 

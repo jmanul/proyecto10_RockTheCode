@@ -2,14 +2,14 @@ import './createEvents.css';
 import { FormBuilder } from '../components/form.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { createLayout } from '../components/layout.js';
-import { eventsPage, renderEvents } from './events.js';
+import { renderEvents } from './events.js';
 import { createList } from '../components/list.js';
 import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
-import { actionButton, renderItemDetails } from '../components/itemDetails.js';
+import { updateEventPage } from './updateEvent.js';
 
 
-const eventFields = [
+export const eventFields = [
      { name: 'name', type: 'text', placeholder: 'Nombre del evento', required: true },
      { name: 'type', type: 'select', placeholder: 'Tipo de evento', required: false, options: ['musica', 'deporte', 'fiesta', 'formación', 'arte', 'gastronomía', 'tecnología', 'otros'] },
      { name: 'location', type: 'text', placeholder: 'Lugar', required: true },
@@ -90,8 +90,16 @@ export const createEventsPage = async (e, route) => {
 
 export const createEvent = async (e, route) => {
 
-     try {
+     
+     await newEventPage(e, route, 'POST', 'Crear','Nuevo evento')
+};
 
+
+
+export const newEventPage = async (e, route, method, text, title, existingValues = {} ) => {
+
+     try {
+           
           // Seleccionar el contenedor de eventos
           const formNewEventContainer = document.querySelector('.grid-events');
           formNewEventContainer.style.scrollbarGutter = 'stable both-edges';
@@ -112,23 +120,24 @@ export const createEvent = async (e, route) => {
                throw new Error("No se encontró el contenedor de texto (.text-events).");
           }
 
-          textNewEvents.innerHTML = `<h2> Nuevo evento </h2>`;
+          textNewEvents.innerHTML = `<h2>${title}</h2>`;
           formNewEventContainer.innerHTML = '';
 
-
-
           // Crear el formulario para la creación de un nuevo evento
-          const builder = new FormBuilder(eventFields, 'Crear');
-          const formNewEvent = await builder.createForm();
+          const builder = new FormBuilder(eventFields, text);
+          const formNewEvent = await builder.createForm(existingValues);
+          
 
           if (!formNewEvent) {
                throw new Error("No se pudo crear el formulario para el nuevo evento");
           }
-
+      
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
+        
+          const newEvent = actionRequest(formNewEvent, builder, route, method, renderNewEvent, formNewEventContainer, textNewEvents);
 
-          const newEvent = await actionRequest(formNewEvent, builder, route, 'POST', pageNewEvent, formNewEventContainer, textNewEvents);
+         
 
      } catch (error) {
           console.error("Error en renderEvents:", error);
@@ -141,10 +150,7 @@ export const createEvent = async (e, route) => {
 
 export const eventsUser = async (e, route) => {
 
-   const events =  await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEvent });
-     
-   
-    console.log(events); 
+   const events =  await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
  
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
@@ -170,13 +176,13 @@ export const eventsUser = async (e, route) => {
 
 };
 
-export const pageNewEvent = async (e, route, container, requestObject) => {
+export const renderNewEvent = async (e, route, container, requestObject) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
-
+     console.log(requestObject, 'actualizar objeto');
      const { request } = requestObject;
-     const newEventCreated = request.newEvent
-
+     const newEventCreated = request.event
+    
      // Seleccionar el contenedor de eventos y creamos la card del evento para mostrarlo
 
      const cardEvent = createEventsCard(newEventCreated);
@@ -188,19 +194,4 @@ export const pageNewEvent = async (e, route, container, requestObject) => {
 
 }
 
-
-export const updateEvent = async(e, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
-
-     const eventsRoute = { action: eventsPage, url: '/events' }
-     const passesRoute = { action: eventsPage, url: '/events' }
-     const postRoute = { action: eventsPage, url: '/events', icon: '' }
-
-     const actionContainer = await renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'bi-pencil-fill');
-     
-     await actionButton('bi-ticket-detailed', passesRoute, actionContainer)
-     await actionButton('bi-x-circle-fill', postRoute, actionContainer)
-}
-
-
-//todo:modificar evento -> votones crear pases desde el evnto -> de modificar pases -> accediendo a los pases 
 

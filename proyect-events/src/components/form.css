@@ -29,8 +29,9 @@
 }
 
 .form-group input {
-
+   cursor: pointer;
   width: 100%;
+ 
 }
 
 .create-form .form-group label {
@@ -96,3 +97,26 @@ select.error {
     transform: translateX(0);
   }
 }
+
+form .preview-img{
+ 
+  
+  height: auto;
+  width:5rem;
+ 
+  right: -5rem;
+  
+}
+
+form .file-Input {
+
+  height: 5rem;
+
+  /* background: transparent;
+  border: none ; */
+}
+
+/* form .group-file {
+
+ 
+} */

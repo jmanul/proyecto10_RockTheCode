@@ -1,5 +1,6 @@
 
-export const navigate = (e, route, ...rest) => {
+
+export const navigate = async (e, route, ...rest) => {
     
      e.preventDefault();
       
@@ -8,8 +9,10 @@ export const navigate = (e, route, ...rest) => {
      if (route.action) {
 
           // añado rest y route como opcion para las funciones que necesiten otros params
+          
+          await route.action(e, route.url, ...(rest || []), route);
 
-          route.action(e, route.url, ...(rest || []), route);
+          
      }
 
 };

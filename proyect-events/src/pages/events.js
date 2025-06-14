@@ -140,8 +140,9 @@ export const renderEvents = async (e, route, options = {}) => {
                     // Añadir el evento de clic a la tarjeta
                     eventCard.addEventListener('click', (e) => {
                          if (onCardClick) {
-                              onCardClick(e, extendedEvent, keyMapEvent, textEvents, eventsSection, event); 
+                              onCardClick(e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event); 
                          } else {
+                              
                               navigate(e, eventRoute);
 
                               if (new Date(event.endDate) > new Date()) {

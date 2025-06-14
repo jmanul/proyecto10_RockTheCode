@@ -1,4 +1,7 @@
+#app{
 
+     position: relative;
+}
 #spinner-container {
      position: fixed;
      top: 0;

@@ -1,6 +1,6 @@
 import './message.css';
 
-export const createMessage = (text, optionClassResponse, container = null) => {
+export const createMessage = (text, optionClassResponse = null, container = null) => {
 
      const appContainer = document.getElementById('app');
      

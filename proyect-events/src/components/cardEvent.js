@@ -2,7 +2,7 @@
 import './cardEvent.css';
 
 export function createEventsCard(event) {
-    
+     
      const card = document.createElement('div');
      card.classList.add('event-card', 'flex-container');
      card.style.setProperty('--bg-url', `url(${event.image})`);

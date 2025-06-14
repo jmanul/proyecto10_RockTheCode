@@ -1,7 +1,7 @@
 
 import { navigate } from '../utils/logic/navigate';
 import './itemDetails.css'
-export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route = null, text) => {
+export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route , text,...rest) => {
 
      titleContainer.innerHTML = `
         <div class="flex-container select-title">
@@ -17,7 +17,7 @@ export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataC
      const actionContainer = document.createElement('div');
      actionContainer.classList.add('flex-container', 'action-container');
      dataContainer.appendChild(actionContainer);
-     await actionButton(text, route, actionContainer);
+     await actionButton(text, route, actionContainer,...rest);
      
      return actionContainer;
 
@@ -47,10 +47,18 @@ export const itemDetails = (data, keyMapEvent) => {
      return html;
 };
 
-export const actionButton = async (text, route, container) => {
+export const actionButton = async (text, route, container, icon = null) => {
 
      const button = document.createElement('button');
-     button.innerHTML = `<span><i class="bi ${text}"></i></span>`;
+     if (!icon || icon === null) {
+          
+          button.textContent = text;
+
+     } else {
+
+          button.innerHTML = `<span><i class="bi ${icon}"></i></span>`;
+     }
+    
      button.classList.add(`button-${text}`);
      container.appendChild(button);
 

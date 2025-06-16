@@ -168,6 +168,8 @@ export const renderEvents = async (e, route, options = {}) => {
                textEvents.innerHTML = `<h2>Encontrados ${numberEvents} resultados en ${nameEvent}</h2>`;
           }
 
+          // efectScroll(eventsSection,eventsContainer);
+
           // Añadir el contenedor de eventos al DOM
           eventsSection.appendChild(eventsContainer);
           return events;
@@ -176,6 +178,49 @@ export const renderEvents = async (e, route, options = {}) => {
           eventsSection.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
      }
 };
+
+// export const efectScroll = (scrollContainer, cardsContainer) => {
+
+//      document.addEventListener('DOMContentLoaded', () => {
+         
+//           // Asegúrate de que el contenedor existe
+//           if (!scrollContainer) {
+//                console.warn('El contenedor .grid-events no fue encontrado.');
+//                return;
+//           }
+
+//           // 2. Selecciona todas las cards dentro de .events-container
+//           const Cards = cardsContainer.querySelectorAll('.events-container .event-card');
+
+//           // 3. Define las opciones para el Intersection Observer
+//           const observerOptions = {
+//                root: scrollContainer, // El contenedor de scroll es nuestro "viewport"
+//                rootMargin: '0px',     // Sin margen adicional
+//                threshold: 0.5         // Cuando el 20% del elemento sea visible
+//           };
+
+//           // 4. Crea la función callback para el observador
+//           const cardObserver = new IntersectionObserver((entries, observer) => {
+//                entries.forEach(entry => {
+//                     if (entry.isIntersecting) {
+//                          // Si la card es visible, añádele la clase 'is-visible'
+//                          entry.target.classList.add('is-visible');
+//                          // Deja de observar la card una vez que ya se ha animado
+//                          observer.unobserve(entry.target);
+//                     }
+//                     // Si quieres que se desvanezca al salir (opcional, si el efecto es ir y venir)
+//                     // else {
+//                     //     entry.target.classList.remove('is-visible');
+//                     // }
+//                });
+//           }, observerOptions);
+
+//           // 5. Observa cada card
+//           Cards.forEach(card => {
+//                cardObserver.observe(card);
+//           });
+//      });
+// }
 
 
 

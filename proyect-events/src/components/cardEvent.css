@@ -14,13 +14,48 @@
      gap: 0;
      cursor:pointer;
 
+     opacity: 0;
+     transform: translateY(30px);
+     animation-name: card-appear-bounce-animation;
+     animation-timeline: view(block);
+     animation-range: entry 0% cover 50%;
+     animation-fill-mode: forwards;
+  
      &:hover {
 
           box-shadow: var(--hover-shadow);
           border: 3px solid var(--neon-cyan);
+          
+            
      }
 }
 
+
+@keyframes card-appear-bounce-animation {
+     0% {
+          opacity: 0;
+          transform: translateY(150px);
+          /* Mucho más abajo al inicio */
+     }  
+     
+     25% {
+          opacity: 0;
+          transform: translateY(120px);
+          /* Mucho más abajo al inicio */
+     }  
+
+     75% {
+          opacity: 1;
+          transform: translateY(0);
+          /* Sobrepasa ligeramente la posición final */
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateY(0);
+          /* Vuelve a la posición final estable */
+     }
+}
 
 .event-card::before {
      content: "";

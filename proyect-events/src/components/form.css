@@ -11,12 +11,7 @@
   flex-direction: row;
   flex-wrap: wrap;
 
-  /* 
-    [data-theme="dark"] & {
-
-        background-color: var(--black-matte);
-        
-      } */
+  
 }
 
 .form-group {
@@ -41,7 +36,7 @@
 
 .button-form {
 
-
+  flex-direction: row;
   width: 100%;
 }
 
@@ -103,8 +98,6 @@ form .preview-img{
   
   height: auto;
   width:5rem;
- 
-  right: -5rem;
   
 }
 
@@ -112,11 +105,5 @@ form .file-Input {
 
   height: 5rem;
 
-  /* background: transparent;
-  border: none ; */
 }
 
-/* form .group-file {
-
- 
-} */

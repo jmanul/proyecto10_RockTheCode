@@ -73,6 +73,7 @@ export const renderHomePage = async () => {
           pasesGridSection.innerHTML = `<img src="/assets/passes-grid-home.webp" alt="peoples-home-image">`;  
           
           const gridEvents = document.getElementById('events-section');
+          gridEvents.classList.add('home-hover');
           
           gridEvents.addEventListener('click', (e) => {
                
@@ -80,13 +81,13 @@ export const renderHomePage = async () => {
           })
           
           const gridEventsUser = document.getElementById('info-section');
-
+          gridEventsUser.classList.add('home-hover');
           gridEventsUser.addEventListener('click', (e) => {
                navigate(e, userEventsRoutes[1])
           })
 
           const gridNewEvent = document.getElementById('info-grid-section');
-
+          gridNewEvent.classList.add('home-hover');
           gridNewEvent.addEventListener('click', (e) => {
                
                navigate(e, userEventsRoutes[0])

@@ -42,3 +42,8 @@
 
      flex-direction: row;
 }
+
+.error-message{
+
+     position: absolute;
+}

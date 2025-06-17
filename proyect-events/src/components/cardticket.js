@@ -3,6 +3,7 @@ import { actionButton } from "./itemDetails";
 import './cardTicket.css';
 import { dateFormat } from "../utils/logic/dateFormat";
 import { printTicket } from "../utils/logic/printTicket";
+import { userRoutes } from "../utils/routes/routes";
 
 export const cardTicket = async (request, ticket) => {
 
@@ -16,7 +17,7 @@ export const cardTicket = async (request, ticket) => {
 
      // Crear el contenedor del ticket
      const ticketContainer = document.createElement('div');
-     ticketContainer.classList.add('select-card', 'flex-container', 'ticket-container')
+  ticketContainer.classList.add('select-card', 'flex-container', 'action-container')
 
      ticketContainer.innerHTML = `<div class="event-ticket select-card">
   <div class="ticket-image-container"  style="background-image: url(${event.image})">
@@ -49,7 +50,8 @@ export const cardTicket = async (request, ticket) => {
 
      // Crear el botón de acción
 
-     const button = await actionButton('Descargar', ticketRoute, ticketContainer);
+  const button = await actionButton('Descargar', ticketRoute, ticketContainer);
+   const buttonExit = await actionButton('volver', userRoutes[1], ticketContainer);
 
 
      return ticketContainer;

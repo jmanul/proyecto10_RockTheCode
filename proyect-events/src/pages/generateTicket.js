@@ -1,5 +1,7 @@
 import { buildFetchJson } from "../api/buildFetch";
 import { cardTicket } from "../components/cardticket";
+import { actionButton } from "../components/itemDetails";
+import { userRoutes } from "../utils/routes/routes";
 import "./generateTicket.css"
 
 
@@ -7,18 +9,22 @@ export const generateTicket = async (e, route) => {
 
      // Seleccionar el contenedor de eventos
      const eventsSection = document.querySelector('.grid-events');
+
      eventsSection.style.scrollbarGutter = 'stable both-edges';
 
      // añadir las entradas del evento y generar los tickets
      const request = await buildFetchJson({ route: route.url, method: 'PUT', bodyData: { reservedPlaces: route.reservedPlaces } });
 
      await renderTicket(request, eventsSection)
-    
+
 
 };
 
 export const renderTicket = async (request, container) => {
+    
      try {
+
+         
           // Si no hay tickets salimos
           if (!request.ticket) {
                console.warn("No se encontraron tickets en la solicitud.");
@@ -28,7 +34,7 @@ export const renderTicket = async (request, container) => {
           // asegurarse de que siempre sea un array para poder usar cualquier respuesta 
           const tickets = Array.isArray(request.ticket) ? request.ticket : [request.ticket];
 
-          
+
           container.innerHTML = '';
 
           // Iterar sobre los tickets y renderizar cada uno
@@ -49,7 +55,12 @@ export const renderTicket = async (request, container) => {
 
      } catch (error) {
           console.error("Error en renderTicket:", error);
-          container.innerHTML = "<p>Ocurrió un error al cargar los tickets.</p>";
+          container.innerHTML = `<p>Ocurrió un error al cargar los tickets.</p>`;
+
+         
+          const button = await actionButton('volver', userRoutes[1], container);
+
+          button.style.backgroundColor = 'red'
           return container;
      }
 };

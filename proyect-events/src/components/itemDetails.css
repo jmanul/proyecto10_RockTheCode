@@ -101,7 +101,8 @@ button i {
 .action-container button {
 
      /* background:var(--background-gradient-radial-3); */
-     padding: 5px 10px;
-     width:25%;
+     padding: 5px 15px;
+     width:7rem;
+     height: 3rem;
      
 }

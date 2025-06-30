@@ -5,6 +5,8 @@ import { createTitle } from "../components/title";
 import { createList } from "../components/list";
 import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { navigate } from "../utils/logic/navigate";
+import { eventsPage } from "./events";
+import { createEventsPage, eventsUser } from "./createEvents";
 
 
 
@@ -72,26 +74,38 @@ export const renderHomePage = async () => {
           pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
           pasesGridSection.innerHTML = `<img src="/assets/passes-grid-home.webp" alt="peoples-home-image">`;  
           
-          const gridEvents = document.getElementById('events-section');
-          gridEvents.classList.add('home-hover');
-          
-          gridEvents.addEventListener('click', (e) => {
-               
+          eventsSection.classList.add('home-hover');
+
+          const actionHomeinit = (e) => {
+             
+               eventsSection.classList.remove('home-hover');
                navigate(e, userRoutes[1])
-          })
+          };
+
+          
+          
+          eventsSection.addEventListener('click',actionHomeinit);
           
           const gridEventsUser = document.getElementById('info-section');
           gridEventsUser.classList.add('home-hover');
+
           gridEventsUser.addEventListener('click', (e) => {
+               eventsSection.removeEventListener('click', actionHomeinit);
+               eventsSection.classList.remove('home-hover');
                navigate(e, userEventsRoutes[1])
-          })
+          });
 
           const gridNewEvent = document.getElementById('info-grid-section');
           gridNewEvent.classList.add('home-hover');
+
           gridNewEvent.addEventListener('click', (e) => {
-               
-               navigate(e, userEventsRoutes[0])
-          })
+
+               eventsSection.removeEventListener('click', actionHomeinit);
+               eventsSection.classList.remove('home-hover');
+               navigate(e, userEventsRoutes[0]);
+          });
+
+        
 
      } catch (error) {
 

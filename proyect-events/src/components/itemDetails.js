@@ -2,6 +2,7 @@
 import { navigate } from '../utils/logic/navigate';
 import { userRoutes } from '../utils/routes/routes';
 import './itemDetails.css'
+
 export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route , text,...rest) => {
 
      titleContainer.innerHTML = `
@@ -19,7 +20,13 @@ export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataC
      actionContainer.classList.add('flex-container', 'action-container');
      dataContainer.appendChild(actionContainer);
      await actionButton(text, route, actionContainer, ...rest);
-     await actionButton('Volver', userRoutes[1], actionContainer)
+     const returnButton = document.querySelector('.button-volver');
+     
+     if (!returnButton) {
+          
+          await actionButton('Volver', userRoutes[1], actionContainer);
+     }
+    
      
      return actionContainer;
 
@@ -61,7 +68,7 @@ export const actionButton = async (text, route, container, icon = null) => {
           button.innerHTML = `<span><i class="bi ${icon}"></i></span>`;
      }
     
-     button.classList.add(`button-${text.toLowerCase()}`);
+     button.classList.add(`button-${text.toLowerCase()}`, 'button-action');
      container.appendChild(button);
 
      button.addEventListener('click', async (e) => {

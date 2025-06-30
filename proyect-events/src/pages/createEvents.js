@@ -7,6 +7,7 @@ import { createList } from '../components/list.js';
 import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
 import { updateEventPage } from './updateEvent.js';
+import { actionButton } from '../components/itemDetails.js';
 
 
 export const eventFields = [
@@ -16,13 +17,14 @@ export const eventFields = [
      { name: 'adress', type: 'text', placeholder: 'Dirección', required: true },
      { name: 'city', type: 'text', placeholder: 'Ciudad', required: true },
      { name: 'description', type: 'textarea', placeholder: 'Descripción', required: true },
-     { name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true,
-     min: (() => {
-          const now = new Date();
-          now.setHours(now.getHours() + 1);
-          return now.toISOString().slice(0, 16);
-     })(),
-     validate: (value) => {
+     {
+          name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true,
+          min: (() => {
+               const now = new Date();
+               now.setHours(now.getHours() + 1);
+               return now.toISOString().slice(0, 16);
+          })(),
+          validate: (value) => {
                if (!value) return 'Debes seleccionar una fecha de inicio.';
 
                const selectedDate = new Date(value);
@@ -32,8 +34,9 @@ export const eventFields = [
                return selectedDate > now ? true : 'La fecha de inicio debe ser al menos 1 hora más tarde que la actual.';
           }
      }
-,
-     {name: 'endDate', type: 'datetime-local', placeholder: 'Fecha de fin', required: true, validate: (value, form) => {
+     ,
+     {
+          name: 'endDate', type: 'datetime-local', placeholder: 'Fecha de fin', required: true, validate: (value, form) => {
                const start = new Date(form.querySelector('[name="startDate"]').value);
                const end = new Date(value);
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
@@ -47,7 +50,7 @@ export const eventFields = [
                const file = inputElement.files[0];
                const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
 
-               return allowedTypes.includes(file.type) || 'El archivo debe ser una imagen (.jpg, .png, .webp).';
+               return allowedTypes.includes(file.type) || 'El archivo debe ser una imagen (.jpg, .png, .webp)';
           }
      }
      // ,
@@ -91,12 +94,12 @@ export const createEventsPage = async (e, route) => {
 export const createEvent = async (e, route) => {
 
      
-     await newEventPage(e, route, 'POST', 'Crear','Nuevo evento')
+     await newEventPage(e, route, 'POST', 'Crear', 'Nuevo evento', eventFields, renderNewEvent);
 };
 
 
 
-export const newEventPage = async (e, route, method, text, title, existingValues = {} ) => {
+export const newEventPage = async (e, route, method, text, title, fields, renderAction, existingValues = {} ) => {
 
      try {
            
@@ -124,7 +127,7 @@ export const newEventPage = async (e, route, method, text, title, existingValues
           formNewEventContainer.innerHTML = '';
 
           // Crear el formulario para la creación de un nuevo evento
-          const builder = new FormBuilder(eventFields, text);
+          const builder = new FormBuilder(fields, text);
           const formNewEvent = await builder.createForm(existingValues);
           
 
@@ -135,7 +138,7 @@ export const newEventPage = async (e, route, method, text, title, existingValues
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
         
-          const newEvent = actionRequest(formNewEvent, builder, route, method, renderNewEvent, formNewEventContainer, textNewEvents);
+          actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
 
          
 
@@ -179,7 +182,7 @@ export const eventsUser = async (e, route) => {
 export const renderNewEvent = async (e, route, container, requestObject) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
-     console.log(requestObject, 'actualizar objeto');
+
      const { request } = requestObject;
      const newEventCreated = request.event
     
@@ -190,6 +193,8 @@ export const renderNewEvent = async (e, route, container, requestObject) => {
      container.innerHTML = `<h2>Nuevo evento creado</h2>`;
      formNewEventContainer.innerHTML = '';
      formNewEventContainer.appendChild(cardEvent);
+
+      await actionButton('Volver', userEventsRoutes[1], formNewEventContainer)
 
 
 }

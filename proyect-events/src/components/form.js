@@ -2,11 +2,12 @@ import './form.css';
 
 export class FormBuilder {
      constructor(fields, formName) {
+          const name = formName.toLowerCase();
           this.fields = fields;
           this.formName = formName;
           this.form = document.createElement('form');
-          this.form.classList.add('create-form', formName, 'flex-container');
-          this.form.id = formName;
+          this.form.classList.add('create-form', name, 'flex-container');
+          this.form.id = name;
      }
 
      async createForm(existingValues = {}) {
@@ -92,7 +93,7 @@ export class FormBuilder {
           });
 
           const buttonContainer = document.createElement('div');
-          buttonContainer.classList.add('flex-container', `button-form-${this.formName}`, 'button-form');
+          buttonContainer.classList.add('flex-container', `button-form-${this.name}`, 'button-form');
           const submitBtn = document.createElement('button');
           submitBtn.type = 'submit';
           submitBtn.textContent = this.formName;

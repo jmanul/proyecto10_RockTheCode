@@ -19,116 +19,144 @@ const keyMapPass = {
 
 
 
-export const renderPasesPage = async (e, route) => {
+// Función para crear la tarjeta de un pase 
+export const createPassCard = (pass, showActions = true) => {
+     const passEndDate = new Date(pass.endDatePass);
+     const passStartDate = new Date(pass.startDatePass);
+
+     const extendedPass = {
+          ...pass,
+          startDateFormatted: dateFormat(passStartDate).date,
+          startTimeFormatted: dateFormat(passStartDate).time,
+          endDateFormatted: dateFormat(passEndDate).date
+     };
+
+     // Crear contenedor principal del pase
+     const passContainer = document.createElement('div');
+     passContainer.classList.add('select-card', 'flex-container');
+     //todo: haceer distintos estilos para vendido o caducado ------------------------------->
+     // Agregar clase adicional si no está disponible
+     if (!showActions) {
+          passContainer.classList.add('pass-unavailable');
+     }
+
+     passContainer.innerHTML = itemDetails(extendedPass, keyMapPass);
+
+
+     return passContainer;
+};
+
+
+export const renderPassesPage = async (e, route, routeObject) => {
      try {
-
-
-          // Obtener los pases desde el servidor
+          const validateUserEvent = routeObject.return.url.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
-
-          // Seleccionar el contenedor de eventos
           const eventsSection = document.querySelector('.grid-events');
+
           if (!eventsSection) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
 
           eventsSection.innerHTML = '';
 
-          // Verificar si hay pases disponibles
+          const returnButton = await actionButton('Volver', routeObject.return, eventsSection);
+          const notContent = document.createElement('p');
+          notContent.innerText = 'Actualmente no hay entradas disponibles';
+          notContent.classList.add('flex-container', 'not-content');
+
           if (!passes || passes.length === 0) {
-               eventsSection.innerHTML = "<p>No hay abonos disponibles.</p>";
-               return;
+               eventsSection.prepend(notContent);
+
           }
 
-          // Iterar sobre los pases
+          let hasAvailablePasses = false;
+          const nowDate = new Date();
+
           for (const pass of passes) {
                try {
-                    // Convertir fechas
                     const passEndDate = new Date(pass.endDatePass);
-                    const passStartDate = new Date(pass.startDatePass);
+                    const isPassAvailable = passEndDate > nowDate &&
+                         pass.totalReservedPlacesPass < pass.maxCapacityPass;
 
-                    const nowDate = new Date();
+                    // Mostrar el pase en cualquier caso, pero con diferente estilo
+                    const passCard = createPassCard(
+                         pass,
+                         isPassAvailable 
+                    );
 
-                    // Verificar que el pase aún esté activo
-                    if (passEndDate.getTime() > nowDate.getTime() && pass.totalReservedPlacesPass < pass.maxCapacityPass) {
+                    eventsSection.prepend(passCard);
 
-                         
-                         // Preparar datos adaptados para render
-                         const extendedPass = {
-                              ...pass,
-                              startDateFormatted: dateFormat(passStartDate).date,
-                              startTimeFormatted: dateFormat(passStartDate).time,
-                              endDateFormatted: dateFormat(passEndDate).date
-                         };
+                    // Configurar acciones solo si el pase está disponible y no se consulta en edicion
 
-                         // Crear el contenedor del pase
-                         const passContainer = document.createElement('div');
-                         passContainer.classList.add('select-card', 'flex-container')
-                         passContainer.innerHTML = itemDetails(extendedPass, keyMapPass);
-                         eventsSection.appendChild(passContainer);
+                    //todo: if validateUserEvent añadir accion de modificar entrada------------------------------->
+                    if (isPassAvailable && !validateUserEvent) {
 
-                         // Crear el botón de acción
                          const addPassesContainer = document.createElement('div');
                          addPassesContainer.classList.add('flex-container', 'add-passes-container');
-                         addPassesContainer.innerHTML = ` <div class:"flex-container quantity-group "><input 
-    id="quantity-ticket"                     
-    type="number" 
-    min="1" 
-    max="5" 
-    value="0"
-    class="number-tickets"
-    required
-  >   <span class="error-message" style="color: red; display: none;">
-    El valor debe estar entre 1 y 5
-  </span></div>`;
-                         const quantityInput = addPassesContainer.querySelector('.number-tickets');
-                         const errorMessage = addPassesContainer.querySelector('.error-message');
+                         addPassesContainer.innerHTML = `
+            <div class="flex-container quantity-group">
+                <input 
+                    id="quantity-ticket-${pass._id}"
+                    inputmode="numeric"                   
+                    type="number" 
+                    min="1" 
+                    max="5" 
+                    value="0"
+                    class="number-tickets"
+                    required
+                >
+                <span class="error-message">
+                    El valor debe estar entre 1 y 5
+                </span>
+            </div>`;
+
+                         passCard.appendChild(addPassesContainer);
+
+                         const quantityInput = passCard.querySelector('.number-tickets');
+                         const errorMessage = passCard.querySelector('.error-message');
+
                          const button = await actionButton('Añadir', route, addPassesContainer);
-                         const buttonExit = await actionButton('Cancelar', userRoutes[1], addPassesContainer);
-                         passContainer.appendChild(addPassesContainer);
-                         // Configurar la navegación al hacer clic en el botón
 
                          button.addEventListener('click', (e) => {
                               const quantity = parseInt(quantityInput.value);
                               if (quantity < 1 || quantity > 5) {
-                                  
-                                    errorMessage.style.display = 'block';
-                                    numberInput.value = 1; 
+                                   errorMessage.style.display = "block";
+                                   return;
                               }
-                               else {
-                                   errorMessage.style.display = 'none';
-                               }
+                              errorMessage.style.display = 'none';
                               const passRoute = {
                                    url: {
-                                        url: `/users/pass/${pass._id}`, reservedPlaces: quantity
-                                   }, action: generateTicket
+                                        url: `/users/pass/${pass._id}`,
+                                        reservedPlaces: quantity
+                                   },
+                                   action: generateTicket
                               };
                               navigate(e, passRoute);
                          });
+                    }
 
-                    } else {
-
-                         eventsSection.innerHTML = `<h3>Actualmente no hay entradas disponibles para este evento</h3> `;
-
-                         const button = await actionButton('volver', userRoutes[1], eventsSection);
-
-                         button.style.backgroundColor = 'red'
-
+                    if (isPassAvailable) {
+                         hasAvailablePasses = true;
                     }
 
                } catch (error) {
                     console.error(`Error al procesar el pase: ${pass?.name}`, error);
                }
           }
+
+          if (!hasAvailablePasses && !validateUserEvent) {
+
+               eventsSection.prepend(notContent);
+
+          }
+
      } catch (error) {
-          console.error("Error en renderPasesPage:", error);
+          console.error("Error en renderPassesPage:", error);
           const eventsSection = document.querySelector('.grid-events');
-          eventsSection.innerHTML = `<p>Ocurrió un error al cargar los abonos.}</p>`;
-          const button = await actionButton('volver', userRoutes[1], eventsSection);
-         
-          button.style.backgroundColor = 'red'
+          if (eventsSection) {
+               eventsSection.innerHTML = `<p>Ocurrió un error al cargar los abonos.</p>`;
+               const button = await actionButton('volver', userRoutes[1], eventsSection);
+               button.style.backgroundColor = 'red';
+          }
      }
 };
-
-
-

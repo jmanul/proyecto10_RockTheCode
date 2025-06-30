@@ -2,12 +2,13 @@ import { buildFetchJson } from '../api/buildFetch';
 import { createEventsCard } from '../components/cardEvent';
 import { createList } from '../components/list';
 import './events.css';
-import { typesEventsRoutes } from "../utils/routes/routes";
+import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { createLayout } from '../components/layout';
 import { dateFormat } from '../utils/logic/dateFormat';
-import { renderItemDetails } from '../components/itemDetails';
+import { actionButton, renderItemDetails } from '../components/itemDetails';
 import { navigate } from '../utils/logic/navigate';
-import { renderPasesPage } from './passes';
+import { renderPassesPage } from './passes';
+import { renderHomePage } from './home';
 
 const keyMapEvent = {
      description: { icon: "bi-info-circle" },
@@ -47,12 +48,9 @@ export const eventsPage = async (e, route) => {
                throw new Error("No se encontraron las secciones de pases (.div-passes o .text-passes).");
           }
 
-          // Mostrar contenido inicial en las secciones de pases
-          textPasses.innerHTML = `<h2>Descubrelos!! Crealos!!</h2>`;
-          pasesSection.innerHTML = `<img src="/assets/passes-home.webp" alt="peoples-home-image">`;
-
           // Renderizar los eventos
           await renderEvents(e, route);
+          
      } catch (error) {
           console.error("Error en eventsPage:", error);
           const appContainer = document.getElementById('app');
@@ -77,6 +75,7 @@ export const renderEvents = async (e, route, options = {}) => {
           eventsSection.style.scrollbarGutter = 'stable both-edges';
           const gridMain = document.querySelector('.grid-main');
           gridMain.style.gridTemplateColumns = 'auto auto';
+          gridMain.style.gap = '0';
           const infoSection = document.getElementById('info-section');
           infoSection?.remove();
           const infoGridSection = document.getElementById('info-grid-section');
@@ -96,6 +95,13 @@ export const renderEvents = async (e, route, options = {}) => {
           // Validar si hay eventos disponibles
           if (!events || events.length === 0) {
                eventsSection.innerHTML = "<p>No hay resultados disponibles.</p>";
+
+               const homeRoute = {
+                    url: '/home', action: renderHomePage
+               }
+
+               await actionButton('Volver', homeRoute, eventsSection);
+
                return;
           }
 
@@ -135,23 +141,24 @@ export const renderEvents = async (e, route, options = {}) => {
                     };
                     const eventsRoute = { action: eventsPage, url: '/events' }
                     const eventRoute = { url: route + `/${event.name}` };
-                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPasesPage };
+                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPassesPage, return: userRoutes[1] };
 
                     // Añadir el evento de clic a la tarjeta
                     eventCard.addEventListener('click', (e) => {
                          if (onCardClick) {
-                              onCardClick(e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event); 
+                              onCardClick(e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event);
                          } else {
-                              
+
                               navigate(e, eventRoute);
 
                               if (new Date(event.endDate) > new Date()) {
                                    renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos');
 
                               } else {
-
+                                   
                                    renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Volver');
                                    
+                                   return
 
                               }
                          };
@@ -165,7 +172,7 @@ export const renderEvents = async (e, route, options = {}) => {
           if (numberEvents === 0) {
                eventsContainer.innerHTML = "<p>No hay resultados disponibles.</p>";
           } else {
-               textEvents.innerHTML = `<h2>Encontrados ${numberEvents} resultados en ${nameEvent}</h2>`;
+               textEvents.innerHTML = `<h2>Encontrados ${numberEvents} resultados </h2>`;
           }
 
           // Añadir el contenedor de eventos al DOM

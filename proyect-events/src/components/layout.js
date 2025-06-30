@@ -8,7 +8,7 @@ export const createLayout = () => {
           document.body.append(appContainer); 
           appContainer.innerHTML = '';
      const main = document.createElement('main');
-     main.classList.add('flex-container');
+     main.classList.add('flex-container', 'main');
      main.id = 'main';
      appContainer.prepend(main);
      main.innerHTML = "";

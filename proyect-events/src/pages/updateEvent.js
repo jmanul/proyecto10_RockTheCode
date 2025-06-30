@@ -1,8 +1,8 @@
 import { actionButton, renderItemDetails } from '../components/itemDetails';
 import { navigate } from '../utils/logic/navigate';
 import { userEventsRoutes } from '../utils/routes/routes';
-import { newEventPage } from './createEvents';
-import { eventsPage } from './events';
+import { eventFields, newEventPage, renderNewEvent } from './createEvents';
+import { userEventPasses } from './createPass';
 import './updateEvent.css';
 
 
@@ -14,8 +14,7 @@ export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, text
 
      const eventsRoute = { action: updateEvent, url: `/events/${event._id}`, event }
 
-     const passesRoute = { action: eventsPage, url: '/events' }
-     const postRoute = userEventsRoutes[1]
+     const passesRoute = { url: `/passes/event/${event._id}`, action: userEventPasses, return: userEventsRoutes[1], event };
  
      const actionContainer = await renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Editar', 'bi-pencil-fill');
 
@@ -25,7 +24,7 @@ export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, text
      }
      
      await actionButton('Abonos', passesRoute, actionContainer, 'bi-ticket-detailed')
-     await actionButton('Volver', postRoute, actionContainer, 'bi-x-circle-fill')
+     await actionButton('Volver', userEventsRoutes[1], actionContainer, 'bi-x-circle-fill')
 }
 
 
@@ -33,7 +32,7 @@ export const updateEvent = async (e, route, objectRoute) => {
     
      const { event } = objectRoute
   
-     await newEventPage(e, route, 'PUT', 'Guardar', 'Actualizar evento', event);
+     await newEventPage(e, route, 'PUT', 'Guardar', 'Actualizar evento', eventFields, renderNewEvent, event);
 
      const buttonContainer = document.querySelector('.button-form');
     
@@ -41,4 +40,3 @@ export const updateEvent = async (e, route, objectRoute) => {
  };
 
 
-//todo:modificar evento -> votones crear pases desde el evnto -> de modificar pases -> accediendo a los pases 

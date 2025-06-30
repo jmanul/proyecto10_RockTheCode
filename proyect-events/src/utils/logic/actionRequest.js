@@ -7,8 +7,7 @@ import { processForm } from "./processForm";
 
 
 export const actionRequest = async (form, builder, route, method, renderFunction, container, ...rest) => {
-     console.log(builder, 'builder');
-     console.log(form, 'form');
+    
      form.addEventListener('submit', async (e) => {
 
          e.preventDefault();
@@ -17,7 +16,7 @@ export const actionRequest = async (form, builder, route, method, renderFunction
          const isValid = builder ? builder.validateAllFields() : form.checkValidity();
 
          if (!isValid) {
-              createMessage('Formulario inválido. Corrige los errores antes de enviar.', 'alert-action');
+              createMessage('Formulario inválido. Corrige los errores antes de enviar.');
               return;
          }
      

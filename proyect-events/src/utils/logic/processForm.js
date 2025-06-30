@@ -56,7 +56,7 @@ export const processForm = async (form, route, method, container) => {
           });
 
           request = await buildFetchJson({ route, method, bodyData: data, container });
-          console.log(request, 'fetchjson');
+         
      }
 
      return request

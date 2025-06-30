@@ -1,3 +1,5 @@
+
+
 .grid-main {
 
      position: relative;
@@ -20,7 +22,7 @@
      border-top-right-radius: var(--border-radius-big);
      background: var(--background-color-transparent);
      backdrop-filter: blur(50px);
-
+    
 }
 
 .events-section{
@@ -68,7 +70,7 @@
      scroll-behavior: smooth;
      scrollbar-width: thin;
      scrollbar-color: var(--neon-magenta) transparent;
-     /* scrollbar-gutter: stable both-edges; */
+     scrollbar-gutter: stable both-edges;
 
           scroll-timeline-name: --grid-events-scroll;
           scroll-timeline-axis: block;

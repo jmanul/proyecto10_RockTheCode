@@ -76,8 +76,6 @@ export const userEventPasses = async (e, route, objectRoute) => {
 
      
      const passes = await renderPassesPage(e, route, objectRoute);
-     // const actionsRemove = document.querySelectorAll('.add-passes-container');
-     // actionsRemove.forEach(element => element.remove()); 
 
      const addButtonPass = await userAddPass(e, route, objectRoute);
 
@@ -141,4 +139,17 @@ export const renderNewPass = async (e, route, container, requestObject) => {
 
 
 }
+
+export const updatePass = async (e, route, objectRoute) => {
+
+     console.log(objectRoute, `este es el objectRoute de updatePass`);
+    
+     // const { event } = objectRoute
+  
+     // await newEventPage(e, route, 'PUT', 'Guardar', 'Actualizar evento', eventFields, renderNewEvent, event);
+
+     // const buttonContainer = document.querySelector('.button-form');
+    
+     // await actionButton('Volver', userEventsRoutes[1], buttonContainer)
+ };
 

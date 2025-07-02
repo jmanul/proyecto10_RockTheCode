@@ -47,6 +47,26 @@
 
 
 
+/* ::view-transition-old(root){
+
+  animation: slide-left 1.5s forwards ;
+}
+::view-transition-new(root){
+
+  animation: slide-right 1.5s forwards ;
+}
+
+@keyframes slide-left {
+
+  from{transform : translateX(0)}
+  to{transform: translateX(-100%)}
+}
+@keyframes slide-right {
+
+  from{transform : translateX(100%)}
+  to{transform: translateX(0)}
+} */
+
 @media (prefers-color-scheme: dark) {
   :root {
 

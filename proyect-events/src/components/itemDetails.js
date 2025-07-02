@@ -8,11 +8,12 @@ export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataC
      titleContainer.innerHTML = `
         <div class="flex-container select-title">
           <div class="miniature-img">
-            <img src="${item.image}" alt='${item.name} imagen'>
+            <img src="${item.image}" alt='${item.name} imagen'  style="view-transition-name:image-${item._id}">
           </div>
           <h3>${item.name}</h3>
         </div>
       `;
+     
 
      dataContainer.innerHTML = itemDetails(data, keyMapEvent);
      

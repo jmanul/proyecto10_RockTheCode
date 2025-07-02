@@ -9,6 +9,7 @@ export function createEventsCard(event) {
 
      const image = document.createElement('img');
      image.src = event.image; 
+     image.style.viewTransitionName=`image-${event._id}`
      image.alt = event.name;
      image.classList.add('event-image');
 
@@ -40,7 +41,7 @@ export function createEventsCard(event) {
      asistentNumber.classList.add('flex-container', 'asistent-number');
 
      if (event.totalReservedPlaces === event.maxCapacity) {
-        
+  
           asistentNumber.innerHTML = `<img src="/assets/event-soldOut.png" alt="soldOut">`;
      }
 

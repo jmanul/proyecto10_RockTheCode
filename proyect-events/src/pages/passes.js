@@ -6,6 +6,7 @@ import { dateFormat } from '../utils/logic/dateFormat';
 import { navigate } from '../utils/logic/navigate';
 import './passes.css'
 import { userRoutes } from '../utils/routes/routes';
+import { updatePass } from './createPass';
 
 const keyMapPass = {
      namePass: { icon: "bi bi-ticket-detailed" },
@@ -34,14 +35,25 @@ export const createPassCard = (pass, showActions = true) => {
      // Crear contenedor principal del pase
      const passContainer = document.createElement('div');
      passContainer.classList.add('select-card', 'flex-container');
-     //todo: haceer distintos estilos para vendido o caducado ------------------------------->
-     // Agregar clase adicional si no está disponible
-     if (!showActions) {
-          passContainer.classList.add('pass-unavailable');
-     }
+     //todo: no permitir seleccionar mas abonos de los que hay,  modificar los ticket para que solo hay un boton-volver -- home no puede dar acceso a las rutas de las imagenes si no esta logeado------------------------------->
 
      passContainer.innerHTML = itemDetails(extendedPass, keyMapPass);
 
+     // Agregar clase adicional si no está disponible
+     if (!showActions) {
+           
+          passContainer.classList.add('pass-unavailable');
+          
+          if (pass.totalReservedPlacesPass == pass.maxCapacityPass) {
+
+               const soldOutPasse = document.createElement('div');
+               soldOutPasse.classList.add('flex-container', 'asistent-number');
+               soldOutPasse.innerHTML = `<img src="/assets/event-soldOut.png" alt="soldOut">`;
+               passContainer.appendChild(soldOutPasse);
+          }
+     
+          
+     }
 
      return passContainer;
 };
@@ -52,6 +64,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
           const validateUserEvent = routeObject.return.url.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
           const eventsSection = document.querySelector('.grid-events');
+         
 
           if (!eventsSection) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
@@ -74,6 +87,9 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
           for (const pass of passes) {
                try {
+
+                    const addPassesContainer = document.createElement('div');
+                    addPassesContainer.classList.add('flex-container', 'add-passes-container');
                     const passEndDate = new Date(pass.endDatePass);
                     const isPassAvailable = passEndDate > nowDate &&
                          pass.totalReservedPlacesPass < pass.maxCapacityPass;
@@ -81,18 +97,30 @@ export const renderPassesPage = async (e, route, routeObject) => {
                     // Mostrar el pase en cualquier caso, pero con diferente estilo
                     const passCard = createPassCard(
                          pass,
-                         isPassAvailable 
+                         isPassAvailable
                     );
 
                     eventsSection.prepend(passCard);
 
-                    // Configurar acciones solo si el pase está disponible y no se consulta en edicion
+                    passCard.appendChild(addPassesContainer);
 
-                    //todo: if validateUserEvent añadir accion de modificar entrada------------------------------->
+                    // Configurar acciones de editar el abono está si se consulta desde edicion por el autor
+
+                    if (validateUserEvent) {
+                         
+                         const passUpdateRoute = {
+                              url: `/passes/${pass._id}`,
+                              action: updatePass
+                         };
+
+                         const updatePassButton = await actionButton('Editar', passUpdateRoute, addPassesContainer);
+
+                    }
+
+                    // Configurar acciones de añadir entradas solo si el abono está disponible y no se consulta desde edicion por el autor
+
                     if (isPassAvailable && !validateUserEvent) {
 
-                         const addPassesContainer = document.createElement('div');
-                         addPassesContainer.classList.add('flex-container', 'add-passes-container');
                          addPassesContainer.innerHTML = `
             <div class="flex-container quantity-group">
                 <input 
@@ -110,14 +138,15 @@ export const renderPassesPage = async (e, route, routeObject) => {
                 </span>
             </div>`;
 
-                         passCard.appendChild(addPassesContainer);
-
                          const quantityInput = passCard.querySelector('.number-tickets');
                          const errorMessage = passCard.querySelector('.error-message');
 
-                         const button = await actionButton('Añadir', route, addPassesContainer);
+                         const addPassButton = document.createElement('button');
+                         addPassButton.textContent = 'Añadir';
+                         addPassButton.classList.add('button-añadir', 'button-action');
+                         addPassesContainer.appendChild(addPassButton);
 
-                         button.addEventListener('click', (e) => {
+                         addPassButton.addEventListener('click', (e) => {
                               const quantity = parseInt(quantityInput.value);
                               if (quantity < 1 || quantity > 5) {
                                    errorMessage.style.display = "block";

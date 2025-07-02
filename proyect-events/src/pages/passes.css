@@ -59,21 +59,9 @@
      display: block;
 }
 
-.pass-unavailable {
-     opacity: 0.7;
+.pass-unavailable .select-card{
+     opacity: 0.4;
      filter: grayscale(50%);
      position: relative;
 }
 
-.pass-unavailable::after {
-     content: "No disponible";
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     background-color: rgba(255, 0, 0, 0.7);
-     color: white;
-     padding: 5px 10px;
-     border-radius: 5px;
-     font-weight: bold;
-}

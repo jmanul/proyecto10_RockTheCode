@@ -5,7 +5,7 @@ footer {
      background: var(--black-matte);
      border-top: 1px solid var(--light-gray);
      background: var(--background-gradient-radial-2);
-          
+     view-transition-name: footer;
 }
 
 .making {

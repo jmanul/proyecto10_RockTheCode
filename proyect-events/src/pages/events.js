@@ -50,7 +50,7 @@ export const eventsPage = async (e, route) => {
 
           // Renderizar los eventos
           await renderEvents(e, route);
-          
+
      } catch (error) {
           console.error("Error en eventsPage:", error);
           const appContainer = document.getElementById('app');
@@ -67,7 +67,7 @@ export const renderEvents = async (e, route, options = {}) => {
                onCardClick = null
 
           } = options;
-          let nameEvent = e.target.textContent;
+
           let numberEvents = 0;
 
           // Seleccionar el contenedor de eventos
@@ -140,25 +140,36 @@ export const renderEvents = async (e, route, options = {}) => {
                          endDateFormatted: dateFormat(eventEndDate).date
                     };
                     const eventsRoute = { action: eventsPage, url: '/events' }
-                    const eventRoute = { url: route + `/${event.name}` };
+                    const eventRoute = `/events/${event._id}`;
                     const passesRoute = { url: `/passes/event/${event._id}`, action: renderPassesPage, return: userRoutes[1] };
 
                     // Añadir el evento de clic a la tarjeta
                     eventCard.addEventListener('click', (e) => {
                          if (onCardClick) {
-                              onCardClick(e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event);
+                              
+                              const onCardClickRoute = {
+                                   url: eventRoute,
+                                   action: () => { onCardClick(e, eventRoute, extendedEvent, keyMapEvent, textEvents, eventsSection, event) }
+                              };
+                               navigate(e, onCardClickRoute);
                          } else {
 
-                              navigate(e, eventRoute);
 
                               if (new Date(event.endDate) > new Date()) {
-                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos');
 
+                                   const abonosRoute = {
+                                        url: eventRoute,
+                                        action: () => { renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos') }, transitionClass: 'view-transition-item' 
+                                   };
+                                   navigate(e, abonosRoute);
+                                 
                               } else {
-                                   
-                                   renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Volver');
-                                   
-                                   return
+
+                                   const finishEventRoute = {
+                                        url: eventRoute,
+                                        action: () => { renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Volver'); }, transitionClass: 'view-transition-item'
+                                   };
+                                   navigate(e, finishEventRoute);     return
 
                               }
                          };

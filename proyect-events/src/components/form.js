@@ -8,6 +8,7 @@ export class FormBuilder {
           this.form = document.createElement('form');
           this.form.classList.add('create-form', name, 'flex-container');
           this.form.id = name;
+          
      }
 
      async createForm(existingValues = {}) {

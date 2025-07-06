@@ -7,7 +7,9 @@ import { loginRoutes } from "../utils/routes/routes";
 export const createHeader = () => {
      
      const header = document.createElement('header');
+     
      header.className = 'flex-container';
+     header.id = 'header';
      const logo = createLogo('/assets/propoysal-person.webp');
      header.appendChild(logo);
     

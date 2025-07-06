@@ -18,6 +18,7 @@ export const createList = (nameClass, list) => {
           const a = document.createElement('a');
           a.className = 'menu-option'
           a.href = item.url;
+          a.setAttribute('data-link', "");
           a.target = '_blank';
           ulList.append(a);
           const li = document.createElement('li');

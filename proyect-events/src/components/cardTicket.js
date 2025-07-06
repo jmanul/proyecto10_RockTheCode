@@ -48,12 +48,14 @@ export const cardTicket = async (request, ticket) => {
      };
      
 
-     // Crear el botón de acción
+  // Crear el botón de acción
+  
+  const containerButton = document.createElement('div');
+  containerButton.classList.add('flex-container', 'container-button');
+  ticketContainer.appendChild(containerButton);
 
-  const button = await actionButton('Descargar', ticketRoute, ticketContainer);
-   const buttonExit = await actionButton('volver', userRoutes[1], ticketContainer);
-
-
+  const button = await actionButton('Descargar', ticketRoute, containerButton);
+  
      return ticketContainer;
 
 }

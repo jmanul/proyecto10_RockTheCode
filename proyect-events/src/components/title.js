@@ -4,6 +4,7 @@ export const createTitle = () => {
 
   const titleSection = document.createElement('section');
   titleSection.classList.add('flex-container', 'title-section');
+  
      const imageTitleRight = document.createElement('div');
        imageTitleRight.classList.add('image-title', 'flex-container');
        imageTitleRight.innerHTML = `<img src="/assets/propoysal-franky.webp" alt="franky">`;

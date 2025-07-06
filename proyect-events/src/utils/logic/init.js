@@ -30,3 +30,4 @@ export const initHomeMenu = async () => {
 
      return request.user || null; 
 };
+

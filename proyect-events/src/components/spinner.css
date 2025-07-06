@@ -3,7 +3,7 @@
      position: relative;
 }
 #spinner-container {
-     view-transition-name: none;
+     view-transition-name: spinner;
      position: fixed;
      top: 0;
      left: 0;

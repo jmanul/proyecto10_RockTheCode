@@ -1,11 +1,13 @@
 import { buildFetchJson } from "../api/buildFetch";
-import { cardTicket } from "../components/cardticket";
+import { cardTicket } from "../components/cardTicket";
 import { actionButton } from "../components/itemDetails";
 import { userRoutes } from "../utils/routes/routes";
 import "./generateTicket.css"
 
 
-export const generateTicket = async (e, route) => {
+export const generateTicket = async (e, route, routeObject) => {
+
+   const  { url, reservedPlaces } = routeObject;
 
      // Seleccionar el contenedor de eventos
      const eventsSection = document.querySelector('.grid-events');
@@ -13,7 +15,7 @@ export const generateTicket = async (e, route) => {
      eventsSection.style.scrollbarGutter = 'stable both-edges';
 
      // añadir las entradas del evento y generar los tickets
-     const request = await buildFetchJson({ route: route.url, method: 'PUT', bodyData: { reservedPlaces: route.reservedPlaces } });
+     const request = await buildFetchJson({ route: url, method: 'PUT', bodyData: { reservedPlaces: reservedPlaces } });
 
      await renderTicket(request, eventsSection)
 
@@ -50,7 +52,8 @@ export const renderTicket = async (request, container) => {
                     console.error("Error al renderizar un ticket:", error);
                }
           }
-
+          
+          const buttonExit = await actionButton('volver', userRoutes[1], container);
           return container;
 
      } catch (error) {

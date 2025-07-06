@@ -1,5 +1,4 @@
 import { actionButton, renderItemDetails } from '../components/itemDetails';
-import { navigate } from '../utils/logic/navigate';
 import { userEventsRoutes } from '../utils/routes/routes';
 import { eventFields, newEventPage, renderNewEvent } from './createEvents';
 import { userEventPasses } from './createPass';
@@ -7,12 +6,8 @@ import './updateEvent.css';
 
 
 export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
-     
-   const  routeUpdateEvent = { url: route + `/${event._id}` }
 
-     await navigate(e, routeUpdateEvent);
-
-     const eventsRoute = { action: updateEvent, url: `/events/${event._id}`, event }
+     const eventsRoute = { action: updateEvent, url: route, event }
 
      const passesRoute = { url: `/passes/event/${event._id}`, action: userEventPasses, return: userEventsRoutes[1], event };
  

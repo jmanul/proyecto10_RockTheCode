@@ -88,7 +88,7 @@
      flex-direction: row;
      background:var(--background-color-transparent);
      padding: var(--spacing-small);
-     border-radius:var(--border-radius-small)
+     border-radius:var(--border-radius-small);
 }
 
 button i {
@@ -100,7 +100,7 @@ button i {
 
 .action-container button {
 
-     /* background:var(--background-gradient-radial-3); */
+     border: 1px solid var(--neon-cyan);
      padding: 5px 15px;
      width:7rem;
      height: 3rem;

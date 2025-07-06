@@ -46,26 +46,48 @@
 }
 
 
-
-/* ::view-transition-old(root){
-
-  animation: slide-left 1.5s forwards ;
+:root.view-transition-form::view-transition-old(root) {
+  animation: opcity 0.4s both;
 }
-::view-transition-new(root){
 
-  animation: slide-right 1.5s forwards ;
+:root.view-transition-form::view-transition-new(root) {
+  animation: slide-right 0.4s both;
 }
+
+
+
 
 @keyframes slide-left {
+  from {
+    transform: translateX(0);
+  }
 
-  from{transform : translateX(0)}
-  to{transform: translateX(-100%)}
+  to {
+    transform: translateX(-100%);
+  }
 }
-@keyframes slide-right {
 
-  from{transform : translateX(100%)}
-  to{transform: translateX(0)}
-} */
+@keyframes slide-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes opacity {
+  from {
+    opacity:1;
+  }
+
+  to {
+    oopacity:0;
+  }
+}
+
+
 
 @media (prefers-color-scheme: dark) {
   :root {

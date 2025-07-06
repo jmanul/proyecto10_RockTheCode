@@ -38,16 +38,20 @@
      text-align: center;
 }
 
-.add-passes-container{
+.reserved-places-group{
 
+     flex-direction: row;
+     width: 100%;
+}
+
+.add-passes-container{
+     position: relative;
      flex-direction: row;
 }
 
 .error-message{
 
      display:none;
-     position: absolute;
-     bottom:5px;
      left: 30%;
      color: red;
      font-size: 1rem;
@@ -63,5 +67,13 @@
      opacity: 0.4;
      filter: grayscale(50%);
      position: relative;
+}
+
+.not-content{
+
+     color: red;
+     padding: 0;
+     position: absolute;
+     top: 10px;
 }
 

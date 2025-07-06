@@ -38,7 +38,7 @@ export const actionRequest = async (form, builder, route, method, renderFunction
 
                if (request) {
 
-                    const routeAction = { url: route, action: renderFunction, request };
+                    const routeAction = { url: route, action: renderFunction, transitionClass: 'view-transition-form', request };
 
                     navigate(e, routeAction, ...rest);
                     return request;

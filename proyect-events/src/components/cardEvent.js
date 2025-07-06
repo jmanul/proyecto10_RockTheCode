@@ -9,7 +9,6 @@ export function createEventsCard(event) {
 
      const image = document.createElement('img');
      image.src = event.image; 
-     image.style.viewTransitionName=`image-${event._id}`
      image.alt = event.name;
      image.classList.add('event-image');
 

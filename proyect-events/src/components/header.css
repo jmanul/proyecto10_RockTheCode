@@ -107,3 +107,8 @@ header {
 
 }
 
+header {
+     
+     view-transition-name: header;
+}
+

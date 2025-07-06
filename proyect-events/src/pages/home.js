@@ -3,10 +3,9 @@ import { createLayout } from "../components/layout";
 import { initHomeMenu } from "../utils/logic/init";
 import { createTitle } from "../components/title";
 import { createList } from "../components/list";
-import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { loginRoutes, typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { navigate } from "../utils/logic/navigate";
-import { eventsPage } from "./events";
-import { createEventsPage, eventsUser } from "./createEvents";
+
 
 
 
@@ -79,7 +78,15 @@ export const renderHomePage = async () => {
           const actionHomeinit = (e) => {
              
                eventsSection.classList.remove('home-hover');
-               navigate(e, userRoutes[1])
+
+               if (user) {
+                    navigate(e, userRoutes[1])
+               } else {
+
+                    navigate(e, loginRoutes[0])
+
+               }
+               
           };
 
           
@@ -92,7 +99,15 @@ export const renderHomePage = async () => {
           gridEventsUser.addEventListener('click', (e) => {
                eventsSection.removeEventListener('click', actionHomeinit);
                eventsSection.classList.remove('home-hover');
-               navigate(e, userEventsRoutes[1])
+
+               if (user) {
+                    navigate(e, userEventsRoutes[1])
+               } else {
+                  
+                    navigate(e, loginRoutes[0])
+
+               }
+              
           });
 
           const gridNewEvent = document.getElementById('info-grid-section');
@@ -102,7 +117,16 @@ export const renderHomePage = async () => {
 
                eventsSection.removeEventListener('click', actionHomeinit);
                eventsSection.classList.remove('home-hover');
-               navigate(e, userEventsRoutes[0]);
+
+               if (user) {
+                    
+                    navigate(e, userEventsRoutes[0]);
+               } else {
+
+                    navigate(e, loginRoutes[0])
+
+               }
+              
           });
 
         

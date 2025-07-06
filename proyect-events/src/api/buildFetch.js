@@ -69,6 +69,7 @@ export const buildFetchJson = async ({ route, method = "GET", bodyData = null, c
 export const buildFetchFormdata = async ({ route, method, dataForm, container }) => {
 
      try {
+         
           showSpinner(spinner);
 
           const response = await fetch(API_BASE_URL + route, {

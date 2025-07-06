@@ -1,4 +1,5 @@
 
+
 import { createEvent, createEventsPage, eventsUser } from "../../pages/createEvents";
 import { renderEvents, eventsPage } from "../../pages/events";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
@@ -14,8 +15,9 @@ export const userRoutes = [{ id: 'perfil', name: 'Perfil', action: '', icon: 'pe
 ];
 
 export const loginRoutes = [{
-     id: 'entrar', name: 'Entrar', action: renderRegisterLoginPage, icon: 'login.svg', url: '/login' }
-];
+     id: 'entrar', name: 'Entrar', action: renderRegisterLoginPage, icon: 'login.svg', url: '/login', transitionClass: 'view-transition-form'
+}]
+
 
 export const typesEventsRoutes = [
      {
@@ -74,7 +76,7 @@ export const userEventsRoutes = [
           id: "nuevo-Evento",
           name: "Nuevo Evento",
           action: createEvent,
-          url: "/events/"
+          url: "/events/", transitionClass: 'view-transition-form'
      },
      {
           id: "eventos-Creados",
@@ -84,3 +86,4 @@ export const userEventsRoutes = [
      }
 ];
 export const allRoutes = [...adminRoutes, ...userRoutes, loginRoutes, ...typesEventsRoutes];
+

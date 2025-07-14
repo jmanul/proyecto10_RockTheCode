@@ -42,7 +42,7 @@ export const eventFields = [
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
           }
      },
-     // { name: 'eventStatus', type: 'select', placeholder: 'Estado del evento', required: false, options: ['not-start', 'postponed', 'cancelled'] },
+     
      {
           name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false, validate: (inputElement) => {
                if (!inputElement || !inputElement.files || inputElement.files.length === 0) return true;
@@ -53,8 +53,7 @@ export const eventFields = [
                return allowedTypes.includes(file.type) || 'El archivo debe ser una imagen (.jpg, .png, .webp)';
           }
      }
-     // ,
-     // { name: 'maxCapacity', type: 'number', placeholder: 'Capacidad máxima', required: true, min: 1 }
+    
 ];
 
 
@@ -127,8 +126,8 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           formNewEventContainer.innerHTML = '';
 
           // Crear el formulario para la creación de un nuevo evento
-          const builder = new FormBuilder(fields, text);
-          const formNewEvent = await builder.createForm(existingValues);
+          const builder = new FormBuilder(fields, text, existingValues);
+          const formNewEvent = await builder.createForm();
           
 
           if (!formNewEvent) {
@@ -138,7 +137,7 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
         
-          actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
+         await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
 
          
 
@@ -190,6 +189,7 @@ export const renderNewEvent = async (e, route, container, requestObject) => {
 
      const cardEvent = createEventsCard(newEventCreated);
      const formNewEventContainer = document.querySelector('.grid-events');
+
      container.innerHTML = `<h2>Nuevo evento creado</h2>`;
      formNewEventContainer.innerHTML = '';
      formNewEventContainer.appendChild(cardEvent);

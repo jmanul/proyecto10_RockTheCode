@@ -1,17 +1,18 @@
 import './form.css';
 
 export class FormBuilder {
-     constructor(fields, formName) {
+     constructor(fields, formName, existingValues = {}) {
           const name = formName.toLowerCase();
           this.fields = fields;
           this.formName = formName;
+          this.existingValues = existingValues;
+
           this.form = document.createElement('form');
           this.form.classList.add('create-form', name, 'flex-container');
           this.form.id = name;
-          
      }
 
-     async createForm(existingValues = {}) {
+     async createForm() {
           this.fields.forEach((field) => {
                const div = document.createElement('div');
                div.classList.add('form-group', 'flex-container');
@@ -41,20 +42,18 @@ export class FormBuilder {
                     input = document.createElement('textarea');
                     input.rows = 4;
 
-               } else if (field.type === 'file') {
-                    input = document.createElement('input');
-                    input.type = 'file';
-                    input.classList.add('file-Input');
+               } else if (field.type === 'file' ) {
 
-                    if (existingValues[field.name] && this.isImage(existingValues[field.name])) {
-                         const imagePreview = document.createElement('img');
-                         imagePreview.src = existingValues[field.name];
-                         imagePreview.alt = 'Archivo actual';
-                         imagePreview.classList.add('preview-img');
-                         div.appendChild(imagePreview);
-                         div.classList.add('group-file');
+                    // Mostrar solo en modo creación (this.existingValues vacío)
+                    if (Object.keys(this.existingValues).length === 0) {
+                         input = document.createElement('input');
+                         input.type = 'file';
+                         input.classList.add('file-Input');
+                         console.log('Campo file creado (modo creación)');
+                    } else {
+                         console.log('Modo edición - Campo file omitido');
+                         return; // Saltar este campo
                     }
-
                } else {
                     input = document.createElement('input');
                     input.type = field.type;
@@ -67,18 +66,17 @@ export class FormBuilder {
                if (field.max !== undefined) input.max = field.max;
 
                // Asignar valor existente si no es archivo
-               if (field.type !== 'file' && existingValues[field.name] !== undefined) {
+               if (field.type !== 'file' && this.existingValues[field.name] !== undefined) {
                     if (field.type === 'datetime-local') {
-                         const rawDate = new Date(existingValues[field.name]);
+                         const rawDate = new Date(this.existingValues[field.name]);
                          if (!isNaN(rawDate.getTime())) {
                               const formattedDate = rawDate.toISOString().slice(0, 16);
-
                               input.value = formattedDate;
                               input.dataset.originalValue = formattedDate;
                          }
                     } else {
-                         input.value = existingValues[field.name];
-                         input.dataset.originalValue = existingValues[field.name];
+                         input.value = this.existingValues[field.name];
+                         input.dataset.originalValue = this.existingValues[field.name];
                     }
                }
 
@@ -91,10 +89,12 @@ export class FormBuilder {
                div.appendChild(input);
                div.appendChild(errorSpan);
                this.form.appendChild(div);
+
+              
           });
 
           const buttonContainer = document.createElement('div');
-          buttonContainer.classList.add('flex-container', `button-form-${this.name}`, 'button-form');
+          buttonContainer.classList.add('flex-container', `button-form-${this.formName.toLowerCase()}`, 'button-form');
           const submitBtn = document.createElement('button');
           submitBtn.type = 'submit';
           submitBtn.textContent = this.formName;
@@ -105,12 +105,13 @@ export class FormBuilder {
           return this.form;
      }
 
-
      validateField(input, field, errorSpan) {
           input.classList.remove('error');
           errorSpan.textContent = '';
 
-          const value = input.value;
+          let value;
+
+          input.type === 'file' ? value = input : value = input.value;
 
           if (typeof field.validate === 'function') {
                const result = field.validate(value, this.form);
@@ -142,46 +143,85 @@ export class FormBuilder {
           });
 
           return isValid;
-
      }
 
      getChangedFields() {
-          const changedFields = {};
-          const inputs = this.form.querySelectorAll('input, select, textarea');
+          return this.fields.filter(field => {
+               const input = this.form.querySelector(`[name="${field.name}"]`);
+               if (!input || input.disabled) return false;
 
-          inputs.forEach(input => {
-               // Ignorar campos deshabilitados o sin nombre
-               if (!input.name || input.disabled) return;
+               if (field.type === 'file') {
+                    return input.files.length > 0;
 
-               const originalValue = input.dataset.originalValue;
-               let currentValue;
+               } else if (field.type === 'checkbox') {
+                    const original = !!this.existingValues[field.name];
+                    return input.checked !== original;
 
-               if (input.type === 'file') {
-                    if (input.files.length > 0) {
-                         changedFields[input.name] = input.files[0]; // archivo nuevo
-                    }
-                    return; // los archivos no tienen valor original
-               }
+               } else if (field.type === 'datetime-local') {
+                    const formattedOriginal = new Date(this.existingValues[field.name] || '').toISOString().slice(0, 16);
+                    return input.value !== formattedOriginal;
 
-               if (input.type === 'checkbox' || input.type === 'radio') {
-                    currentValue = input.checked.toString();
                } else {
-                    currentValue = input.value;
+                    return input.value.trim() !== (this.existingValues[field.name] ?? '');
                }
-
-               // Si no hay valor original, o ha cambiado
-               if (originalValue === undefined || currentValue !== originalValue) {
-                    changedFields[input.name] = currentValue;
-               }
+          }).map(field => {
+               const input = this.form.querySelector(`[name="${field.name}"]`);
+               return {
+                    ...field,
+                    value: field.type === 'file' ? input?.files[0] : input?.value
+               };
           });
-
-          return changedFields;
      }
 
+     async getChangedForm() {
+          const changedFields = this.getChangedFields();
+
+          if (changedFields.length === 0) return null;
+
+          const builder = new FormBuilder(changedFields, 'Actualizar');
+          const form = await builder.createForm();
+          builder.assignFieldValues();
+          return form;
+     }
+
+     assignFieldValues() {
+          this.fields.forEach((field) => {
+               const input = this.form.querySelector(`[name="${field.name}"]`);
+               if (!input) return;
+
+               if (field.type === 'file' && field.value instanceof File) {
+                    const dt = new DataTransfer();
+                    dt.items.add(field.value);
+                    input.files = dt.files;
+
+               } else if (field.type === 'checkbox') {
+                    input.checked = field.value === true || field.value === 'true';
+
+               } else if (field.type === 'datetime-local' && field.value) {
+                    const date = new Date(field.value);
+                    if (!isNaN(date.getTime())) {
+                         const formatted = date.toISOString().slice(0, 16);
+                         input.value = formatted;
+                    }
+
+               } else if (field.value !== undefined) {
+                    input.value = field.value;
+               }
+
+               if (input.value !== undefined) {
+                    input.dataset.originalValue = input.value;
+               }
+          });
+     }
+
+     setForm(externalForm) {
+          this.form = externalForm;
+     }
 
      isImage(url) {
           return /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(url);
      }
 }
+
 
 

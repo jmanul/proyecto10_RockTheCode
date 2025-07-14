@@ -1,34 +1,39 @@
 
 
-export const optimizeImage = (file, maxWidth = 1024, quality = 0.8) => {
-     return new Promise((resolve) => {
+export const optimizeImage = (file, quality = 0.6, maxWidth = 800) => {
+     return new Promise((resolve, reject) => {
+          const img = new Image();
           const reader = new FileReader();
-          reader.readAsDataURL(file);
 
           reader.onload = (e) => {
-               const img = new Image();
                img.src = e.target.result;
-
-               img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const scaleFactor = maxWidth / img.width;
-                    const width = Math.min(img.width, maxWidth);
-                    const height = img.height * scaleFactor;
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    canvas.toBlob(
-                         (blob) => {
-                              resolve(blob);
-                         },
-                         'image/jpeg',
-                         quality
-                    );
-               };
           };
+
+          img.onload = () => {
+               const canvas = document.createElement('canvas');
+
+               const scale = Math.min(1, maxWidth / img.width);
+               canvas.width = img.width * scale;
+               canvas.height = img.height * scale;
+
+               const ctx = canvas.getContext('2d');
+               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+               canvas.toBlob(
+                    (blob) => {
+                         if (!blob) return reject(new Error("No se pudo comprimir la imagen."));
+                         const compressedFile = new File([blob], file.name, {
+                              type: 'image/jpeg',
+                              lastModified: Date.now()
+                         });
+                         resolve(compressedFile);
+                    },
+                    'image/jpeg',
+                    quality
+               );
+          };
+
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
      });
 }

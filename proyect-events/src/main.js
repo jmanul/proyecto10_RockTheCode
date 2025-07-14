@@ -34,7 +34,6 @@ window.addEventListener('popstate', async (e) => {
 
      const route = getRouteFromRegistry(url);
 
-     console.log('la url es', url ,'la route es', route);
 
      if (!route) {
         

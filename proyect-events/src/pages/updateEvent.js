@@ -1,4 +1,6 @@
+import { FormBuilder } from '../components/form';
 import { actionButton, renderItemDetails } from '../components/itemDetails';
+import { actionRequest } from '../utils/logic/actionRequest';
 import { userEventsRoutes } from '../utils/routes/routes';
 import { eventFields, newEventPage, renderNewEvent } from './createEvents';
 import { userEventPasses } from './createPass';
@@ -26,12 +28,37 @@ export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, text
 export const updateEvent = async (e, route, objectRoute) => {
     
      const { event } = objectRoute
-  
-     await newEventPage(e, route, 'PUT', 'Guardar', 'Actualizar evento', eventFields, renderNewEvent, event);
+     const updateEventContainer = document.querySelector('.grid-events');
+   
+     try{
+          const builder = new FormBuilder(eventFields, 'Guardar', event);
+          const updateEventform = await builder.createForm();
+        
+     
+          if (!updateEventform) {
+                    throw new Error("No se pudo crear el formulario para el nuevo evento");
+               }
+           
+          // Añadir el formulario al contenedor
+          updateEventContainer.innerHTML = '';
+          updateEventContainer.appendChild(updateEventform);
+             
+          await actionRequest(updateEventform, builder, route, 'PUT', renderNewEvent, updateEventContainer);
+          const buttonContainer = document.querySelector('.button-form');
 
-     const buttonContainer = document.querySelector('.button-form');
-    
-     await actionButton('Volver', userEventsRoutes[1], buttonContainer)
- };
+          await actionButton('Volver', userEventsRoutes[1], buttonContainer)
+              
+     
+          } catch (error) {
+               console.error("Error en renderEvents:", error);
+          updateEventContainer.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
+          }
+     
+     
+     
+     }
+
+  
+ 
 
 

@@ -1,4 +1,5 @@
 import { buildFetchFormdata, buildFetchJson } from "../../api/buildFetch";
+import { optimizeImage } from "./optimizeImagen";
 
 export const processForm = async (form, route, method, container) => {
 
@@ -11,36 +12,40 @@ export const processForm = async (form, route, method, container) => {
                const { name, type, value, files } = element;
 
                if (type === 'file' && files.length > 0) {
+
                     hasFiles = true;
+
+                    
                }
           }
      });
 
      if (hasFiles) {
-
-    
           data = new FormData();
 
-          Array.from(form.elements).forEach((element) => {
+          const elements = Array.from(form.elements);
+
+          for (const element of elements) {
                if (element.name && !element.disabled) {
                     const { name, type, value, files } = element;
 
                     if (type === 'file' && files.length > 0) {
-
-                         data.append(name, files[0]);
-
+                         // Optimizar la imagen y añadirla al FormData
+                         try {
+                              const optimizedFile = await optimizeImage(files[0]);
+                              data.append(name, optimizedFile);
+                              console.log(optimizedFile);
+                         } catch (error) {
+                              console.error("Error optimizando archivo:", error);
+                              alert("Hubo un problema con la imagen seleccionada.");
+                         }
                     } else if (value.trim() !== '') {
-
                          data.append(name, value);
                     }
                }
-         
-          });
-
+          }
 
           request = await buildFetchFormdata({ route, method, dataForm: data, container });
-         
-
      } else {
 
           data = {};

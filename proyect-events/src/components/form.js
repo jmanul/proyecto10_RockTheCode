@@ -12,7 +12,7 @@ export class FormBuilder {
           this.form.id = name;
      }
 
-     async createForm() {
+     async createForm(fileOn = true) {
           this.fields.forEach((field) => {
                const div = document.createElement('div');
                div.classList.add('form-group', 'flex-container');
@@ -43,15 +43,18 @@ export class FormBuilder {
                     input.rows = 4;
 
                } else if (field.type === 'file' ) {
+                    
+                    // decidimos si incluir file en el formulario
+                    if (fileOn) {
 
-                    // Mostrar solo en modo creación (this.existingValues vacío)
-                    if (Object.keys(this.existingValues).length === 0) {
                          input = document.createElement('input');
                          input.type = 'file';
+                         input.id = 'file-input';
                          input.classList.add('file-Input');
-                         console.log('Campo file creado (modo creación)');
+                         label.for = 'file-input';
+                        
                     } else {
-                         console.log('Modo edición - Campo file omitido');
+                       
                          return; // Saltar este campo
                     }
                } else {

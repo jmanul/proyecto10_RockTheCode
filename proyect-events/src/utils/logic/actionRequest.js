@@ -29,7 +29,6 @@ export const actionRequest = async (form, builder, route, method, renderFunction
              
                finalForm = changedForm;
 
-               console.log(finalForm);
           }
 
           try {

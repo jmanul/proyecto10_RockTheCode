@@ -129,7 +129,7 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           const builder = new FormBuilder(fields, text, existingValues);
           const formNewEvent = await builder.createForm();
           
-
+          
           if (!formNewEvent) {
                throw new Error("No se pudo crear el formulario para el nuevo evento");
           }
@@ -137,7 +137,11 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
         
-         await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
+          await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
+          
+          const buttonContainer = formNewEvent.querySelector('.button-form');
+
+          await actionButton('Volver', userEventsRoutes[1], buttonContainer)
 
          
 

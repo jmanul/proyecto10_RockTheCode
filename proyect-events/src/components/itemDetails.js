@@ -3,12 +3,14 @@ import { navigate } from '../utils/logic/navigate';
 import { userRoutes } from '../utils/routes/routes';
 import './itemDetails.css'
 
-export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route , text,...rest) => {
+export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route, text, ...rest) => {
+     
+     const fileName = item.image.split('/').pop();
 
      titleContainer.innerHTML = `
         <div class="flex-container select-title">
           <div class="miniature-img">
-            <img src="${item.image}" alt='${item.name} imagen'  style="view-transition-name:image-${item._id}">
+            <img src="${item.image}" alt='${item.name} imagen'  style="view-transition-name:${fileName}-${item._id}">
           </div>
           <h3>${item.name}</h3>
         </div>

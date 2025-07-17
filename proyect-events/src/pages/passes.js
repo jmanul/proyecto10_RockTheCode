@@ -59,8 +59,10 @@ export const createPassCard = (pass, showActions = true) => {
 
 
 export const renderPassesPage = async (e, route, routeObject) => {
+
+     const { returnRoute } = routeObject;
      try {
-          const validateUserEvent = routeObject.return.url.includes('userEventsCreate');
+          const validateUserEvent = returnRoute.url.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
           const eventsSection = document.querySelector('.grid-events');
 
@@ -71,7 +73,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
           eventsSection.innerHTML = '';
 
-          const returnButton = await actionButton('Volver', routeObject.return, eventsSection);
+           await actionButton('Volver', returnRoute, eventsSection);
           const notContent = document.createElement('h2');
           notContent.innerText = 'Actualmente no hay entradas disponibles';
           notContent.classList.add('flex-container', 'not-content');
@@ -113,7 +115,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
                               action: updatePass
                          };
 
-                         const updatePassButton = await actionButton('Editar', passUpdateRoute, addPassesContainer);
+                          await actionButton('Editar', passUpdateRoute, addPassesContainer);
 
                     }
 

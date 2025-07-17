@@ -12,7 +12,7 @@ export const getRouteFromRegistry = (url) => {
 };
 
 export const navigate = async (e, route, ...rest) => {
-
+     
      if (e) e.preventDefault();
      if (!route || !route.url) {
           console.error('Error: ruta inválida', route);
@@ -23,7 +23,6 @@ export const navigate = async (e, route, ...rest) => {
 
      const isPop = e && e?.type === 'popstate';
      const formRoute = route.transitionClass === 'view-transition-form';
-
      
      if (!isPop && !formRoute) {
           registerRoute(route.url, fullRoute);
@@ -54,6 +53,7 @@ export const navigate = async (e, route, ...rest) => {
 };
 
 export const clearTransitions = () => {
+
      window.scrollTo(0, 0); 
      [...document.documentElement.classList].forEach(cls => {
           if (cls.startsWith('view-transition-')) {

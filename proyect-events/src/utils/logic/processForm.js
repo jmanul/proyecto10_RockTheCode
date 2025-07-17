@@ -34,12 +34,12 @@ export const processForm = async (form, route, method, container) => {
                          try {
                               const optimizedFile = await optimizeImage(files[0]);
                               data.append(name, optimizedFile);
-                              console.log(optimizedFile);
+                             
                          } catch (error) {
                               console.error("Error optimizando archivo:", error);
-                              alert("Hubo un problema con la imagen seleccionada.");
                          }
                     } else if (value.trim() !== '') {
+                         
                          data.append(name, value);
                     }
                }

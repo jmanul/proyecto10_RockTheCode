@@ -25,11 +25,12 @@ export const imageFields = [
 
 
 
-export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event) => {
+export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event, returnRoute) => {
+     
+   
+     const eventsRoute = { action: updateEvent, url: route, event, returnRoute }
 
-     const eventsRoute = { action: updateEvent, url: route, event }
-
-     const passesRoute = { url: `/passes/event/${event._id}`, action: userEventPasses, return: userEventsRoutes[1], event };
+     const passesRoute = { url: `/passes/event/${event._id}`, action: userEventPasses, returnRoute, event };
 
      const actionContainer = await renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Editar', 'bi-pencil-fill');
 
@@ -44,8 +45,7 @@ export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, text
 
 
 export const updateEvent = async (e, route, objectRoute) => {
-
-     const { event } = objectRoute
+     const { event, returnRoute } = objectRoute
      const eventSection = document.querySelector('.events-section');
      const updateEventContainer = document.querySelector('.grid-events');
      const updateEventImageContainer = document.querySelector('.miniature-img');
@@ -56,8 +56,7 @@ export const updateEvent = async (e, route, objectRoute) => {
      editIconImage.classList.add('flex-container', 'edit-icon-img')
      updateEventImageContainer.appendChild(editIconImage);
      editIconImage.innerHTML = `<i class="bi bi-camera-fill"></i>`;
-
-
+     
      try {
           const builder = new FormBuilder(eventFields, 'Guardar', event);
           const updateEventform = await builder.createForm(false);
@@ -74,12 +73,12 @@ export const updateEvent = async (e, route, objectRoute) => {
           updateEventContainer.innerHTML = '';
           updateEventContainer.appendChild(updateEventform);
 
-          await actionRequest(updateEventform, builder, route, 'PUT', renderNewEvent, updateEventContainer);
+          await actionRequest(updateEventform, builder, route, 'PUT', renderNewEvent, updateEventContainer, event);
 
-
+         
           const buttonContainer = updateEventform.querySelector('.button-form');
 
-          await actionButton('Volver', userEventsRoutes[1], buttonContainer)
+          await actionButton('Volver', returnRoute, buttonContainer)
 
 
      } catch (error) {
@@ -93,7 +92,7 @@ export const updateEvent = async (e, route, objectRoute) => {
 
 
 export const updateImage = async (e, route, container, event) => {
-     
+
      const eventImage = document.querySelector('.miniature-img img');
      const currentImage = eventImage.src;
     
@@ -104,6 +103,7 @@ export const updateImage = async (e, route, container, event) => {
      previewImagen.innerHTML = `<img src=${currentImage} alt="imagen del evento">`
      previewImagen.classList.add('flex-container', 'preview-image');
      background.appendChild(previewImagen)
+     previewImagen.style.viewTransitionClass = 'view-transition-opacity'
      container.appendChild(background);
 
 
@@ -120,13 +120,15 @@ export const updateImage = async (e, route, container, event) => {
           inputUpload.addEventListener('change', () => {
 
                if (inputUpload.files.length > 0) {
+
                     const file = inputUpload.files[0];
-                    const fileName = file.name;
-                    console.log(file);
+                    const fileNameExt = file.name.split('.').pop().toLowerCase();
+                    const fileName = file.name.replace(/\.\w+$/, '');
+                  
                     // Cambiar texto del label
                     labelInputUpload.textContent = file.name;
                     labelInputUpload.style.fontSize = '1rem';
-                    labelInputUpload.style.fontFamily = 'Outfit';
+                  
 
                     // Previsualizar imagen seleccionada
                     const reader = new FileReader();
@@ -135,14 +137,24 @@ export const updateImage = async (e, route, container, event) => {
                          
                          const previewFile = document.createElement('img');
                          previewFile.classList.add('preview-file-img')
+                     
                          // URL temporal del archivo
                          const url = e.target.result; 
                          previewFile.src = url;
                          previewFile.alt = 'imagen seleccionada'
                          previewFile.style.viewTransitionName = `${fileName}-${event._id}`
-                         previewImagen.innerHTML = '';
-                         previewImagen.appendChild(previewFile);
-                         previewImagen.appendChild(updateImageform);
+                        
+                         const validExtensions = ['svg', 'jpg', 'webp', 'png', 'jpeg'];
+                         if (validExtensions.includes(fileNameExt)) {
+                              
+                              previewImagen.innerHTML = '';
+                              previewImagen.appendChild(previewFile);
+                              requestAnimationFrame(() => {
+                                   previewFile.classList.add('loaded');
+                              });
+                              previewImagen.appendChild(updateImageform);
+                         }
+                        
                     };
                     
                     // Lee el archivo como DataURL

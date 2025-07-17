@@ -60,6 +60,8 @@
      max-width: 300px;
      z-index: 1;
      box-shadow: var(--box-shadow);
+     object-fit: cover;
+     transition: all 0.5s ease;
     
 }
 
@@ -69,9 +71,18 @@
      height: 70%;
      width: 100%;
      margin-top: 50px;
-    
      
+}
 
+.preview-file-img {
+     opacity: 0;
+     transform: scale(0.95);
+     transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.preview-file-img.loaded {
+     opacity: 1;
+     transform: scale(1);
 }
 
 .form-image .button-form {
@@ -110,7 +121,7 @@
      border-radius: var(--border-radius-big);
      width: 98%;
      margin: 20px;
-     height: 95dvh;
+     height: 85dvh;
      position: absolute;
      top: 50px;
      background-color: var(--background-color-transparent);
@@ -123,13 +134,13 @@
      position: absolute;
      height: 10rem;
      cursor: pointer;
-     top: 5px;
+     bottom:50px;
      gap: 0;
      display: flex;
      text-align: center;
      align-items: center;
      color: var(--text-color);
-     font-family: var(--font-rock);
+     font-family: var(--font-regulat-outfit);
      
 
 }
@@ -153,10 +164,9 @@
 .form-image span {
      background: var(--background-color);
      font-size: 1rem;
-     font-family: var(--font-regulat-outfit);
      height: auto;
      padding: 5px;
-     margin-top: 15px;
+     margin-top: 5px;
      border-radius: var(--border-radius-big);
      width: 80%;
      z-index: 1;

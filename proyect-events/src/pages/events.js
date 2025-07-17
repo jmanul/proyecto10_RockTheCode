@@ -2,7 +2,7 @@ import { buildFetchJson } from '../api/buildFetch';
 import { createEventsCard } from '../components/cardEvent';
 import { createList } from '../components/list';
 import './events.css';
-import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { typesEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { createLayout } from '../components/layout';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { actionButton, renderItemDetails } from '../components/itemDetails';
@@ -149,7 +149,8 @@ export const renderEvents = async (e, route, options = {}) => {
                               
                               const onCardClickRoute = {
                                    url: eventRoute,
-                                   action: () => { onCardClick(e, eventRoute, extendedEvent, keyMapEvent, textEvents, eventsSection, event) }
+                                   ahora : 'si',
+                                   action: () => { onCardClick(e, eventRoute, extendedEvent, keyMapEvent, textEvents, eventsSection, event, onCardClickRoute) }
                               };
                                navigate(e, onCardClickRoute);
                          } else {

@@ -19,7 +19,8 @@ window.addEventListener('load', function () {
 
 allRoutes.forEach(route => {
 
-     registerRoute(route.url, route);
+   registerRoute(route.url, route);
+    
 });
 
 
@@ -33,7 +34,8 @@ window.addEventListener('popstate', async (e) => {
      }
 
      const route = getRouteFromRegistry(url);
-
+     
+     
 
      if (!route) {
         

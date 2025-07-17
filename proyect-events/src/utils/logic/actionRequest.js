@@ -31,17 +31,35 @@ export const actionRequest = async (form, builder, route, method, renderFunction
 
           }
 
+          let transitionClass = 'view-transition-form';
+
+          Array.from(finalForm.elements).forEach((element) => {
+     
+               if (element.placeholder === 'Seleccionar Imagen') {
+                    const { type, files } = element;
+
+                    if (type === 'file' && files.length > 0) {
+                       
+                         transitionClass = 'view-transition-opacity';
+
+                    }
+               }
+          });
+
           try {
                const request = await processForm(finalForm, route, method, container);
 
                if (request) {
+
                     const routeAction = {
                          url: route,
                          action: renderFunction,
-                         transitionClass: 'view-transition-form',
+                         transitionClass,
                          request
+                       
                     };
                     await navigate(e, routeAction, ...rest);
+
                     return request;
                }
 

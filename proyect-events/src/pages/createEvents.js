@@ -155,7 +155,12 @@ export const newEventPage = async (e, route, method, text, title, fields, render
 }
 
 export const eventsUser = async (e, route) => {
-
+   
+     const updateImageContainer = document.querySelector('.backgroun-image-preview');
+     if (updateImageContainer) {
+          
+          updateImageContainer.remove();
+     }
    const events =  await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
  
      const textEventsUser = document.querySelector('.text-events');
@@ -185,7 +190,13 @@ export const eventsUser = async (e, route) => {
 export const renderNewEvent = async (e, route, container, requestObject) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
+     const editIconImage = document.querySelector('.edit-icon-img');
 
+     if (editIconImage) {
+
+          editIconImage.remove();
+     }
+  
      const { request } = requestObject;
      const newEventCreated = request.event
     

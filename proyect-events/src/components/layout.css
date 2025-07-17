@@ -66,6 +66,7 @@
 .grid-events {
 
      min-height: 40dvh;
+     max-height: 70dvh;
      overflow-y: auto;
      scroll-behavior: smooth;
      scrollbar-width: thin;

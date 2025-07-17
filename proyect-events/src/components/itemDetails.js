@@ -5,7 +5,7 @@ import './itemDetails.css'
 
 export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route, text, ...rest) => {
      
-     const fileName = item.image.split('/').pop();
+     const fileName = item.image.split('/').pop().replace(/\.\w+$/, '');
 
      titleContainer.innerHTML = `
         <div class="flex-container select-title">

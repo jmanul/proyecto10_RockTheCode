@@ -46,12 +46,18 @@
 }
 
 
-:root.view-transition-form::view-transition-old(root) {
-  animation: opcity 0.4s both;
+:root.view-transition-opacity::view-transition-new(root) {
+  animation: opacity 0.4s both;
+}
+:root.view-transition-opacity::view-transition-old(root) {
+  animation: opacity-invers 0.4s both;
 }
 
 :root.view-transition-form::view-transition-new(root) {
   animation: slide-right 0.4s both;
+}
+:root.view-transition-form::view-transition-old(root) {
+  animation: slide-left 0.4s both;
 }
 
 
@@ -78,13 +84,27 @@
 }
 
 @keyframes opacity {
-  from {
-    opacity:1;
-  }
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+    
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+}
 
-  to {
-    oopacity:0;
-  }
+@keyframes opacity-invers {
+    from {
+        opacity: 1;
+        transform: scale(1);
+      }
+    
+      to {
+        opacity: 0;
+        transform: scale(0.8);
+      }
 }
 
 

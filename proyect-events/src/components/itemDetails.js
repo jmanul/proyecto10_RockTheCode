@@ -3,7 +3,12 @@ import { navigate } from '../utils/logic/navigate';
 import { userRoutes } from '../utils/routes/routes';
 import './itemDetails.css'
 
-export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataContainer, item, route, text, ...rest) => {
+export const renderItemDetails = async (e, route, returnRoute, ...rest) => {
+     
+   
+     const { data, keyMapEvent, titleContainer, dataContainer, item, routeAction, text } = returnRoute
+
+     const routes = { ...routeAction, returnRoute };
      
      const fileName = item.image.split('/').pop().replace(/\.\w+$/, '');
 
@@ -22,7 +27,7 @@ export const renderItemDetails = async (data, keyMapEvent, titleContainer, dataC
      const actionContainer = document.createElement('div');
      actionContainer.classList.add('flex-container', 'action-container');
      dataContainer.appendChild(actionContainer);
-     await actionButton(text, route, actionContainer, ...rest);
+     await actionButton(text, routes, actionContainer,...rest);
      const returnButton = document.querySelector('.button-volver');
      
      if (!returnButton) {
@@ -59,7 +64,7 @@ export const itemDetails = (data, keyMapEvent) => {
      return html;
 };
 
-export const actionButton = async (text, route, container, icon = null) => {
+export const actionButton = async (text, routeAction, container, icon = null) => {
 
      const button = document.createElement('button');
      if (!icon || icon === null) {
@@ -76,9 +81,9 @@ export const actionButton = async (text, route, container, icon = null) => {
 
      button.addEventListener('click', async (e) => {
 
-          navigate(e, route);
+          navigate(e, routeAction);
         
-         
+         console.log(routeAction, 'routeaction');
      });
 
      return button;

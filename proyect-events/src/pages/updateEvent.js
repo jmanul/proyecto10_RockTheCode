@@ -25,14 +25,22 @@ export const imageFields = [
 
 
 
-export const updateEventPage = async (e, route, extendedEvent, keyMapEvent, textEvents, eventsSection, event, returnRoute) => {
+export const updateEventPage = async (e, route,  returnRoute) => {
      
-   
-     const eventsRoute = { action: updateEvent, url: route, event, returnRoute }
+     const { item: event } = returnRoute;
+     const eventsRoute = {
+          action: updateEvent, url: route, event,
+          transitionClass: 'view-transition-form'
+     }
+     const itemParams = { routeAction: eventsRoute, text: 'Editar', ...returnRoute }
+     
+     const passesRoute = {
+          url: `/passes/event/${event._id}`, action: userEventPasses, returnRoute : itemParams, event,
+          transitionClass: 'view-transition-opacity'
+     };
+     
 
-     const passesRoute = { url: `/passes/event/${event._id}`, action: userEventPasses, returnRoute, event };
-
-     const actionContainer = await renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Editar', 'bi-pencil-fill');
+     const actionContainer = await renderItemDetails(e , route, itemParams, 'bi-pencil-fill');
 
      const returnButton = document.querySelector('.button-volver');
      if (returnButton) {
@@ -62,7 +70,7 @@ export const updateEvent = async (e, route, objectRoute) => {
           const updateEventform = await builder.createForm(false);
           editIconImage.addEventListener(`click`, (e) => {
 
-               updateImage(e, route, eventSection, event)
+               updateImage(e, route, eventSection, event, objectRoute)
           })
 
           if (!updateEventform) {
@@ -91,7 +99,7 @@ export const updateEvent = async (e, route, objectRoute) => {
 }
 
 
-export const updateImage = async (e, route, container, event) => {
+export const updateImage = async (e, route, container, event, returnRoute) => {
 
      const eventImage = document.querySelector('.miniature-img img');
      const currentImage = eventImage.src;
@@ -174,8 +182,8 @@ export const updateImage = async (e, route, container, event) => {
 
           const buttonContainer = updateImageform.querySelector('.button-form');
 
-          await actionButton('Volver', userEventsRoutes[1], buttonContainer)
-
+          const closeButton = await actionButton('Volver', returnRoute, buttonContainer)
+          closeButton.addEventListener('click', () => background.remove());
 
      } catch (error) {
           console.error("Error en renderEvents:", error);
@@ -189,7 +197,7 @@ export const closeUpdateImage = async (e, route , objectRoute) => {
 
      const { request } = objectRoute;
      const updateImageContainer = document.querySelector('.backgroun-image-preview');
-     updateImageContainer.remove();
+     updateImageContainer?.remove();
      const eventImage = document.querySelector('.miniature-img img');
      eventImage.src = request.event.image
 

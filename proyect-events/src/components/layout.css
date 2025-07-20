@@ -22,7 +22,7 @@
      border-top-right-radius: var(--border-radius-big);
      background: var(--background-color-transparent);
      backdrop-filter: blur(50px);
-    
+   
 }
 
 .events-section{
@@ -48,7 +48,7 @@
      border-radius: var(--border-radius-big);
      flex-wrap: nowrap;
      justify-content: flex-start;
-
+     
 }
 
 .home-hover {
@@ -66,7 +66,7 @@
 .grid-events {
 
      min-height: 40dvh;
-     max-height: 70dvh;
+     max-height: 90dvh;
      overflow-y: auto;
      scroll-behavior: smooth;
      scrollbar-width: thin;

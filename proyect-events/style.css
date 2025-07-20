@@ -50,60 +50,63 @@
   animation: opacity 0.4s both;
 }
 :root.view-transition-opacity::view-transition-old(root) {
-  animation: opacity-invers 0.4s both;
+  animation: slide-left 0.6s both;
 }
 
 :root.view-transition-form::view-transition-new(root) {
   animation: slide-right 0.4s both;
 }
+
 :root.view-transition-form::view-transition-old(root) {
-  animation: slide-left 0.4s both;
+  animation: opacity-invers 0.6s both;
 }
-
-
 
 
 @keyframes slide-left {
   from {
     transform: translateX(0);
+   
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(100%);
+   
   }
 }
 
 @keyframes slide-right {
   from {
     transform: translateX(100%);
+   
   }
 
   to {
     transform: translateX(0);
+   
   }
 }
 
 @keyframes opacity {
     from {
         opacity: 0;
-        transform: scale(0.8);
+       
       }
     
       to {
         opacity: 1;
-        transform: scale(1);
+
       }
 }
 
 @keyframes opacity-invers {
     from {
         opacity: 1;
-        transform: scale(1);
+
       }
     
       to {
         opacity: 0;
-        transform: scale(0.8);
+
       }
 }
 
@@ -179,7 +182,9 @@ body {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--light-gray) var(--light-gray-slow);
-
+  background-color: var(--dark-gray);
+      
+  
 }
 
 
@@ -203,18 +208,17 @@ a {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--font-regulat-outfit);
   background-color: var(--background-color);
   background-image: url('/assets/background-event.webp');
   background-position: center;
   background-size: cover;
-
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  transition: background-color 0.3s, color 0.3s;
+ 
+ 
 }
 
 

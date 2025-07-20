@@ -51,6 +51,7 @@ export const eventsPage = async (e, route) => {
           // Renderizar los eventos
           await renderEvents(e, route);
 
+
      } catch (error) {
           console.error("Error en eventsPage:", error);
           const appContainer = document.getElementById('app');
@@ -62,7 +63,7 @@ export const eventsPage = async (e, route) => {
 
 export const renderEvents = async (e, route, options = {}) => {
      try {
-
+          
           const { showPastEvents = false,
                onCardClick = null
 
@@ -141,36 +142,42 @@ export const renderEvents = async (e, route, options = {}) => {
                     };
                     const eventsRoute = { action: eventsPage, url: '/events' }
                     const eventRoute = `/events/${event._id}`;
-                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPassesPage, return: userRoutes[1] };
+                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPassesPage };
 
                     // Añadir el evento de clic a la tarjeta
                     eventCard.addEventListener('click', (e) => {
                          if (onCardClick) {
-                              
+
                               const onCardClickRoute = {
+                                   originRoute:route,
                                    url: eventRoute,
-                                   ahora : 'si',
-                                   action: () => { onCardClick(e, eventRoute, extendedEvent, keyMapEvent, textEvents, eventsSection, event, onCardClickRoute) }
+                                   action: onCardClick,
+                                   data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: eventsSection, item: event,  
+                                   transitionClass: 'view-transition-opacity'
+
                               };
-                               navigate(e, onCardClickRoute);
+                              navigate(e, onCardClickRoute);
                          } else {
 
 
                               if (new Date(event.endDate) > new Date()) {
 
                                    const abonosRoute = {
+                                        originRoute: route,
                                         url: eventRoute,
-                                        action: () => { renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, passesRoute, 'Abonos') }, transitionClass: 'view-transition-item' 
+                                        action: renderItemDetails,data: extendedEvent, keyMapEvent, titleContainer:textEvents, dataContainer : eventsSection, item :event, routeAction :passesRoute,
+                                        text: 'Abonos', transitionClass: 'view-transition-form'
                                    };
                                    navigate(e, abonosRoute);
-                                 
+
                               } else {
 
                                    const finishEventRoute = {
+                                        originRoute: route,
                                         url: eventRoute,
-                                        action: () => { renderItemDetails(extendedEvent, keyMapEvent, textEvents, eventsSection, event, eventsRoute, 'Volver'); }, transitionClass: 'view-transition-item'
+                                        action: renderItemDetails,data: extendedEvent, keyMapEvent, titleContainer :textEvents, dataContainer :eventsSection, item :event, routeAction :eventsRoute, text: 'Volver', transitionClass: 'view-transition-item'
                                    };
-                                   navigate(e, finishEventRoute);     return
+                                   navigate(e, finishEventRoute); return
 
                               }
                          };

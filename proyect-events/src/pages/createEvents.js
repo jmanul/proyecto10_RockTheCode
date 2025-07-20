@@ -59,8 +59,9 @@ export const eventFields = [
 
 
 
-export const createEventsPage = async (e, route) => {
+export const createEventsPage = async (e, route, routeObject) => {
 
+         
      try {
           // Crear el layout principal
           const appContainer = document.getElementById('app');
@@ -78,7 +79,7 @@ export const createEventsPage = async (e, route) => {
           main.prepend(eventsUserMenu);
 
           // Renderizar los eventos
-          await eventsUser(e, route);
+         await eventsUser(e, route);
 
 
      } catch (error) {
@@ -161,7 +162,12 @@ export const eventsUser = async (e, route) => {
           
           updateImageContainer.remove();
      }
-   const events =  await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
+     const events = await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
+     
+     if (!events) {
+          
+          return
+     }
  
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
@@ -187,7 +193,7 @@ export const eventsUser = async (e, route) => {
 
 };
 
-export const renderNewEvent = async (e, route, container, requestObject) => {
+export const renderNewEvent = async (e, route, requestObject, container) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
      const editIconImage = document.querySelector('.edit-icon-img');

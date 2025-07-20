@@ -84,7 +84,7 @@ export const userEventPasses = async (e, route, objectRoute) => {
 };
 
 export const userAddPass = async (e, route, objectRoute) => {
-
+    
      const { event } = objectRoute;
 
      const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, return: userEventsRoutes[1], event };
@@ -113,6 +113,7 @@ export const userAddPass = async (e, route, objectRoute) => {
 
 
 export const createPass = async (e, route, objectRoute) => {
+   
      const { event } = objectRoute;
 
      const passFields = createPassFields(event.startDate, event.endDate);
@@ -120,7 +121,7 @@ export const createPass = async (e, route, objectRoute) => {
       await newEventPage(e, route, 'POST', 'Crear','Nuevo abono', passFields, renderNewPass)
 } 
 
-export const renderNewPass = async (e, route, container, requestObject) => {
+export const renderNewPass = async (e, route, requestObject, container) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
 

@@ -61,8 +61,10 @@ export const createPassCard = (pass, showActions = true) => {
 export const renderPassesPage = async (e, route, routeObject) => {
 
      const { returnRoute } = routeObject;
+     const { originRoute } = returnRoute
+    
      try {
-          const validateUserEvent = returnRoute.url.includes('userEventsCreate');
+          const validateUserEvent = originRoute.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
           const eventsSection = document.querySelector('.grid-events');
 
@@ -73,15 +75,33 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
           eventsSection.innerHTML = '';
 
-           await actionButton('Volver', returnRoute, eventsSection);
+         
           const notContent = document.createElement('h2');
           notContent.innerText = 'Actualmente no hay entradas disponibles';
           notContent.classList.add('flex-container', 'not-content');
+          
+          const notContentAutorContainer = document.createElement('div');
+          notContentAutorContainer.classList.add('image-not-content');
+          const notContentAutor = document.createElement('h2');
+          notContentAutor.classList.add('flex-container');
 
           if (!passes || passes.length === 0) {
-               eventsSection.prepend(notContent);
 
-          }
+               eventsSection.prepend(notContent);
+               eventsSection.appendChild(notContentAutorContainer)
+               notContentAutorContainer.innerHTML = `<div class="flex-container">
+  <img src="/assets/saw-events.webp" alt="imagen triste">
+</div>`;  
+               if (validateUserEvent) {
+                    notContentAutorContainer.appendChild(notContentAutor);
+                    notContent.innerText = 'Crea el primer abono';  
+              
+               }
+              
+
+          } 
+
+          await actionButton('Volver', returnRoute, eventsSection, 'bi-x-circle-fill');
 
           let hasAvailablePasses = false;
           const nowDate = new Date();

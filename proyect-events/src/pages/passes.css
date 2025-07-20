@@ -76,3 +76,22 @@
      top: 10px;
 }
 
+.image-not-content img {
+
+     width: 100%;
+}
+
+.image-not-content {
+   
+     width: 50%;
+     height: 90%;
+     text-align: center;
+}
+.image-not-content h2{
+
+    position: absolute;
+    top: 0;
+    height: 20%;
+}
+
+

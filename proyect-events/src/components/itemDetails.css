@@ -39,7 +39,6 @@
 
      width: 100%;
      border-radius: var(--border-radius-big);
-     /* background:var(--background-color-transparent-color); */
      padding: var(--spacing-small) 0;
 
 }

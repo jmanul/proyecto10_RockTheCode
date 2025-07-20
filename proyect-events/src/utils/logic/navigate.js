@@ -39,7 +39,7 @@ export const navigate = async (e, route, ...rest) => {
 
      const render = () =>
           typeof route.action === 'function'
-               ? route.action(e, route.url, ...(rest || []), route)
+               ? route.action(e, route.url, route, ...(rest || []))
                : console.log('No hay función action para esta ruta:', route);
 
      if (document.startViewTransition) {

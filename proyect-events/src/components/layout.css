@@ -54,6 +54,7 @@
 .home-hover {
     
      cursor: pointer;
+     transition: .2s;
 
      &:hover {
 

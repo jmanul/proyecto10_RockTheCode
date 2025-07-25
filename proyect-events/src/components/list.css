@@ -20,7 +20,7 @@
 
 li .item-text {
 
-
+     transition: .2s;
 
      &:hover {
      

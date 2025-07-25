@@ -35,10 +35,11 @@ export function createPassFields(eventStartDate, eventEndDate) {
                     const selectedDate = new Date(value);
                     const minDate = new Date
                          (eventStartDate);
+                         
                     const maxEnd = new Date(eventEndDate);
                     return selectedDate >= minDate && selectedDate <= maxEnd
                          ? true
-                         : `La fecha debe estar comprendida entre ${minDate.toLocaleString()} y ${maxEnd.toLocaleString()}`;
+                         : `La fecha debe estar comprendida entre ${minDate.toLocaleString()} y ${maxEnd.toLocaleString() }`;
                }
           },
 
@@ -62,7 +63,7 @@ export function createPassFields(eventStartDate, eventEndDate) {
                     }
 
                     if (endDate > maxEnd) {
-                         return `La fecha de fin no puede ser posterior a la del evento: ${maxEnd.toLocaleString()}`;
+                         return `La fecha de fin no puede ser posterior a la del evento: ${maxEnd.toLocaleString() }`;
                     }
 
                     return true;
@@ -87,7 +88,7 @@ export const userAddPass = async (e, route, objectRoute) => {
     
      const { event } = objectRoute;
 
-     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, return: userEventsRoutes[1], event };
+     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute:objectRoute, event };
 
      const passesContainer = document.querySelector('.grid-events');
 
@@ -113,17 +114,18 @@ export const userAddPass = async (e, route, objectRoute) => {
 
 
 export const createPass = async (e, route, objectRoute) => {
-   
-     const { event } = objectRoute;
+     
+     const { event, eventRoute } = objectRoute;
 
      const passFields = createPassFields(event.startDate, event.endDate);
 
-      await newEventPage(e, route, 'POST', 'Crear','Nuevo abono', passFields, renderNewPass)
+      await newEventPage(e, route, 'POST', 'Crear','Nuevo abono', passFields, renderNewPass, eventRoute) 
 } 
 
-export const renderNewPass = async (e, route, requestObject, container) => {
-
-     // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
+export const renderNewPass = async (e, route, requestObject, container = null, returnRoute = userEventsRoutes[1] ) => {
+     
+      console.log(returnRoute, 'estamos en new pass');
+     // recibo el objeto requestObject completo de navigate con la request para poder acceder al pase creado y returnRoute pra poder volver a la vista de los pases
 
      const { request } = requestObject;
      const newPassCreated = request.pass;
@@ -132,25 +134,19 @@ export const renderNewPass = async (e, route, requestObject, container) => {
 
      const cardNewPass = createPassCard(newPassCreated );
      const formNewEventContainer = document.querySelector('.grid-events');
-     container.innerHTML = `<h2>Nuevo abono creado</h2>`;
+
+     if (container || !container === null || !container === undefined) {
+
+          container.innerHTML = `<h2>Nuevo evento creado</h2>`;
+
+     }
      formNewEventContainer.innerHTML = '';
      formNewEventContainer.appendChild(cardNewPass);
 
-      await actionButton('Volver', userEventsRoutes[1], formNewEventContainer)
+      await actionButton('Volver', returnRoute, formNewEventContainer)
 
 
 }
 
-export const updatePass = async (e, route, objectRoute) => {
 
-     console.log(objectRoute, `este es el objectRoute de updatePass`);
-    
-     // const { event } = objectRoute
-  
-     // await newEventPage(e, route, 'PUT', 'Guardar', 'Actualizar evento', eventFields, renderNewEvent, event);
-
-     // const buttonContainer = document.querySelector('.button-form');
-    
-     // await actionButton('Volver', userEventsRoutes[1], buttonContainer)
- };
 

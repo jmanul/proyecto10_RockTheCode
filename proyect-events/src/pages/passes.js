@@ -5,8 +5,7 @@ import { generateTicket } from './generateTicket';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { navigate } from '../utils/logic/navigate';
 import './passes.css'
-import { userRoutes } from '../utils/routes/routes';
-import { updatePass } from './createPass';
+import { updatePass } from './updatePass';
 
 const keyMapPass = {
      namePass: { icon: "bi bi-ticket-detailed" },
@@ -59,8 +58,8 @@ export const createPassCard = (pass, showActions = true) => {
 
 
 export const renderPassesPage = async (e, route, routeObject) => {
-
-     const { returnRoute } = routeObject;
+    
+     const { returnRoute, event } = routeObject;
      const { originRoute } = returnRoute
     
      try {
@@ -132,10 +131,15 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
                          const passUpdateRoute = {
                               url: `/passes/${pass._id}`,
-                              action: updatePass
+                              action: updatePass,
+                              passesRoute: routeObject,
+                              pass,
+                              event, 
+                              container : eventsSection
+                              
                          };
 
-                          await actionButton('Editar', passUpdateRoute, addPassesContainer);
+                         await actionButton('Editar', passUpdateRoute, addPassesContainer);
 
                     }
 
@@ -216,7 +220,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
           const eventsSection = document.querySelector('.grid-events');
           if (eventsSection) {
                eventsSection.innerHTML = `<p>Ocurrió un error al cargar los abonos.</p>`;
-               const button = await actionButton('volver', userRoutes[1], eventsSection);
+               const button = await actionButton('volver', returnRoute, eventsSection);
                button.style.backgroundColor = 'red';
           }
      }

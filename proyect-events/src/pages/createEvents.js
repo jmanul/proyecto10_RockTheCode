@@ -99,7 +99,8 @@ export const createEvent = async (e, route) => {
 
 
 
-export const newEventPage = async (e, route, method, text, title, fields, renderAction, existingValues = {} ) => {
+export const newEventPage = async (e, route, method, text, title, fields, renderAction, returnRoute = userEventsRoutes[1], existingValues = {}) => {
+
 
      try {
            
@@ -138,13 +139,12 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
         
-          await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents);
+          await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents, returnRoute);
           
           const buttonContainer = formNewEvent.querySelector('.button-form');
 
-          await actionButton('Volver', userEventsRoutes[1], buttonContainer)
+          await actionButton('Volver', returnRoute , buttonContainer)
 
-         
 
      } catch (error) {
           console.error("Error en renderEvents:", error);
@@ -193,7 +193,7 @@ export const eventsUser = async (e, route) => {
 
 };
 
-export const renderNewEvent = async (e, route, requestObject, container) => {
+export const renderNewEvent = async (e, route, requestObject, container = null) => {
 
      // recibo el objeto route = requestObject completo de navigate con la request para poder acceder al evnto creado
      const editIconImage = document.querySelector('.edit-icon-img');
@@ -202,20 +202,31 @@ export const renderNewEvent = async (e, route, requestObject, container) => {
 
           editIconImage.remove();
      }
-  
-     const { request } = requestObject;
+     
+     const { request, returnRoute } = requestObject;
      const newEventCreated = request.event
+
+     let finalReturRoute = returnRoute
+
+     if (!returnRoute) {
+
+          finalReturRoute = userEventsRoutes[1]
+     }
     
      // Seleccionar el contenedor de eventos y creamos la card del evento para mostrarlo
 
      const cardEvent = createEventsCard(newEventCreated);
      const formNewEventContainer = document.querySelector('.grid-events');
+     if (container || !container === null || !container === undefined) {
 
-     container.innerHTML = `<h2>Nuevo evento creado</h2>`;
+          container.innerHTML = `<h2>Nuevo evento creado</h2>`;
+          
+     }
+    
      formNewEventContainer.innerHTML = '';
      formNewEventContainer.appendChild(cardEvent);
 
-      await actionButton('Volver', userEventsRoutes[1], formNewEventContainer)
+      await actionButton('Volver', finalReturRoute, formNewEventContainer)
 
 
 }

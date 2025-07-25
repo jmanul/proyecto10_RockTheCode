@@ -3,7 +3,7 @@ import { actionButton } from "./itemDetails";
 import './cardTicket.css';
 import { dateFormat } from "../utils/logic/dateFormat";
 import { printTicket } from "../utils/logic/printTicket";
-import { userRoutes } from "../utils/routes/routes";
+
 
 export const cardTicket = async (request, ticket) => {
 

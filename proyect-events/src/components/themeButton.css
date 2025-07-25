@@ -41,6 +41,7 @@
 .light-theme-button:hover {
 
      box-shadow: var(--box-shadow-5);
+     transition: .2s;
 }
 
 .on-off {

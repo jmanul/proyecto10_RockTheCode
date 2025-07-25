@@ -83,7 +83,6 @@ export const actionButton = async (text, routeAction, container, icon = null) =>
 
           navigate(e, routeAction);
         
-         console.log(routeAction, 'routeaction');
      });
 
      return button;

@@ -20,6 +20,7 @@
      animation-timeline: view(block);
      animation-range: entry 0% cover 50%;
      animation-fill-mode: forwards;
+     transition: .2s;
   
      &:hover {
 

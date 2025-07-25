@@ -52,7 +52,7 @@ export const updateEventPage = async (e, route,  returnRoute) => {
 }
 
 
-export const updateEvent = async (e, route, objectRoute) => {
+export const updateEvent = async (e, route, objectRoute) => {  
      const { event, returnRoute } = objectRoute
      const eventSection = document.querySelector('.events-section');
      const updateEventContainer = document.querySelector('.grid-events');
@@ -86,7 +86,15 @@ export const updateEvent = async (e, route, objectRoute) => {
          
           const buttonContainer = updateEventform.querySelector('.button-form');
 
-          await actionButton('Volver', returnRoute, buttonContainer)
+          await actionButton('Volver', returnRoute, buttonContainer);
+          const continueRoute = {
+               url: route, 
+               transitionClass: 'view-transition-opacity',
+               action: renderNewEvent,
+               request: { event },
+               returnRoute:objectRoute
+          }
+          await actionButton('Continuar', continueRoute, buttonContainer);
 
 
      } catch (error) {
@@ -181,8 +189,9 @@ export const updateImage = async (e, route, container, event, returnRoute) => {
           await actionRequest(updateImageform, builder, route, 'PUT', closeUpdateImage, container);
 
           const buttonContainer = updateImageform.querySelector('.button-form');
-
-          const closeButton = await actionButton('Volver', returnRoute, buttonContainer)
+          const {url} = returnRoute
+          const cleanRoute = { url, transitionClass: 'view-transition-opacity', }
+          const closeButton = await actionButton('Volver', cleanRoute, buttonContainer)
           closeButton.addEventListener('click', () => background.remove());
 
      } catch (error) {

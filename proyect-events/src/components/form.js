@@ -1,3 +1,4 @@
+import { toLocalDatetimeInput } from '../utils/logic/dateFormat';
 import './form.css';
 
 export class FormBuilder {
@@ -42,8 +43,8 @@ export class FormBuilder {
                     input = document.createElement('textarea');
                     input.rows = 4;
 
-               } else if (field.type === 'file' ) {
-                    
+               } else if (field.type === 'file') {
+
                     // decidimos si incluir file en el formulario
                     if (fileOn) {
 
@@ -52,9 +53,9 @@ export class FormBuilder {
                          input.id = 'file-input';
                          input.classList.add('file-Input');
                          label.for = 'file-input';
-                        
+
                     } else {
-                       
+
                          return; // Saltar este campo
                     }
                } else {
@@ -71,12 +72,10 @@ export class FormBuilder {
                // Asignar valor existente si no es archivo
                if (field.type !== 'file' && this.existingValues[field.name] !== undefined) {
                     if (field.type === 'datetime-local') {
-                         const rawDate = new Date(this.existingValues[field.name]);
-                         if (!isNaN(rawDate.getTime())) {
-                              const formattedDate = rawDate.toISOString().slice(0, 16);
-                              input.value = formattedDate;
-                              input.dataset.originalValue = formattedDate;
-                         }
+                         //formateamos la fecha para que sea aceptada por el input
+                         const formattedDate = toLocalDatetimeInput(this.existingValues[field.name]);
+                         input.value = formattedDate;
+                         input.dataset.originalValue = formattedDate;
                     } else {
                          input.value = this.existingValues[field.name];
                          input.dataset.originalValue = this.existingValues[field.name];
@@ -93,7 +92,7 @@ export class FormBuilder {
                div.appendChild(errorSpan);
                this.form.appendChild(div);
 
-              
+
           });
 
           const buttonContainer = document.createElement('div');
@@ -201,11 +200,8 @@ export class FormBuilder {
                     input.checked = field.value === true || field.value === 'true';
 
                } else if (field.type === 'datetime-local' && field.value) {
-                    const date = new Date(field.value);
-                    if (!isNaN(date.getTime())) {
-                         const formatted = date.toISOString().slice(0, 16);
-                         input.value = formatted;
-                    }
+                   
+                    input.value = field.value;
 
                } else if (field.value !== undefined) {
                     input.value = field.value;
@@ -225,6 +221,4 @@ export class FormBuilder {
           return /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(url);
      }
 }
-
-
 

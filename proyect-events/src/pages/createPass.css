@@ -1,0 +1,14 @@
+.title-form {
+
+     font-size: 1.5rem;
+     padding: 5px;
+     color: var(--);
+     background: var(--background-color);
+     border-radius:var(--border-radius-big);
+     border:1px solid var(--light-gray);
+     width: 100%;
+     text-align: center;
+     box-shadow: var(--box-shadow);
+   
+    
+}

@@ -1,5 +1,7 @@
 
+import { FormBuilder } from '../components/form';
 import { actionButton } from '../components/itemDetails';
+import { actionRequest } from '../utils/logic/actionRequest';
 import { userEventsRoutes } from '../utils/routes/routes';
 import { newEventPage } from './createEvents';
 import './createPass.css';
@@ -88,8 +90,6 @@ export const userAddPass = async (e, route, objectRoute) => {
     
      const { event } = objectRoute;
 
-     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute:objectRoute, event };
-
      const passesContainer = document.querySelector('.grid-events');
 
      if (!passesContainer) {
@@ -97,6 +97,8 @@ export const userAddPass = async (e, route, objectRoute) => {
           throw new Error("No se encontró el contenedor de las entradas");
      }
 
+
+     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute: objectRoute, event, container: passesContainer };
      
      const buttonAddPassContainer = document.createElement('div');
      buttonAddPassContainer.classList.add('flex-container', 'action-container');
@@ -114,17 +116,45 @@ export const userAddPass = async (e, route, objectRoute) => {
 
 
 export const createPass = async (e, route, objectRoute) => {
+    
+     const { event, eventRoute, container } = objectRoute;
+       
+          try {
      
-     const { event, eventRoute } = objectRoute;
+               const passFields = createPassFields(event.startDate, event.endDate);
+               
+               const builder = new FormBuilder(passFields, 'Guardar');
+               const newPassForm = await builder.createForm(false);
+     
 
-     const passFields = createPassFields(event.startDate, event.endDate);
-
-      await newEventPage(e, route, 'POST', 'Crear','Nuevo abono', passFields, renderNewPass, eventRoute) 
+               if (!newPassForm) {
+                    throw new Error("No se pudo crear el formulario para el nuevo abono");
+               }
+               const textInfo = document.createElement('h4');
+               textInfo.innerText = 'Nuevo Abono';
+               textInfo.classList.add('title-form');
+            
+               container.innerHTML = '';
+               container.appendChild(textInfo);
+               container.appendChild(newPassForm);
+     
+               await actionRequest(newPassForm, builder, route, 'POST', renderNewPass, container, eventRoute, textInfo, 'Abono Añadido');
+     
+              
+               const buttonContainer = newPassForm.querySelector('.button-form');
+     
+               await actionButton('Volver', eventRoute, buttonContainer);
+     
+     
+          } catch (error) {
+               console.error("Error en renderNewPass:", error);
+               container.innerHTML = "<p>Ocurrió un error al cargar el abono.</p>";
+          }
 } 
 
-export const renderNewPass = async (e, route, requestObject, container = null, returnRoute = userEventsRoutes[1] ) => {
+export const renderNewPass = async (e, route, requestObject, returnRoute, titleForm, textInfo) => {
      
-      console.log(returnRoute, 'estamos en new pass');
+   
      // recibo el objeto requestObject completo de navigate con la request para poder acceder al pase creado y returnRoute pra poder volver a la vista de los pases
 
      const { request } = requestObject;
@@ -134,13 +164,9 @@ export const renderNewPass = async (e, route, requestObject, container = null, r
 
      const cardNewPass = createPassCard(newPassCreated );
      const formNewEventContainer = document.querySelector('.grid-events');
-
-     if (container || !container === null || !container === undefined) {
-
-          container.innerHTML = `<h2>Nuevo evento creado</h2>`;
-
-     }
      formNewEventContainer.innerHTML = '';
+     titleForm.innerText = textInfo
+     formNewEventContainer.appendChild(titleForm);
      formNewEventContainer.appendChild(cardNewPass);
 
       await actionButton('Volver', returnRoute, formNewEventContainer)

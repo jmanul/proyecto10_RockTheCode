@@ -6,7 +6,7 @@ import { processForm } from "./processForm";
 
 
 export const actionRequest = async (form, builder, route, method, renderFunction, container, ...rest) => {
-     console.log(route);
+
      
      form.addEventListener('submit', async (e) => {
           e.preventDefault();

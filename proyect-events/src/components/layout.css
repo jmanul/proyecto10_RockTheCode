@@ -17,9 +17,10 @@
    
      align-items: flex-start;
      gap: 8px;
-     padding: var(--spacing-large) var(--spacing-little-bit) var(--spacing-little-bit) var(--spacing-little-bit);
-     border-top-left-radius: var(--border-radius-big);
-     border-top-right-radius: var(--border-radius-big);
+     padding: var(--spacing-large) var(--spacing-little-bit)  var(--spacing-little-bit);
+     /* border-top-left-radius: var(--border-radius-big);
+     border-top-right-radius: var(--border-radius-big); */
+     border-radius:var(--border-radius-big);
      background: var(--background-color-transparent);
      backdrop-filter: blur(50px);
    

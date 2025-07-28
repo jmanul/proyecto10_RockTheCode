@@ -92,8 +92,13 @@
 
 button i {
 
-   font-size: 2rem;
+   font-size: 1.5rem;
    color: var(--text-color);
+
+   &:hover {
+
+     color: var(--neon-cyan);
+   }
    
 }
 

@@ -9,7 +9,7 @@ export const updatePass = async (e, route, objectRoute) => {
      
      try {
 
-          const passFields = createPassFields(event.startDate, event.endDate);
+          const passFields = createPassFields(event.startDate, event.endDate, pass.totalReservedPlacesPass);
           
           const builder = new FormBuilder(passFields, 'Guardar', pass);
           const updatePassForm = await builder.createForm(false);

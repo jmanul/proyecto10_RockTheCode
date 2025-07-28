@@ -2,12 +2,11 @@
 import { FormBuilder } from '../components/form';
 import { actionButton } from '../components/itemDetails';
 import { actionRequest } from '../utils/logic/actionRequest';
-import { userEventsRoutes } from '../utils/routes/routes';
-import { newEventPage } from './createEvents';
+
 import './createPass.css';
 import { createPassCard, renderPassesPage } from './passes';
 
-export function createPassFields(eventStartDate, eventEndDate) {
+export function createPassFields(eventStartDate, eventEndDate, reservedPlaces = null) {
      return [
           { name: 'namePass', type: 'text', placeholder: 'Nombre del abono', required: false },
 
@@ -24,16 +23,25 @@ export function createPassFields(eventStartDate, eventEndDate) {
                type: 'number',
                placeholder: 'Abonos disponibles',
                required: true,
-               min: 1
+               min: 1,
+               validate: (value) => {
+
+                    if (reservedPlaces !== null && value < reservedPlaces) {
+
+                         return `El aforo no puede ser menor que las ${reservedPlaces} plazas ya reservadas`
+                    }
+                    return true
+               }
           },
 
           {
                name: 'startDatePass',
                type: 'datetime-local',
                placeholder: 'Fecha de inicio',
-               required: true,
+               required: false,
                min: new Date(eventStartDate).toISOString().slice(0, 16),
                validate: (value) => {
+                    if (!value) { return true };
                     const selectedDate = new Date(value);
                     const minDate = new Date
                          (eventStartDate);
@@ -49,8 +57,10 @@ export function createPassFields(eventStartDate, eventEndDate) {
                name: 'endDatePass',
                type: 'datetime-local',
                placeholder: 'Fecha de fin',
-               required: true,
+               required: false,
                validate: (value, form) => {
+
+                    if (!value) { return true };
                     const endDate = new Date(value);
                     const startInput = form.querySelector('[name="startDatePass"]');
                     const startDate = new Date(startInput.value);

@@ -46,7 +46,7 @@ export const createPassCard = (pass, showActions = true) => {
 
                const soldOutPasse = document.createElement('div');
                soldOutPasse.classList.add('flex-container', 'asistent-number');
-               soldOutPasse.innerHTML = `<img src="/assets/event-soldOut.png" alt="soldOut">`;
+               soldOutPasse.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753813877/default/event-soldOut_xg5nxb.png" alt="soldOut">`;
                passContainer.appendChild(soldOutPasse);
           }
 
@@ -65,53 +65,56 @@ export const renderPassesPage = async (e, route, routeObject) => {
      try {
           const validateUserEvent = originRoute.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
-          const eventsSection = document.querySelector('.grid-events');
+          const gridEvents = document.querySelector('.grid-events');
+          const passesContainer = document.createElement('div');
+          passesContainer.classList.add('flex-container', 'passes-container');
 
 
-          if (!eventsSection) {
-               throw new Error("No se encontró el contenedor de eventos (.grid-events).");
+          if (!gridEvents) {
+               throw new Error("No se encontró el contenedor de abonos (.grid-events).");
           }
 
-          eventsSection.innerHTML = '';
+          gridEvents.innerHTML = '';
+          gridEvents.appendChild(passesContainer);
 
-         
-          const notContent = document.createElement('h2');
-          notContent.innerText = 'Actualmente no hay entradas disponibles';
-          notContent.classList.add('flex-container', 'not-content');
-          
-          const notContentAutorContainer = document.createElement('div');
-          notContentAutorContainer.classList.add('image-not-content');
-          const notContentAutor = document.createElement('h2');
-          notContentAutor.classList.add('flex-container');
+          const notContent = document.createElement('div');
+          notContent.innerHTML = `<div class="flex-container not-content image-not-content">
+<h4>Actualmente no hay entradas disponibles.</h4>
+  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+</div>`;
 
           if (!passes || passes.length === 0) {
 
-               eventsSection.prepend(notContent);
-               eventsSection.appendChild(notContentAutorContainer)
-               notContentAutorContainer.innerHTML = `<div class="flex-container">
-  <img src="/assets/saw-events.webp" alt="imagen triste">
-</div>`;  
+               passesContainer.appendChild(notContent);
+          
                if (validateUserEvent) {
-                    notContentAutorContainer.appendChild(notContentAutor);
-                    notContent.innerText = 'Crea el primer abono';  
+                   
+                    notContent.innerHTML = `<div class="flex-container not-content image-not-content">
+<h4>Crea tu primer abono.</h4>
+  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+</div>`;
               
                }
               
 
           } 
 
-          await actionButton('Volver', returnRoute, eventsSection, 'bi-x-circle-fill');
+          const buttonContainer = document.createElement('div');
+          buttonContainer.classList.add('flex-container', 'action-container');
+          gridEvents.appendChild(buttonContainer);
+          const returnButton = await actionButton('Volver', returnRoute, gridEvents);
+          buttonContainer.appendChild(returnButton)
 
           let hasAvailablePasses = false;
           const nowDate = new Date();
-
+       
           for (const pass of passes) {
+
                try {
                     let maxCapacity = pass.maxCapacityPass;
                     let totalReservedPlaces = pass.totalReservedPlacesPass;
-
-                    const addPassesContainer = document.createElement('div');
-                    addPassesContainer.classList.add('flex-container', 'add-passes-container');
+                    const addpassesContainer = document.createElement('div');
+                    addpassesContainer.classList.add('flex-container', 'add-passes-container');
                     const passEndDate = new Date(pass.endDatePass);
                     const isPassAvailable = passEndDate > nowDate && totalReservedPlaces < maxCapacity;
 
@@ -120,10 +123,9 @@ export const renderPassesPage = async (e, route, routeObject) => {
                          pass,
                          isPassAvailable
                     );
-
-                    eventsSection.prepend(passCard);
-
-                    passCard.appendChild(addPassesContainer);
+                    
+                    passesContainer.appendChild(passCard);
+                    passCard.appendChild(addpassesContainer);
 
                     // Configurar acciones de editar el abono está si se consulta desde edicion por el autor
 
@@ -135,11 +137,11 @@ export const renderPassesPage = async (e, route, routeObject) => {
                               passesRoute: routeObject,
                               pass,
                               event, 
-                              container : eventsSection
+                              container : gridEvents
                               
                          };
 
-                         await actionButton('Editar', passUpdateRoute, addPassesContainer);
+                         await actionButton('Editar', passUpdateRoute, addpassesContainer);
 
                     }
 
@@ -147,7 +149,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
                     if (isPassAvailable && !validateUserEvent) {
 
-                         addPassesContainer.innerHTML = `
+                         addpassesContainer.innerHTML = `
             <div class="flex-container reserved-places-group">
                 <input 
                     id="reservedPlaces-ticket-${pass._id}"
@@ -211,16 +213,20 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
           if (!hasAvailablePasses && !validateUserEvent) {
 
-               eventsSection.prepend(notContent);
+               gridEvents.prepend(notContent);
+               notContent.innerHTML = `<div class="flex-container not-content">
+<h4>Actualmente no hay entradas disponibles.</h4>
+</div>`;
+               
 
           }
 
      } catch (error) {
           console.error("Error en renderPassesPage:", error);
-          const eventsSection = document.querySelector('.grid-events');
-          if (eventsSection) {
-               eventsSection.innerHTML = `<p>Ocurrió un error al cargar los abonos.</p>`;
-               const button = await actionButton('volver', returnRoute, eventsSection);
+          const gridEvents = document.querySelector('.grid-events');
+          if (gridEvents) {
+               gridEvents.innerHTML = `<p>Ocurrió un error al cargar los abonos.</p>`;
+               const button = await actionButton('volver', returnRoute, gridEvents);
                button.style.backgroundColor = 'red';
           }
      }

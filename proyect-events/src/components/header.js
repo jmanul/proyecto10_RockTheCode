@@ -10,7 +10,7 @@ export const createHeader = () => {
      
      header.className = 'flex-container';
      header.id = 'header';
-     const logo = createLogo('/assets/propoysal-person.webp');
+     const logo = createLogo('https://res.cloudinary.com/dn6utw1rl/image/upload/v1749542930/default/ajnuvbrizk2z6rbdfken.png');
      header.appendChild(logo);
     
      const menuHeader = createList('menu-header-web', loginRoutes);  

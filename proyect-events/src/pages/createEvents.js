@@ -94,7 +94,7 @@ export const createEventsPage = async (e, route, routeObject) => {
 export const createEvent = async (e, route) => {
 
      
-     await newEventPage(e, route, 'POST', 'Crear', 'Nuevo evento', eventFields, renderNewEvent);
+     await newEventPage(e, route, 'POST', 'Añadir', 'Nuevo evento', eventFields, renderNewEvent);
 };
 
 

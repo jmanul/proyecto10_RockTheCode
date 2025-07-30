@@ -11,13 +11,14 @@ export const generateTicket = async (e, route, routeObject) => {
 
      // Seleccionar el contenedor de eventos
      const eventsSection = document.querySelector('.grid-events');
+     const ticketsContainer = eventsSection.querySelector('.passes-container')
 
      eventsSection.style.scrollbarGutter = 'stable both-edges';
 
      // añadir las entradas del evento y generar los tickets
      const request = await buildFetchJson({ route: url, method: 'PUT', bodyData: { reservedPlaces: reservedPlaces } });
 
-     await renderTicket(request, eventsSection)
+     await renderTicket(request, ticketsContainer)
 
 
 };
@@ -50,20 +51,16 @@ export const renderTicket = async (request, container) => {
                     }
                } catch (error) {
                     console.error("Error al renderizar un ticket:", error);
+                    ticketContainer.innerHTML = `<p>Ocurrió un error al cargar el ticket</p>`;
                }
           }
           
-          const buttonExit = await actionButton('volver', userRoutes[1], container);
           return container;
 
      } catch (error) {
           console.error("Error en renderTicket:", error);
           container.innerHTML = `<p>Ocurrió un error al cargar los tickets.</p>`;
 
-         
-          const button = await actionButton('volver', userRoutes[1], container);
-
-          button.style.backgroundColor = 'red'
           return container;
      }
 };

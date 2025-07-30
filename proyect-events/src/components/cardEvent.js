@@ -39,9 +39,9 @@ export function createEventsCard(event) {
      const asistentNumber = document.createElement('div');
      asistentNumber.classList.add('flex-container', 'asistent-number');
 
-     if (event.totalReservedPlaces === event.maxCapacity) {
+     if (event.maxCapacity > 0 && event.totalReservedPlaces === event.maxCapacity) {
   
-          asistentNumber.innerHTML = `<img src="/assets/event-soldOut.png" alt="soldOut">`;
+          asistentNumber.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753813877/default/event-soldOut_xg5nxb.png" alt="soldOut">`;
      }
 
      card.appendChild(image);

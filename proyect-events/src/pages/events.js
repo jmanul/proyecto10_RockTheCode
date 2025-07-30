@@ -2,7 +2,7 @@ import { buildFetchJson } from '../api/buildFetch';
 import { createEventsCard } from '../components/cardEvent';
 import { createList } from '../components/list';
 import './events.css';
-import { typesEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
 import { createLayout } from '../components/layout';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { actionButton, renderItemDetails } from '../components/itemDetails';
@@ -63,7 +63,7 @@ export const eventsPage = async (e, route) => {
 
 export const renderEvents = async (e, route, options = {}) => {
      try {
-          
+
           const { showPastEvents = false,
                onCardClick = null
 
@@ -72,8 +72,8 @@ export const renderEvents = async (e, route, options = {}) => {
           let numberEvents = 0;
 
           // Seleccionar el contenedor de eventos
-          const eventsSection = document.querySelector('.grid-events');
-          eventsSection.style.scrollbarGutter = 'stable both-edges';
+          const gridEvents = document.querySelector('.grid-events');
+          gridEvents.style.scrollbarGutter = 'stable both-edges';
           const gridMain = document.querySelector('.grid-main');
           gridMain.style.gridTemplateColumns = 'auto auto';
           gridMain.style.gap = '0';
@@ -82,11 +82,11 @@ export const renderEvents = async (e, route, options = {}) => {
           const infoGridSection = document.getElementById('info-grid-section');
           infoGridSection?.remove();
 
-          if (!eventsSection) {
+          if (!gridEvents) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
 
-          eventsSection.innerHTML = '';
+          gridEvents.innerHTML = '';
 
           // Obtener los datos de los eventos
           const request = await buildFetchJson({ route });
@@ -95,15 +95,29 @@ export const renderEvents = async (e, route, options = {}) => {
 
           // Validar si hay eventos disponibles
           if (!events || events.length === 0) {
-               eventsSection.innerHTML = "<p>No hay resultados disponibles.</p>";
+               gridEvents.innerHTML = `<div class="flex-container not-content image-not-content">
+<h4>No hay eventos disponibles</h4>
+  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+</div>`;
+               const actionContainer = document.createElement('div');
+               actionContainer.classList.add('flex-container', 'action-container');
+               gridEvents.appendChild(actionContainer);
+               actionContainer.style.position = 'fixed';
 
+               if (route.includes('userEventsCreate')) {
+
+                    const mesageNotEvent = gridEvents.querySelector('.not-content h4');
+                    mesageNotEvent.innerText = 'Aún no has creado ningun evento';
+                    await actionButton('Crear', userEventsRoutes[0], actionContainer);
+
+               }
                const homeRoute = {
                     url: '/home', action: renderHomePage
                }
-
-               await actionButton('Volver', homeRoute, eventsSection);
+               await actionButton('Volver', homeRoute, actionContainer);
 
                return;
+
           }
 
           // Crear el contenedor de eventos
@@ -149,10 +163,10 @@ export const renderEvents = async (e, route, options = {}) => {
                          if (onCardClick) {
 
                               const onCardClickRoute = {
-                                   originRoute:route,
+                                   originRoute: route,
                                    url: eventRoute,
                                    action: onCardClick,
-                                   data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: eventsSection, item: event,  
+                                   data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event,
                                    transitionClass: 'view-transition-opacity'
 
                               };
@@ -165,7 +179,7 @@ export const renderEvents = async (e, route, options = {}) => {
                                    const abonosRoute = {
                                         originRoute: route,
                                         url: eventRoute,
-                                        action: renderItemDetails,data: extendedEvent, keyMapEvent, titleContainer:textEvents, dataContainer : eventsSection, item :event, routeAction :passesRoute,
+                                        action: renderItemDetails, data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event, routeAction: passesRoute,
                                         text: 'Abonos', transitionClass: 'view-transition-form'
                                    };
                                    navigate(e, abonosRoute);
@@ -175,7 +189,7 @@ export const renderEvents = async (e, route, options = {}) => {
                                    const finishEventRoute = {
                                         originRoute: route,
                                         url: eventRoute,
-                                        action: renderItemDetails,data: extendedEvent, keyMapEvent, titleContainer :textEvents, dataContainer :eventsSection, item :event, routeAction :eventsRoute, text: 'Volver', transitionClass: 'view-transition-item'
+                                        action: renderItemDetails, data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event, routeAction: eventsRoute, text: 'Volver', transitionClass: 'view-transition-item'
                                    };
                                    navigate(e, finishEventRoute); return
 
@@ -189,17 +203,20 @@ export const renderEvents = async (e, route, options = {}) => {
 
           // Mostrar mensaje de resultados
           if (numberEvents === 0) {
-               eventsContainer.innerHTML = "<p>No hay resultados disponibles.</p>";
+               eventsContainer.innerHTML = `<div class="flex-container not-content image-not-content">
+<h4>Aún no se han creado eventos</h4>
+  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+</div>`;
           } else {
-               textEvents.innerHTML = `<h2>Encontrados ${numberEvents} resultados </h2>`;
+               textEvents.innerHTML = `<h2>Eventos encontrados </h2>`;
           }
 
           // Añadir el contenedor de eventos al DOM
-          eventsSection.appendChild(eventsContainer);
+          gridEvents.appendChild(eventsContainer);
           return events;
      } catch (error) {
           console.error("Error en renderEvents:", error);
-          eventsSection.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
+          gridEvents.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
      }
 };
 

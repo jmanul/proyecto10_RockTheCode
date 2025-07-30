@@ -45,20 +45,6 @@
 
 }
 
-.main {
-
-  width: 100%;
-  height: max-content;
-  max-width: 1300px;
-  flex-direction: row;
-  background: transparent;
-  backdrop-filter: blur(32px);
-  font-family: var(--font-regulat-itim);
-  gap: var(--spacing-small);
-  box-shadow: var(--box-shadow);
-  padding: var(--spacing-little-bit) var(--spacing-small);
-}
-
 
 :root.view-transition-opacity-all::view-transition-new(root) {
   animation: opacity 0.4s both;
@@ -328,4 +314,17 @@ textarea{
   
 }
 
+.main {
+
+  width: 100%;
+  height: max-content;
+  max-width: 1300px;
+  flex-direction: row;
+  background: transparent;
+  backdrop-filter: blur(2px);
+  font-family: var(--font-regulat-itim);
+  gap: var(--spacing-small);
+  /* box-shadow: var(--box-shadow); */
+  padding: var(--spacing-little-bit) var(--spacing-small);
+}
 

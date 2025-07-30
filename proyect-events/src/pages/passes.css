@@ -1,20 +1,20 @@
-.select-card .select-card > div:first-child,
+.select-card .select-card>div:first-child,
 .select-card .select-card>.icon-row:first-child>i {
-   
+
      font-size: 2.5rem;
      font-weight: bold;
      justify-self: center;
      gap: 1rem;
-    
+
 }
+
 .select-card .select-card>.icon-row:first-child>i {
-   
-   color:var(--background-color);
-   border-radius:100%;
-   border: 1px solid var(--black-matte);
-   padding:0 .6rem ;
-   background:var(--text-color)
-    
+
+     color: var(--background-color);
+     border-radius: 100%;
+     border: 1px solid var(--black-matte);
+     padding: 0 .6rem;
+     background: var(--text-color)
 }
 
 .select-card .select-card>.icon-row:first-child>span {
@@ -37,62 +37,128 @@
      text-align: center;
 }
 
-.reserved-places-group{
+.reserved-places-group {
 
      flex-direction: row;
      width: 100%;
 }
 
-.add-passes-container{
+.passes-container {
+     max-width: 700px;
+     flex-direction: row;
+     align-content:flex-start;
+     width: 100%;
+     border-radius: var(--border-radius-big);
+     min-height: 55dvh;
+     max-height: 85dvh;
+     overflow-y: auto;
+     scroll-behavior: smooth;
+     scrollbar-width: thin;
+     scrollbar-color: var(--neon-magenta) transparent;
+     scrollbar-gutter: stable both-edges;
+     scroll-timeline-name: --grid-events-scroll;
+     scroll-timeline-axis: block;
+     background:var(--background-gradient-radial-1);
+     padding-top: var(--spacing-little-bit);
+   
+}
+
+.passes-container .select-card {
+     max-width: 700px;
+
+opacity: 0;
+     transform: translateY(30px);
+     animation-name: card-appear-bounce-animation;
+     animation-timeline: view(block);
+     animation-range: entry 0% cover 30%;
+     animation-fill-mode: forwards;
+     transition: .2s;
+}
+
+@keyframes card-appear-bounce-animation {
+     0% {
+          opacity: 0;
+          transform: translateY(150px);
+          /* Mucho más abajo al inicio */
+     }
+
+     25% {
+          opacity: 0;
+          transform: translateY(120px);
+          /* Mucho más abajo al inicio */
+     }
+
+     75% {
+          opacity: 1;
+          transform: translateY(0);
+          /* Sobrepasa ligeramente la posición final */
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateY(0);
+          /* Vuelve a la posición final estable */
+     }
+}
+
+.add-passes-container {
      position: relative;
      flex-direction: row;
 }
 
-.error-message{
+.error-message {
 
-     display:none;
+     display: none;
      left: 30%;
      color: red;
      font-size: 1rem;
+     z-index: 5;
 
-};
+}
+
+;
 
 .error {
 
      display: block;
 }
 
-.pass-unavailable .select-card{
+.pass-unavailable .select-card {
      opacity: 0.4;
      filter: grayscale(50%);
      position: relative;
 }
 
-.not-content{
 
-     color: red;
-     padding: 0;
+.not-content h4 {
+     color: var(--text-color);
+     font-size: 1.5rem;
+     background: var(--background-color);
+     z-index: 2;
+     padding: 0 15px;
+     top: 40px;
+     border-radius: var(--border-radius-big);
      position: absolute;
-     top: 10px;
+     top: 0;
+
 }
 
-.image-not-content img {
 
-     width: 100%;
-     
-}
+.not-content>img {
 
-.image-not-content {
-   
      width: 50%;
+     right: 25%;
+     position: absolute;
+     opacity: .6;
+     background: var(--background-color);
+   
+     border-radius: var(--border-radius-circle);
+
+}
+
+.not-content {
+     position: absolute;
+     right: 0;
+     width: 100%;
      height: 90%;
-     text-align: center;
 }
-.image-not-content h2{
-
-    position: absolute;
-    top: 0;
-    height: 20%;
-}
-
-

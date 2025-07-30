@@ -38,6 +38,7 @@ export const createList = (nameClass, list) => {
                const img = document.createElement('img');
                img.classList.add('item-icon', item.id);
                img.src = `/assets/${item.icon}`;
+               img.alt = 'menu iconn'
                const div = document.createElement('div');
                div.classList.add(item.id,'flex-container');
                div.appendChild(img);

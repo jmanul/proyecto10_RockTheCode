@@ -9,6 +9,7 @@ export const createLogo = (src) => {
     
      const logoImage = document.createElement('img');
      logoImage.src = src;
+     logoImage.alt = 'icon'
      logoContainer.appendChild(logoImage);
     
      logoImage.addEventListener('click', (e) => {

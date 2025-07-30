@@ -83,11 +83,11 @@
 
 .action-container {
      width: 100%;
-     position: relative;
+     bottom: var(--spacing-small);
      flex-direction: row;
-     background:var(--background-color-transparent);
      padding: var(--spacing-small);
      border-radius:var(--border-radius-small);
+    
 }
 
 button i {

@@ -110,17 +110,11 @@ export const userAddPass = async (e, route, objectRoute) => {
 
      const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute: objectRoute, event, container: passesContainer };
      
-     const buttonAddPassContainer = document.createElement('div');
-     buttonAddPassContainer.classList.add('flex-container', 'action-container');
-     passesContainer.appendChild(buttonAddPassContainer);
+     const actionContainer = passesContainer.querySelector('.action-container');
+     await actionButton('Nuevo', addPassRoute, actionContainer);
+     actionContainer.style.flexDirection = 'row-reverse'
 
-     const addButtonPass = await actionButton('Nuevo', addPassRoute, buttonAddPassContainer, 'bi bi-plus-circle-fill')
-     const returnButton = document.querySelector('.button-volver');
-     buttonAddPassContainer.appendChild(returnButton);
-
-     return passesContainer;
-
-    
+     return passesContainer; 
 
 }
 

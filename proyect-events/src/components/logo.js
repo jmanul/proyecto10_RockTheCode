@@ -1,4 +1,5 @@
 import { renderHomePage } from "../pages/home";
+import { navigate } from "../utils/logic/navigate";
 import "./logo.css";
 
 export const createLogo = (src) => {
@@ -11,10 +12,18 @@ export const createLogo = (src) => {
      logoImage.src = src;
      logoImage.alt = 'icon'
      logoContainer.appendChild(logoImage);
+     const homeRoute = {
+          url: '/home',
+          action: renderHomePage,
+          title: 'Propoysal',
+          description: 'Descubre y crea los mejores eventos para disfrutar y aprender',
+          transitionClass: 'view-transition-form'
+          
+     }
     
      logoImage.addEventListener('click', (e) => {
-          e.preventDefault();
-          renderHomePage();
+
+          navigate(e, homeRoute);
 });
      
      return logoContainer;

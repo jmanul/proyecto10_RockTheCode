@@ -29,17 +29,14 @@ export const updateEventPage = async (e, route,  returnRoute) => {
      
      const { item: event } = returnRoute;
      const eventsRoute = {
-          action: updateEvent, url: route, event,
-          transitionClass: 'view-transition-form'
+          action: updateEvent, url: route, event
      }
      const itemParams = { routeAction: eventsRoute, text: 'Editar', ...returnRoute }
      
      const passesRoute = {
-          url: `/passes/event/${event._id}`, action: userEventPasses, returnRoute : itemParams, event,
-          transitionClass: 'view-transition-opacity'
+          url: `/passes/event/${event._id}`, action: userEventPasses, returnRoute : itemParams, event
      };
      
-
      const actionContainer = await renderItemDetails(e , route, itemParams, 'bi-pencil-fill');
 
      const returnButton = document.querySelector('.button-volver');
@@ -88,8 +85,7 @@ export const updateEvent = async (e, route, objectRoute) => {
 
           await actionButton('Volver', returnRoute, buttonContainer);
           const continueRoute = {
-               url: route, 
-               transitionClass: 'view-transition-opacity',
+               url: route,
                action: renderNewEvent,
                request: { event },
                returnRoute:objectRoute
@@ -190,7 +186,7 @@ export const updateImage = async (e, route, container, event, returnRoute) => {
 
           const buttonContainer = updateImageform.querySelector('.button-form');
           const {url} = returnRoute
-          const cleanRoute = { url, transitionClass: 'view-transition-opacity', }
+          const cleanRoute = { url }
           const closeButton = await actionButton('Volver', cleanRoute, buttonContainer)
           closeButton.addEventListener('click', () => background.remove());
 

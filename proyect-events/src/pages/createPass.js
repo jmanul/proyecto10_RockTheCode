@@ -108,7 +108,7 @@ export const userAddPass = async (e, route, objectRoute) => {
      }
 
 
-     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute: objectRoute, event, container: passesContainer };
+     const addPassRoute = { url: `/passes/event/${event._id}`, action: createPass, eventRoute: objectRoute, event, container: passesContainer, title:` Crea un nuevo abono`,description:`crea un nuevo abono para ${event.name}` };
      
      const actionContainer = passesContainer.querySelector('.action-container');
      await actionButton('Nuevo', addPassRoute, actionContainer);

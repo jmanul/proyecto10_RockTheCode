@@ -12,7 +12,7 @@ export const getRouteFromRegistry = (url) => {
 };
 
 export const navigate = async (e, route, ...rest) => {
-     
+   
      if (e) e.preventDefault();
      if (!route || !route.url) {
           console.error('Error: ruta inválida', route);
@@ -33,14 +33,39 @@ export const navigate = async (e, route, ...rest) => {
 
      clearTransitions();
 
-   if (route.transitionClass) {
+     //añade un efecto por defecto si no lo tiene ya
+
+     if (!route.transitionClass) {
+          document.documentElement.classList.add('view-transition-opacity');
+     } else {
+          // Aplica la transición que venga en la ruta
           document.documentElement.classList.add(route.transitionClass);
      }
+     
+     // SEO dinámico
+     if (route.title) {
+          document.title = route.title;
+     }
 
-     const render = () =>
-          typeof route.action === 'function'
-               ? route.action(e, route.url, route, ...(rest || []))
-               : console.log('No hay función action para esta ruta:', route);
+     if (route.description) {
+          let metaDesc = document.querySelector('meta[name="description"]');
+          if (!metaDesc) {
+               metaDesc = document.createElement('meta');
+               metaDesc.name = "description";
+               document.head.appendChild(metaDesc);
+          }
+          metaDesc.setAttribute("content", route.description);
+     }
+
+     const render = () => { 
+
+          if (typeof route.action === 'function') {
+               
+               route.action(e, route.url, route, ...(rest || []))
+          }
+    
+     };
+        
 
      if (document.startViewTransition) {
           document.startViewTransition(render).finished.then(() =>

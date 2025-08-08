@@ -3,6 +3,8 @@ import { FormBuilder } from '../components/form.js';
 import { renderLoginPage } from './login.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { renderHomePage } from './home.js';
+import { clearPendingRoute, getPendingRoute } from '../utils/routes/routeCache.js';
+import { navigate } from '../utils/logic/navigate.js';
 
 
 
@@ -114,7 +116,7 @@ export const renderLogin = async () => {
           if (!app) {
                throw new Error("No se encontró el contenedor principal (#app).");
           }
-          await actionRequest(formLogin, builder, '/register/login/', 'POST', renderHomePage, app);
+          await actionRequest(formLogin, builder, '/register/login/', 'POST', onLoginSuccess, app);
 
           return formLogin;
 
@@ -129,3 +131,17 @@ export const renderLogin = async () => {
      }
 };
 
+
+export const onLoginSuccess = async () => {
+
+     const route = getPendingRoute();
+
+     await renderHomePage();
+
+     if (route) {
+
+          clearPendingRoute();
+          await navigate(null, route);
+
+     } 
+}

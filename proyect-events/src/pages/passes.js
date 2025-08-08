@@ -58,10 +58,10 @@ export const createPassCard = (pass, showActions = true) => {
 
 
 export const renderPassesPage = async (e, route, routeObject) => {
-    
+
      const { returnRoute, event } = routeObject;
-     const { originRoute } = returnRoute
-    
+     const { originRoute } = returnRoute;
+
      try {
           const validateUserEvent = originRoute.includes('userEventsCreate');
           const passes = await buildFetchJson({ route });
@@ -86,18 +86,18 @@ export const renderPassesPage = async (e, route, routeObject) => {
           if (!passes || passes.length === 0) {
 
                passesContainer.appendChild(notContent);
-          
+
                if (validateUserEvent) {
-                   
+
                     notContent.innerHTML = `<div class="flex-container not-content image-not-content">
 <h4>Crea tu primer abono.</h4>
   <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
 </div>`;
-              
-               }
-              
 
-          } 
+               }
+
+
+          }
 
           const buttonContainer = document.createElement('div');
           buttonContainer.classList.add('flex-container', 'action-container');
@@ -107,7 +107,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
           let hasAvailablePasses = false;
           const nowDate = new Date();
-       
+
           for (const pass of passes) {
 
                try {
@@ -123,11 +123,11 @@ export const renderPassesPage = async (e, route, routeObject) => {
                          pass,
                          isPassAvailable
                     );
-                    
+
                     passesContainer.appendChild(passCard);
                     passCard.appendChild(addpassesContainer);
 
-                    // Configurar acciones de editar el abono está si se consulta desde edicion por el autor
+                    // Configurar acciones de editar el abono si se consulta desde edicion por el autor
 
                     if (validateUserEvent) {
 
@@ -136,10 +136,21 @@ export const renderPassesPage = async (e, route, routeObject) => {
                               action: updatePass,
                               passesRoute: routeObject,
                               pass,
-                              event, 
-                              container : gridEvents
-                              
+                              event,
+                              container: gridEvents,
+                              title: `Editar abono ${pass.namePass} de ${event.name}`,
+                              description: `Pagina para modificar datos del abono${pass.namPass} del evento ${event.name}`
+
                          };
+
+                         const asistentNumber = document.createElement('div');
+                         asistentNumber.classList.add('flex-container', 'asistent-number-pass');
+                         asistentNumber.innerHTML = `<div class= "flex-container"><span><i class="bi bi-people-fill"></i>${totalReservedPlaces} asistentes de ${maxCapacity}</span></div>`;
+
+                         const passContent = passCard.querySelector('.select-card');
+
+                         passContent.appendChild(asistentNumber);
+
 
                          await actionButton('Editar', passUpdateRoute, addpassesContainer);
 
@@ -173,7 +184,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
                          const errorMessage = passCard.querySelector('.error-message');
 
                          const addPassButton = document.querySelector('.button-añadir');
-                    
+
                          addPassButton.addEventListener('click', (e) => {
                               const reservedPlaces = parseInt(reservedPlacesInput.value);
                               if (reservedPlaces < 1 || reservedPlaces > 5) {
@@ -185,7 +196,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
 
                               if (freePlaces < 0) {
-                                   
+
                                    errorMessage.textContent = 'no hay entradas suficientes'
                                    errorMessage.style.display = "block";
                                    return;
@@ -196,7 +207,9 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
                                    url: `/users/pass/${pass._id}`,
                                    reservedPlaces,
-                                   action: generateTicket, transitionClass: 'view-transition-form'
+                                   action: generateTicket,
+                                   title: `entradas del abono ${pass.namePass} de ${event.name}`,
+                                   description: `Oferta de abonos de ${event.name}`
                               };
                               navigate(e, passRoute);
                          });
@@ -217,7 +230,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
                notContent.innerHTML = `<div class="flex-container not-content">
 <h4>Actualmente no hay entradas disponibles.</h4>
 </div>`;
-               
+
 
           }
 

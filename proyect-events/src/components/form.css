@@ -10,6 +10,7 @@
   border: 1px solid var(--light-gray);
   flex-direction: row;
   flex-wrap: wrap;
+  gap:var(--spacing-small);
 
   
 }
@@ -17,15 +18,14 @@
 .form-group {
 
   align-items: flex-start;
-
   max-width: 600px;
   min-width: 45%;
 
 }
 
-.form-group input {
-   cursor: pointer;
-  width: 100%;
+.form-group input, .form-group textarea, .form-group select {
+  cursor: pointer;
+  max-width: 300px;
  
 }
 

@@ -63,163 +63,207 @@ export const eventsPage = async (e, route) => {
 
 export const renderEvents = async (e, route, options = {}) => {
      try {
-
-          const { showPastEvents = false,
+          const {
+               showPastEvents = false,
                onCardClick = null
-
           } = options;
 
           let numberEvents = 0;
 
-          // Seleccionar el contenedor de eventos
+          // Obtener contenedores del DOM
           const gridEvents = document.querySelector('.grid-events');
-          gridEvents.style.scrollbarGutter = 'stable both-edges';
           const gridMain = document.querySelector('.grid-main');
-          gridMain.style.gridTemplateColumns = 'auto auto';
-          gridMain.style.gap = '0';
           const infoSection = document.getElementById('info-section');
-          infoSection?.remove();
           const infoGridSection = document.getElementById('info-grid-section');
-          infoGridSection?.remove();
 
-          if (!gridEvents) {
-               throw new Error("No se encontró el contenedor de eventos (.grid-events).");
-          }
+          if (!gridEvents) throw new Error("No se encontró el contenedor de eventos (.grid-events).");
 
           gridEvents.innerHTML = '';
+          gridEvents.style.scrollbarGutter = 'stable both-edges';
+          gridMain.style.gridTemplateColumns = 'auto auto';
+          gridMain.style.gap = '0';
+          infoSection?.remove();
+          infoGridSection?.remove();
 
-          // Obtener los datos de los eventos
+          // Obtener eventos desde la API
           const request = await buildFetchJson({ route });
           const events = request?.events;
           const user = request?.user;
 
-          // Validar si hay eventos disponibles
+          // Si no hay eventos
           if (!events || events.length === 0) {
-               gridEvents.innerHTML = `<div class="flex-container not-content image-not-content">
-<h4>No hay eventos disponibles</h4>
-  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
-</div>`;
+               gridEvents.innerHTML = `
+               <div class="flex-container not-content image-not-content">
+                    <h4>No hay eventos disponibles</h4>
+                    <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+               </div>`;
+
                const actionContainer = document.createElement('div');
                actionContainer.classList.add('flex-container', 'action-container');
-               gridEvents.appendChild(actionContainer);
                actionContainer.style.position = 'fixed';
+               gridEvents.appendChild(actionContainer);
 
                if (route.includes('userEventsCreate')) {
-
                     const mesageNotEvent = gridEvents.querySelector('.not-content h4');
                     mesageNotEvent.innerText = 'Aún no has creado ningun evento';
                     await actionButton('Crear', userEventsRoutes[0], actionContainer);
+               }
 
-               }
-               const homeRoute = {
-                    url: '/home', action: renderHomePage
-               }
-               await actionButton('Volver', homeRoute, actionContainer);
+               await actionButton('Volver', {
+                    url: '/home',
+                    action: renderHomePage,
+                    title: "PropoySal - Eventos y experiencias únicas",
+                    description: "Descubre y crea los mejores eventos culturales, sociales y de entretenimiento."
+               }, actionContainer);
 
                return;
-
           }
 
-          // Crear el contenedor de eventos
+          const textEvents = document.querySelector('.text-events');
+          if (!textEvents) throw new Error("No se encontró el contenedor de texto (.text-events).");
+
+          // Crear contenedor de tarjetas
           const eventsContainer = document.createElement("div");
           eventsContainer.classList.add("events-container", "flex-container");
 
-          const textEvents = document.querySelector('.text-events');
-          if (!textEvents) {
-               throw new Error("No se encontró el contenedor de texto (.text-events).");
-          }
+          // Filtrar eventos si es necesario
+          const validEvents = events.filter(event =>
+               (showPastEvents || user?.roll === 'administrator')
+                    ? true
+                    : new Date(event.endDate) > new Date()
+          );
 
-          // filtrar los eventos si hay filtros
-          const validEvents = events.filter(event => {
-
-               if (showPastEvents || user.roll === 'administrator') return true; //Muestra todos si es true
-               return new Date(event.endDate) > new Date();
-          });
-
-          // Iterar sobre los eventos
+          // Iterar y renderizar tarjetas
           for (const event of validEvents) {
                try {
-                    // Convertir fechas
-                    const eventEndDate = new Date(event.endDate);
-                    const eventStartDate = new Date(event.startDate);
-
                     const eventCard = createEventsCard(event);
                     eventsContainer.appendChild(eventCard);
                     numberEvents++;
 
-                    // Preparar datos adaptados para render
-                    const extendedEvent = {
-                         ...event,
-                         startDateFormatted: dateFormat(eventStartDate).date,
-                         startTimeFormatted: dateFormat(eventStartDate).time,
-                         endDateFormatted: dateFormat(eventEndDate).date
-                    };
-                    const eventsRoute = { action: eventsPage, url: '/events' }
-                    const eventRoute = `/events/${event._id}`;
-                    const passesRoute = { url: `/passes/event/${event._id}`, action: renderPassesPage };
-
-                    // Añadir el evento de clic a la tarjeta
-                    eventCard.addEventListener('click', (e) => {
-                         if (onCardClick) {
-
-                              const onCardClickRoute = {
-                                   originRoute: route,
-                                   url: eventRoute,
-                                   action: onCardClick,
-                                   data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event,
-                                   transitionClass: 'view-transition-opacity'
-
-                              };
-                              navigate(e, onCardClickRoute);
-                         } else {
-
-
-                              if (new Date(event.endDate) > new Date()) {
-
-                                   const abonosRoute = {
-                                        originRoute: route,
-                                        url: eventRoute,
-                                        action: renderItemDetails, data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event, routeAction: passesRoute,
-                                        text: 'Abonos', transitionClass: 'view-transition-form'
-                                   };
-                                   navigate(e, abonosRoute);
-
-                              } else {
-
-                                   const finishEventRoute = {
-                                        originRoute: route,
-                                        url: eventRoute,
-                                        action: renderItemDetails, data: extendedEvent, keyMapEvent, titleContainer: textEvents, dataContainer: gridEvents, item: event, routeAction: eventsRoute, text: 'Volver', transitionClass: 'view-transition-item'
-                                   };
-                                   navigate(e, finishEventRoute); return
-
-                              }
-                         };
-                    });
+                    assignEventCardClick(eventCard, {
+                         route, textEvents, gridEvents, onCardClick
+                    }, event);
                } catch (error) {
                     console.error(`Error al procesar el evento: ${event?.name}`, error);
                }
           }
 
-          // Mostrar mensaje de resultados
+          // Mostrar mensaje si no hay eventos válidos
           if (numberEvents === 0) {
-               eventsContainer.innerHTML = `<div class="flex-container not-content image-not-content">
-<h4>Aún no se han creado eventos</h4>
-  <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
-</div>`;
+               eventsContainer.innerHTML = `
+               <div class="flex-container not-content image-not-content">
+                    <h4>Aún no se han creado eventos</h4>
+                    <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
+               </div>`;
           } else {
-               textEvents.innerHTML = `<h2>Eventos encontrados </h2>`;
+               textEvents.innerHTML = `<h2>Eventos encontrados</h2>`;
           }
 
-          // Añadir el contenedor de eventos al DOM
+          // Agregar contenedor al DOM
           gridEvents.appendChild(eventsContainer);
           return events;
+
      } catch (error) {
           console.error("Error en renderEvents:", error);
-          gridEvents.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
+          const gridEvents = document.querySelector('.grid-events');
+          if (gridEvents) {
+               gridEvents.innerHTML = "<p>Ocurrió un error al cargar los eventos.</p>";
+          }
      }
 };
 
+
+
+export const assignEventCardClick = (eventCard, config, event) => {
+     const {
+          route, textEvents, gridEvents, onCardClick
+     } = config;
+
+     // Fechas formateadas
+     const eventEndDate = new Date(event.endDate);
+     const eventStartDate = new Date(event.startDate);
+
+     const extendedEvent = {
+          ...event,
+          startDateFormatted: dateFormat(eventStartDate).date,
+          startTimeFormatted: dateFormat(eventStartDate).time,
+          endDateFormatted: dateFormat(eventEndDate).date
+     };
+
+     // Ruta base de eventos
+     const eventsRoute = {
+          action: eventsPage,
+          url: '/events',
+          title: "Eventos - PropoySal",
+          description: "Listado de eventos."
+     };
+
+     const eventRoute = `/events/${event._id}`;
+
+     // Ruta a los abonos (si aún está activo)
+     const passesRoute = {
+          url: `/passes/event/${event._id}`,
+          action: renderPassesPage,
+          title: `abonos de ${event.name}`,
+          event,
+          description: `aqui encontraras los abonos de ${event.name}`
+     };
+
+     // Listener para click en la tarjeta
+     eventCard.addEventListener('click', (e) => {
+          if (onCardClick) {
+               const onCardClickRoute = {
+                    originRoute: route,
+                    url: eventRoute,
+                    action: onCardClick,
+                    data: extendedEvent,
+                    keyMapEvent,
+                    titleContainer: textEvents,
+                    dataContainer: gridEvents,
+                    item: event,
+                    title: event.name,
+                    description: event.description
+               };
+               navigate(e, onCardClickRoute);
+          } else {
+               // Evento aún activo
+               if (new Date(event.endDate) > new Date()) {
+                    const abonosRoute = {
+                         originRoute: route,
+                         url: eventRoute,
+                         action: renderItemDetails,
+                         data: extendedEvent,
+                         keyMapEvent,
+                         titleContainer: textEvents,
+                         dataContainer: gridEvents,
+                         item: event,
+                         routeAction: passesRoute,
+                         text: 'Abonos',
+                         title: event.name,
+                         description: event.description
+                    };
+                    navigate(e, abonosRoute);
+               } else {
+                    // Evento finalizado
+                    const finishEventRoute = {
+                         originRoute: route,
+                         url: eventRoute,
+                         action: renderItemDetails,
+                         data: extendedEvent,
+                         keyMapEvent,
+                         titleContainer: textEvents,
+                         dataContainer: gridEvents,
+                         item: event,
+                         routeAction: eventsRoute,
+                         text: 'Volver',
+                         title: event.name,
+                         description: event.description
+                    };
+                    navigate(e, finishEventRoute);
+               }
+          }
+     });
+};
 
 
 

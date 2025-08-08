@@ -8,65 +8,184 @@ import { logout } from "../logic/logout";
 
 
 export const adminRoutes = [
-     { id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: eventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'crear', name: 'Crear', action: createEventsPage, icon: 'events.svg', url: '/events/userEventsCreate' }, { id: 'usuarios', name: 'Usuarios', action: '', icon: 'usuarios.svg', url: '/users' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
+     {
+          id: 'perfil',
+          name: 'Perfil',
+          action: '',
+          icon: 'perfil.svg',
+          url: '/users/user',
+          title: 'Mi perfil - PropoySal',
+          description: 'Consulta y edita los datos de tu cuenta como administrador en PropoySal.'
+     },
+     {
+          id: 'eventos',
+          name: 'Eventos',
+          action: eventsPage,
+          icon: 'events-list.svg',
+          url: '/events',
+          title: 'Eventos disponibles - PropoySal',
+          description: 'Explora todos los eventos activos organizados por ti o por otros usuarios.'
+     },
+     {
+          id: 'crear',
+          name: 'Crear',
+          action: createEventsPage,
+          icon: 'events.svg',
+          url: '/events/userEventsCreate',
+          title: 'Crear evento - PropoySal',
+          description: 'Crea un nuevo evento y personalízalo fácilmente desde tu panel de administrador.'
+     },
+     {
+          id: 'usuarios',
+          name: 'Usuarios',
+          action: '',
+          icon: 'usuarios.svg',
+          url: '/users',
+          title: 'Usuarios registrados - PropoySal',
+          description: 'Administra los usuarios registrados en la plataforma PropoySal.'
+     },
+     {
+          id: 'salir',
+          name: 'Salir',
+          action: logout,
+          icon: 'salir.svg',
+          url: '/register/logout',
+          transitionClass: 'view-transition-form',
+          title: 'Cerrar sesión - PropoySal',
+          description: 'Has cerrado tu sesión correctamente. ¡Hasta pronto!'
+     }
 ];
 
-export const userRoutes = [{ id: 'perfil', name: 'Perfil', action: '', icon: 'perfil.svg', url: '/users/user' }, { id: 'eventos', name: 'Eventos', action: eventsPage, icon: 'events-list.svg', url: '/events' }, { id: 'crear', name: 'Crear', action: createEventsPage, icon: 'events.svg', url: '/events/userEventsCreate' },  { id: 'entradas', name: 'entradas', action: '', icon: 'ticket_icon.svg', url: '/passes' }, { id: 'salir', name: 'Salir', action: logout, icon: 'salir.svg', url: '/register/logout' }
+
+export const userRoutes = [
+     {
+          id: 'perfil',
+          name: 'Perfil',
+          action: '',
+          icon: 'perfil.svg',
+          url: '/users/user',
+          title: 'Mi perfil - PropoySal',
+          description: 'Consulta y edita los datos de tu cuenta en PropoySal.'
+     },
+     {
+          id: 'eventos',
+          name: 'Eventos',
+          action: eventsPage,
+          icon: 'events-list.svg',
+          url: '/events',
+          title: 'Eventos disponibles - PropoySal',
+          description: 'Descubre y participa en los eventos más interesantes cerca de ti.'
+     },
+     {
+          id: 'crear',
+          name: 'Crear',
+          action: createEventsPage,
+          icon: 'events.svg',
+          url: '/events/userEventsCreate',
+          title: 'Crear eventos - PropoySal',
+          description: 'Organiza tu propio evento y compártelo con la comunidad.'
+     },
+     {
+          id: 'entradas',
+          name: 'Entradas',
+          action: '',
+          icon: 'ticket_icon.svg',
+          url: '/passes',
+          title: 'Mis entradas - PropoySal',
+          description: 'Consulta tus entradas para eventos futuros y pasados en PropoySal.'
+     },
+     {
+          id: 'salir',
+          name: 'Salir',
+          action: logout,
+          icon: 'salir.svg',
+          url: '/register/logout',
+          transitionClass: 'view-transition-form',
+          title: 'Cerrar sesión - PropoySal',
+          description: 'Has cerrado tu sesión correctamente. ¡Vuelve pronto!'
+     }
 ];
 
-export const loginRoutes = [{
-     id: 'entrar', name: 'Entrar', action: renderRegisterLoginPage, icon: 'login.svg', url: '/login', transitionClass: 'view-transition-form'
-}]
+
+export const loginRoutes = [
+     {
+          id: 'entrar',
+          name: 'Entrar',
+          action: renderRegisterLoginPage,
+          icon: 'login.svg',
+          url: '/login',
+          transitionClass: 'view-transition-form',
+          title: 'Iniciar sesión o registrarse - PropoySal',
+          description: 'Accede a tu cuenta o crea una nueva para disfrutar de eventos únicos.'
+     }
+];
+
 
 
 export const typesEventsRoutes = [
      {
           id: "musica",
-          name: "musica",
+          name: "Música",
           action: renderEvents,
-          url: "/events/type/musica"
+          url: "/events/type/musica",
+          title: "Eventos de música - PropoySal",
+          description: "Descubre conciertos, festivales y eventos musicales en tu ciudad."
      },
      {
           id: "deporte",
           name: "Deporte",
           action: renderEvents,
-          url: "/events/type/deporte"
+          url: "/events/type/deporte",
+          title: "Eventos deportivos - PropoySal",
+          description: "Apúntate a actividades y eventos deportivos para todos los niveles."
      },
      {
           id: "fiesta",
           name: "Fiesta",
           action: renderEvents,
-          url: "/events/type/fiesta"
+          url: "/events/type/fiesta",
+          title: "Fiestas y celebraciones - PropoySal",
+          description: "No te pierdas las mejores fiestas y celebraciones cerca de ti."
      },
      {
           id: "formacion",
           name: "Formación",
           action: renderEvents,
-          url: "/events/type/formacion"
+          url: "/events/type/formacion",
+          title: "Eventos de formación - PropoySal",
+          description: "Participa en talleres, cursos y charlas para seguir aprendiendo."
      },
      {
           id: "arte",
           name: "Arte",
           action: renderEvents,
-          url: "/events/type/arte"
+          url: "/events/type/arte",
+          title: "Eventos de arte - PropoySal",
+          description: "Explora exposiciones, galerías y eventos artísticos en tu zona."
      },
      {
           id: "gastronomia",
           name: "Gastronomía",
           action: renderEvents,
-          url: "/events/type/gastronomia"
+          url: "/events/type/gastronomia",
+          title: "Eventos gastronómicos - PropoySal",
+          description: "Disfruta de experiencias culinarias, catas y festivales gastronómicos."
      },
      {
           id: "tecnologia",
           name: "Tecnología",
           action: renderEvents,
-          url: "/events/type/tecnologia"
+          url: "/events/type/tecnologia",
+          title: "Eventos de tecnología - PropoySal",
+          description: "Descubre eventos de innovación, tecnología y emprendimiento digital."
      },
      {
           id: "otros",
           name: "Otros",
           action: renderEvents,
-          url: "/events/type/otros"
+          url: "/events/type/otros",
+          title: "Otros eventos - PropoySal",
+          description: "Explora eventos variados que no encajan en una sola categoría."
      }
 ];
 
@@ -76,14 +195,31 @@ export const userEventsRoutes = [
           id: "nuevo-Evento",
           name: "Nuevo Evento",
           action: createEvent,
-          url: "/events/", transitionClass: 'view-transition-form'
+          url: "/events/",
+          transitionClass: 'view-transition-form',
+          title: "Nuevo evento - PropoySal",
+          description: "Crea un nuevo evento desde cero y compártelo con tu comunidad."
      },
      {
           id: "eventos-Creados",
           name: "Eventos Creados",
           action: eventsUser,
-          url: "/events/userEventsCreate/"
+          url: "/events/userEventsCreate/",
+          title: "Mis eventos creados - PropoySal",
+          description: "Consulta y edita los eventos que has creado como organizador."
      }
 ];
-export const allRoutes = [...adminRoutes, ...userRoutes, loginRoutes, ...typesEventsRoutes];
+
+
+export const dinamicRoutes = [
+
+        {
+               action: eventsPage,
+               url: '/events/:id',
+               title: "Evento - PropoySal",
+               description: "vista del evento"
+          }
+] 
+
+export const allRoutes = [ ...typesEventsRoutes, ...dinamicRoutes];
 

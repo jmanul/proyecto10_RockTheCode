@@ -108,5 +108,6 @@ button i {
      padding: 5px 15px;
      width:7rem;
      height: 3rem;
+     cursor: pointer;
      
 }

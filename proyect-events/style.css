@@ -55,67 +55,70 @@
 }
 
 :root.view-transition-opacity::view-transition-new(root) {
-  animation: opacity 0.4s both;
+  animation: opacity 0.6s both;
 }
+
 :root.view-transition-opacity::view-transition-old(root) {
   animation: slide-left 0.6s both;
 }
 
 :root.view-transition-form::view-transition-new(root) {
-  animation: slide-right 0.4s both;
+  animation: slide-right 1s both;
 }
 
 :root.view-transition-form::view-transition-old(root) {
-  animation: opacity-invers 0.6s both;
+  animation: opacity-invers 1s both;
 }
 
 
 @keyframes slide-left {
   from {
     transform: translateX(0);
-   
+
+
   }
 
   to {
     transform: translateX(100%);
-   
+
+
   }
 }
 
 @keyframes slide-right {
   from {
     transform: translateX(100%);
-   
+
   }
 
   to {
     transform: translateX(0);
-   
+
   }
 }
 
 @keyframes opacity {
-    from {
-        opacity: 0;
-       
-      }
-    
-      to {
-        opacity: 1;
+  from {
+    opacity: 0;
 
-      }
+  }
+
+  to {
+    opacity: 1;
+
+  }
 }
 
 @keyframes opacity-invers {
-    from {
-        opacity: 1;
+  from {
+    opacity: 1;
 
-      }
-    
-      to {
-        opacity: 0;
+  }
 
-      }
+  to {
+    opacity: 0;
+
+  }
 }
 
 
@@ -191,8 +194,8 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--light-gray) var(--light-gray-slow);
   background-color: var(--dark-gray);
-      
-  
+
+
 }
 
 
@@ -205,7 +208,7 @@ a {
   font-family: var(--font-regulat-outfit);
   font-size: large;
   font-weight: 800;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 
@@ -225,10 +228,22 @@ a {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
- 
- 
+
+
 }
 
+
+
+h3,
+h4,
+h5,
+h6 {
+  padding: var(--spacing-little-bit);
+  max-width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 
 h1 {
@@ -263,7 +278,7 @@ button {
   box-shadow: 0 1px 6px var(--dark-gray);
   transition: box-shadow 0.3s ease-in-out;
   border-radius: var(--border-radius-small);
- 
+
 
   &:hover {
     box-shadow: 0 1px 7px var(--neon-cyan);
@@ -272,12 +287,20 @@ button {
   }
 }
 
-select {
+select,
+textarea {
 
-  width: 80%;
+  width: 65%;
 }
 
-input, select, textarea{
+input {
+
+  width: 90%;
+}
+
+input,
+select,
+textarea {
   padding: .4rem .7rem;
   border: 2px solid var(--light-gray);
   border-radius: var(--border-radius-big);
@@ -286,9 +309,9 @@ input, select, textarea{
   background-color: var(--light-gray-slow);
   color: var(--dark-gray);
   transition: border-color 0.3s ease-in-out;
-  width: 90%;
   min-height: 40px;
-  
+
+
 
   &:focus {
     border-color: var(--neon-cyan);
@@ -306,12 +329,12 @@ input, select, textarea{
 
 }
 
-textarea{
+textarea {
 
   field-sizing: content;
   min-height: 60px;
 
-  
+
 }
 
 .main {
@@ -327,4 +350,3 @@ textarea{
   /* box-shadow: var(--box-shadow); */
   padding: var(--spacing-little-bit) var(--spacing-small);
 }
-

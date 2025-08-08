@@ -162,3 +162,18 @@ opacity: 0;
      width: 100%;
      height: 90%;
 }
+
+.asistent-number-pass{
+
+   gap: 0;
+     
+}
+.asistent-number-pass i{
+  
+     border-radius:var(--border-radius-circle);
+     padding:var(--spacing-little-bit) ;
+     color: var(--neon-magenta);
+     font-size: 1.5rem;
+    
+     
+}

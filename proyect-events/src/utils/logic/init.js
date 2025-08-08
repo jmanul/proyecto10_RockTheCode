@@ -9,9 +9,12 @@ export const initHomeMenu = async () => {
 
      const header = document.querySelector('header');
      const menuHeader = document.getElementById('nav-menu-header-web');
-     menuHeader.remove();
-   
-     const request = await buildFetchJson({ route: "/users/user" });
+     if (menuHeader) {
+
+          menuHeader.remove();
+     }
+
+     const request = await userIsAuth();
 
      let routes = loginRoutes; // Por defecto, si no está autenticado
 
@@ -22,7 +25,6 @@ export const initHomeMenu = async () => {
                routes = adminRoutes;
           }
      }
-
         
      const newMenuHeader = createList('menu-header-web', routes);  
      header.append(newMenuHeader);
@@ -30,4 +32,16 @@ export const initHomeMenu = async () => {
 
      return request.user || null; 
 };
+
+
+export const userIsAuth = async () => {
+
+
+     const requestAuthUser = await buildFetchJson({ route: "/users/user" });
+     
+     return requestAuthUser;
+
+}
+
+
 

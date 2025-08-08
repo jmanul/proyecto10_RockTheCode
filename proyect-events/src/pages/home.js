@@ -13,10 +13,18 @@ export const renderHomePage = async () => {
      try {
           // Actualizar la URL del navegador
           window.history.pushState({}, "", '/home');
+          const homeRoute = {
+               url: '/home',
+               title: 'Propoysal',
+               description: 'Encuentra y crea eventos increibles'
+          }
+
+          navigate(null, homeRoute);
 
           // Inicializar el menú de usuario
-          const user = await initHomeMenu();
-
+             
+           const user = await initHomeMenu();
+        
           // Crear el layout principal
           const main = createLayout();
           if (!main) {
@@ -129,7 +137,7 @@ export const renderHomePage = async () => {
               
           });
 
-        
+          return user || null;
 
      } catch (error) {
 
@@ -140,5 +148,7 @@ export const renderHomePage = async () => {
                appContainer.innerHTML = "<p>Ocurrió un error al cargar la página de inicio.</p>";
           }
      }
+
+    
 };
 

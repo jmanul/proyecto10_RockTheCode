@@ -1,5 +1,6 @@
 
 import './cardEvent.css';
+import { createMessage } from './message';
 
 export function createEventsCard(event) {
      
@@ -44,6 +45,46 @@ export function createEventsCard(event) {
           asistentNumber.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753813877/default/event-soldOut_xg5nxb.png" alt="soldOut">`;
      }
 
+     const shareButton = document.createElement('div');
+     shareButton.classList.add('share-btn');
+     const shareIcon = document.createElement('img');
+     shareIcon.src = '/public/assets/share-icon.svg'; 
+     shareIcon.alt = 'Compartir';
+     shareIcon.classList.add('share-icon');
+     shareButton.appendChild(shareIcon);
+
+     //URL a compartir usando la ruta dinámica
+     const shareUrl = `${window.location.origin}/events/${event._id}`;
+
+     shareButton.addEventListener('click', async (e) => {
+          
+          // evita el listener del padre al hacer click sobre el icono
+          e.stopPropagation();
+
+          if (navigator.share) {
+               try {
+                    await navigator.share({
+                         title: event.name,
+                         text: 'Te comparto este evento',
+                         url: shareUrl
+                    });
+               } catch (err) {
+                    console.error('Error al compartir:', err);
+                    createMessage('Error al compartir');
+               }
+          } else {
+               try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    createMessage('Enlace copiado al portapapeles');
+
+               } catch (err) {
+                    console.error('No se pudo copiar el enlace', err);
+                    createMessage('No se pudo copiar el enlace');
+               }
+          }
+     });
+
+
      card.appendChild(image);
      card.appendChild(asistentNumber);
      card.appendChild(textContainer);
@@ -51,7 +92,8 @@ export function createEventsCard(event) {
      typeContainer.append(type, status);
      textContainer.appendChild(name);
      textContainer.appendChild(city);
-    textContainer.appendChild(startDate);
+     textContainer.appendChild(startDate);
+     card.appendChild(shareButton);
 
      return card;
 }

@@ -188,3 +188,29 @@
 
 
 }
+
+.share-btn {
+     position: absolute;
+     top: var(--spacing-small);
+     left: var(--spacing-small);
+     cursor: pointer;
+     border: none;
+     border-radius: var(--border-radius-circle);
+     background:var(--white-neon);
+     height: 35px;
+     width: 35px;
+     transition: background 0.2s;
+     box-shadow:var(--box-shadow-inset);
+
+     &:hover {
+
+          background: var(--neon-magenta);
+     }
+}
+
+.share-btn img {
+
+     height: 100%;
+     padding: 5px;
+}
+

@@ -2,6 +2,7 @@
 
 import { createEvent, createEventsPage, eventsUser } from "../../pages/createEvents";
 import { renderEvents, eventsPage } from "../../pages/events";
+import { oneEventPage } from "../../pages/oneEventPage";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
 import { logout } from "../logic/logout";
 
@@ -210,11 +211,11 @@ export const userEventsRoutes = [
      }
 ];
 
-
+//todo: tengo que dar una vista a los eventos compartidos
 export const dinamicRoutes = [
 
         {
-               action: eventsPage,
+               action: oneEventPage,
                url: '/events/:id',
                title: "Evento - PropoySal",
                description: "vista del evento"

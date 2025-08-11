@@ -87,8 +87,14 @@ export const renderEvents = async (e, route, options = {}) => {
 
           // Obtener eventos desde la API
           const request = await buildFetchJson({ route });
-          const events = request?.events;
+          // Si es un único evento, convertirlo en array
+          const events = Array.isArray(request?.events)
+               ? request.events
+               : (request?.events ? [request.events] : []);
           const user = request?.user;
+          
+        
+     
 
           // Si no hay eventos
           if (!events || events.length === 0) {

@@ -15,6 +15,7 @@ export const initHomeMenu = async () => {
      }
 
      const request = await userIsAuth();
+     console.log(request);
 
      let routes = loginRoutes; // Por defecto, si no está autenticado
 

@@ -48,7 +48,7 @@ export function createEventsCard(event) {
      const shareButton = document.createElement('div');
      shareButton.classList.add('share-btn');
      const shareIcon = document.createElement('img');
-     shareIcon.src = '/public/assets/share-icon.svg'; 
+     shareIcon.src = '/assets/share-icon.svg'; 
      shareIcon.alt = 'Compartir';
      shareIcon.classList.add('share-icon');
      shareButton.appendChild(shareIcon);

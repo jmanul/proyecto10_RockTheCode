@@ -9,26 +9,22 @@ export const darkLightAction = (darkLightButton, textTheme) => {
           textTheme.textContent = theme === 'dark' ? 'dark' : 'light';
           
      }
-   
-
+     // determinar el tema inicial 
      const savedTheme = localStorage.getItem('theme');
-     if (savedTheme) {
-          app.setAttribute('data-theme', savedTheme);
-          updateButtonText(savedTheme);
-     }
+     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+     
+     // aplicar tema a cargar
+     app.setAttribute('data-theme', initialTheme);
+     updateButtonText(initialTheme);
 
      darkLightButton.addEventListener('click', () => {
-          if (app.getAttribute('data-theme') === 'dark') {
-               app.setAttribute('data-theme', 'light');
-               localStorage.setItem('theme', 'light');
-          } else {
-               app.setAttribute('data-theme', 'dark');
-               localStorage.setItem('theme', 'dark');
-          }
-          updateButtonText(app.getAttribute('data-theme'));
-     });
+          const currentTheme = app.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
- 
+          app.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateButtonText(newTheme);
+     });
 }
 
-//darkLightButton.style.flex-direction = "row-reverse"

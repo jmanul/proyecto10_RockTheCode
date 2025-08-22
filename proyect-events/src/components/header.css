@@ -40,7 +40,7 @@ header {
 
 
 .nav-menu-header-web {
-
+     
      width: 90%;
      justify-items: right;
      margin: var(--spacing-large) 0 var(--spacing-small);
@@ -73,6 +73,7 @@ header {
 
      flex-direction: row;
      font-size: 1rem;
+     color: var(--light-gray);
 
 
 }

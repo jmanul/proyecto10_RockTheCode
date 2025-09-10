@@ -21,6 +21,7 @@
 li .item-text {
 
      transition: .2s;
+     font-family: var(--font-regulat-outfit);
 
      &:hover {
      

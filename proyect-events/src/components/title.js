@@ -7,7 +7,7 @@ export const createTitle = () => {
   
      const imageTitleRight = document.createElement('div');
        imageTitleRight.classList.add('image-title', 'flex-container');
-  imageTitleRight.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1749923403/default/reos3dspnbof4m4mocah.webp" alt="franky">`;
+  imageTitleRight.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1757462266/default/punkBoy-pi%C3%B1os_iwhjmr.webp" alt="franky">`;
        titleSection.append(imageTitleRight);
      const titleContainer = document.createElement('div');
      titleContainer.classList.add('flex-container', 'title-container');
@@ -21,7 +21,7 @@ export const createTitle = () => {
   
   const imageTitleLeft = document.createElement('div');
   imageTitleLeft.classList.add('image-title', 'flex-container');
-  imageTitleLeft.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1750679294/default/zvwwv5kprwrpktnerr6t.webp" alt="girl">`;
+  imageTitleLeft.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1757372852/default/punckyGirl_yy87hb.webp" alt="girl">`;
   titleSection.appendChild(titleContainer);
   titleSection.appendChild(imageTitleLeft);
   return titleSection;

@@ -38,11 +38,9 @@ header {
 }
 
 
-
 .nav-menu-header-web {
      
      width: 90%;
-     justify-items: right;
      margin: var(--spacing-large) 0 var(--spacing-small);
      animation: menu-spacing linear both;
           animation-timeline: scroll();
@@ -66,7 +64,10 @@ header {
      }
 }
 
-
+.menu-header-web {
+     
+     justify-content: right;
+}
 
 .menu-header-web,
 .menu-header-web li {

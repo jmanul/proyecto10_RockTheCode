@@ -63,18 +63,40 @@
 
 }
 
+
 .grid-events {
      position: relative;
      min-height: 60dvh;
      max-height: 90dvh;
      overflow-y: auto;
      scroll-behavior: smooth;
-     scrollbar-width: thin;
+     scrollbar-width: 10px;
      scrollbar-color: var(--neon-magenta) transparent;
      scrollbar-gutter: stable both-edges;
 
      scroll-timeline-name: --grid-events-scroll;
      scroll-timeline-axis: block;
+
+
+}
+
+.grid-events {
+
+     ::-webkit-scrollbar {
+          width: 10px;
+
+     }
+
+     ::-webkit-scrollbar-track {
+          background: transparent;
+
+     }
+
+     ::-webkit-scrollbar-thumb {
+          background: var(--neon-magenta);
+          border-radius: 5px;
+     }
+
 
 }
 

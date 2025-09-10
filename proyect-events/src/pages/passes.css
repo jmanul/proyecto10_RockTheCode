@@ -63,6 +63,26 @@
    
 }
 
+.passes-container {
+
+     ::-webkit-scrollbar {
+          width: 10px;
+
+     }
+
+     ::-webkit-scrollbar-track {
+          background: transparent;
+
+     }
+
+     ::-webkit-scrollbar-thumb {
+          background: var(--neon-magenta);
+          border-radius: 5px;
+     }
+
+
+}
+
 .passes-container .select-card {
      max-width: 700px;
 

@@ -77,9 +77,9 @@ export const renderHomePage = async () => {
           textEvents.innerHTML = `<h2>Descubre eventos disponibles</h2>`;
           textPasses.innerHTML = `<h2>Tus eventos</h2>`;
           textGridPasses.innerHTML = `<h2>Nuevo evento</h2>`;
-          eventsSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1750101258/default/kdhcgvq9rfilaj6jnows.webp" alt="art-home-image">`;
-          pasesSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1752444845/default/a7w3pd3cfa62gid6kse5.webp" alt="peoples-home-image">`;
-          pasesGridSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1750764263/default/ymwrxxuanezqsqdvmktq.png" alt="peoples-home-image">`;  
+          eventsSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1757458489/default/peoples-000_eqpfiu.webp" alt="art-home-image">`;
+          pasesSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1757456482/default/peoples-03_fx4h34.webp" alt="peoples-home-image">`;
+          pasesGridSection.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1757461132/default/punkBoy_ri7iza.webp" alt="peoples-home-image">`;  
           
           eventsSection.classList.add('home-hover');
 

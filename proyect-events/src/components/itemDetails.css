@@ -32,6 +32,7 @@
      padding: var(--spacing-medium);
      height: auto;
      border-radius: var(--border-radius-big);
+     font-family: var(--font-regulat-outfit);
 
 }
 

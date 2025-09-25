@@ -35,7 +35,9 @@ export const createPassCard = (pass, showActions = true) => {
      const passContainer = document.createElement('div');
      passContainer.classList.add('select-card', 'flex-container');
 
-     passContainer.innerHTML = itemDetails(extendedPass, keyMapPass);
+     const contentContainer = itemDetails(extendedPass, keyMapPass);
+
+     passContainer.appendChild(contentContainer);
 
      // Agregar clase adicional si no está disponible
      if (!showActions) {
@@ -73,7 +75,7 @@ export const renderPassesPage = async (e, route, routeObject) => {
           if (!gridEvents) {
                throw new Error("No se encontró el contenedor de abonos (.grid-events).");
           }
-
+          gridEvents.classList.remove('info-content')
           gridEvents.innerHTML = '';
           gridEvents.appendChild(passesContainer);
 

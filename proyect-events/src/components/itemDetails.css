@@ -44,6 +44,15 @@
 
 }
 
+.grid-events.info-content {
+
+     overflow:inherit;
+     margin-bottom: 70px;
+     height: fit-content;
+     
+
+}
+
 .select-title {
 
      font-family: var(--font-regulat-outfit);
@@ -81,6 +90,39 @@
      padding: 0 6px;
      border: 1px solid var(--background-color-transparent)
 }
+
+
+.event-map-mapGroupContainer {
+     margin-top: 24px;
+     flex-direction: column;
+     align-items: center;
+     gap: 12px;
+    
+}
+
+
+.event-map {
+     width: 100%;
+     max-width: 800px;
+     border-radius: 12px;
+     overflow: hidden;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.maps-link {
+     font-size: 1rem;
+     font-weight: 600;
+     color: var(--neon-yellow);
+     text-decoration: none;
+     transition: color 0.2s ease;
+}
+
+.maps-link:hover {
+     color: var(--text-color);
+     text-decoration: underline;
+}
+
 
 .action-container {
      width: 100%;

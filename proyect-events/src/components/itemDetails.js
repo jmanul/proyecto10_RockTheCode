@@ -21,8 +21,10 @@ export const renderItemDetails = async (e, route, returnRoute, ...rest) => {
         </div>
       `;
      
-
-     dataContainer.innerHTML = itemDetails(data, keyMapEvent);
+     const contentContainer = itemDetails(data, keyMapEvent);
+     dataContainer.classList.add('info-content')
+     dataContainer.innerHTML = ""; 
+     dataContainer.appendChild(contentContainer);
      
      const actionContainer = document.createElement('div');
      actionContainer.classList.add('flex-container', 'action-container');
@@ -42,26 +44,27 @@ export const renderItemDetails = async (e, route, returnRoute, ...rest) => {
 
 
 export const itemDetails = (data, keyMapEvent) => {
-
-     let html = `<div class="select-card">`;
+   
+     const contentContainer = document.createElement('div');
+     contentContainer.classList.add('select-card');
 
      for (const key in keyMapEvent) {
           const { icon } = keyMapEvent[key];
           const value = data[key];
 
           if (value !== undefined) {
-               html += `
-        <div class="icon-row flex-container">
-          <i class="bi ${icon}"></i>
-          <span>${value}</span>
-        </div>`;
+               const row = document.createElement('div');
+               row.classList.add('icon-row', 'flex-container');
+               row.innerHTML = `<i class="bi ${icon}"></i><span>${value}</span>`;
+               contentContainer.appendChild(row);
           }
      }
 
-     html += `</div>`;
+     // Añadimos el mapa si hay datos de ubicacion
+     const map = createEventMap(data);
+     if (map) contentContainer.appendChild(map);
 
-
-     return html;
+     return contentContainer; 
 };
 
 export const actionButton = async (text, routeAction, container, icon = null) => {
@@ -87,4 +90,46 @@ export const actionButton = async (text, routeAction, container, icon = null) =>
 
      return button;
 
+};
+
+export function createEventMap(data) {
+     const { location, address, city } = data;
+
+     // Si no hay datos de dirección, no devolvemos nada
+     if (!address && !city && !location) return null;
+
+     // Construimos la dirección completa
+     const fullAddress = [address, city, location].filter(Boolean).join(', ');
+
+     const mapContainer = document.createElement('div');
+     mapContainer.classList.add('event-map' , 'flex-container');
+
+     // Mapa embebido
+     const mapIframe = document.createElement('iframe');
+     mapIframe.width = "100%";
+     mapIframe.height = "300";
+     mapIframe.style.border = "0";
+     mapIframe.loading = "lazy";
+     mapIframe.referrerPolicy = "no-referrer-when-downgrade";
+     mapIframe.src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+
+     mapContainer.appendChild(mapIframe);
+
+     // Enlace directo a Google Maps
+     const mapsLink = document.createElement('a');
+     mapsLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+     mapsLink.target = "_blank";
+     mapsLink.rel = "noopener noreferrer";
+     mapsLink.textContent = "Ver en Google Maps";
+     mapsLink.classList.add('maps-link');
+
+    
+     const mapGroupContainer = document.createElement('div');
+     mapGroupContainer.classList.add('event-map-mapGroupContainer', 'flex-container');
+     mapGroupContainer.appendChild(mapContainer);
+     mapGroupContainer.appendChild(mapsLink);
+
+     return mapGroupContainer;
 }
+
+

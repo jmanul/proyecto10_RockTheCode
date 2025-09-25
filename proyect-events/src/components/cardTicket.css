@@ -1,5 +1,3 @@
-
-
 .ticket-qr-container {
      text-align: center;
      padding-top: var(--spacing-medium);
@@ -8,11 +6,11 @@
      font-size: .8rem;
 }
 
-.ticket-name > span {
-    
-     font-family: var(--font-rock); 
+.ticket-name>span {
+
+     font-family: var(--font-rock);
      font-size: 1.2rem;
-     border-radius:var(--border-radius-circle);
+     border-radius: var(--border-radius-circle);
      border: 2px solid var(--text-color);
      padding: 0 var(--spacing-little-bit);
 }
@@ -20,7 +18,7 @@
 .ticket-qr {
      width: 10rem;
      height: auto;
-     
+
 }
 
 .qr-caption {
@@ -47,8 +45,13 @@
      width: 80%;
 }
 
-.ticket-details {
+.ticket-details,
+.ticket-name {
 
+     white-space: inherit;
+     min-width: 100%;
+
+     padding: 0;
      padding-bottom: var(--spacing-small);
 }
 

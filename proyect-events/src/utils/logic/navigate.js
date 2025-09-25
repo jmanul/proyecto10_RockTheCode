@@ -72,7 +72,7 @@ export const navigate = async (e, route, ...rest) => {
                clearTransitions()
           );
      } else {
-          await render();
+          render();
           clearTransitions();
      }
 };

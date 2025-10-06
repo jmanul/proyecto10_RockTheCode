@@ -24,7 +24,7 @@
 
 
 .select-card {
-    
+
      backdrop-filter: blur(90px);
      background-color: var(--background-color-transparent);
      color: var(--text-color);
@@ -33,6 +33,7 @@
      height: auto;
      border-radius: var(--border-radius-big);
      font-family: var(--font-regulat-outfit);
+    
 
 }
 
@@ -41,15 +42,16 @@
      width: 100%;
      border-radius: var(--border-radius-big);
      padding: var(--spacing-small) 0;
+     max-height:fit-content;
 
 }
 
 .grid-events.info-content {
 
-     overflow:inherit;
+     overflow: inherit;
      margin-bottom: 70px;
      height: fit-content;
-     
+
 
 }
 
@@ -83,8 +85,8 @@
 .icon-row i {
      color: var(--color-icon);
      font-size: 1.5rem;
-     background:var(--background-gradient-radial-3);
-     border-radius:999%;
+     background: var(--background-gradient-radial-3);
+     border-radius: 999%;
      width: auto;
      height: auto;
      padding: 0 6px;
@@ -92,21 +94,27 @@
 }
 
 
-.event-map-mapGroupContainer {
+.event-map-group {
+     
+     width: 100%;
+     max-width: 500px;
      margin-top: 24px;
      flex-direction: column;
      align-items: center;
-     gap: 12px;
-    
+     gap: 2px;
+     border-radius:12px;
+     box-shadow: var(--box-shadow);
+
+
 }
 
 
 .event-map {
      width: 100%;
-     max-width: 800px;
+     max-width: 500px;
      border-radius: 12px;
      overflow: hidden;
-     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     
 }
 
 
@@ -116,6 +124,7 @@
      color: var(--neon-yellow);
      text-decoration: none;
      transition: color 0.2s ease;
+     padding-bottom: 15px;
 }
 
 .maps-link:hover {
@@ -126,31 +135,30 @@
 
 .action-container {
      width: 100%;
-     bottom: var(--spacing-small);
      flex-direction: row;
-     padding: var(--spacing-small);
-     border-radius:var(--border-radius-small);
-    
+     padding-top: var(--spacing-small);
+     border-radius: var(--border-radius-small);
+
 }
 
 button i {
 
-   font-size: 1.5rem;
-   color: var(--text-color);
+     font-size: 1.5rem;
+     color: var(--text-color);
 
-   &:hover {
+     &:hover {
 
-     color: var(--neon-cyan);
-   }
-   
+          color: var(--neon-cyan);
+     }
+
 }
 
 .action-container button {
 
      border: 1px solid var(--neon-cyan);
      padding: 5px 15px;
-     width:7rem;
+     width: 7rem;
      height: 3rem;
      cursor: pointer;
-     
+
 }

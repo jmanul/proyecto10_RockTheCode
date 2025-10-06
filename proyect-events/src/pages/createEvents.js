@@ -14,9 +14,12 @@ export const eventFields = [
      { name: 'name', type: 'text', placeholder: 'Nombre del evento', required: true },
      { name: 'type', type: 'select', placeholder: 'Tipo de evento', required: false, options: ['musica', 'deporte', 'fiesta', 'formación', 'arte', 'gastronomía', 'tecnología', 'otros'] },
      { name: 'location', type: 'text', placeholder: 'Lugar', required: true },
-     { name: 'adress', type: 'text', placeholder: 'Dirección', required: true },
+     { name: 'address', type: 'text', placeholder: 'Dirección', required: true },
+     { name: 'postalCode', type: 'text', placeholder: 'C.P.', required: true },
      { name: 'city', type: 'text', placeholder: 'Ciudad', required: true },
+     { name: 'country', type: 'select', placeholder: 'Pais', required: true, options: ['España'] },
      { name: 'description', type: 'textarea', placeholder: 'Descripción', required: true },
+     { name: 'isPrivated', type: 'select', placeholder: 'Pais', required: true, options: ['España'] },
      {
           name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true,
           min: (() => {
@@ -42,7 +45,7 @@ export const eventFields = [
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
           }
      },
-     
+
      {
           name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false, validate: (inputElement) => {
                if (!inputElement || !inputElement.files || inputElement.files.length === 0) return true;
@@ -53,7 +56,7 @@ export const eventFields = [
                return allowedTypes.includes(file.type) || 'El archivo debe ser una imagen (.jpg, .png, .webp)';
           }
      }
-    
+
 ];
 
 
@@ -61,7 +64,7 @@ export const eventFields = [
 
 export const createEventsPage = async (e, route, routeObject) => {
 
-         
+
      try {
           // Crear el layout principal
           const appContainer = document.getElementById('app');
@@ -79,7 +82,7 @@ export const createEventsPage = async (e, route, routeObject) => {
           main.prepend(eventsUserMenu);
 
           // Renderizar los eventos
-         await eventsUser(e, route);
+          await eventsUser(e, route);
 
 
      } catch (error) {
@@ -93,7 +96,7 @@ export const createEventsPage = async (e, route, routeObject) => {
 
 export const createEvent = async (e, route) => {
 
-     
+
      await newEventPage(e, route, 'POST', 'Añadir', 'Nuevo evento', eventFields, renderNewEvent);
 };
 
@@ -103,7 +106,7 @@ export const newEventPage = async (e, route, method, text, title, fields, render
 
 
      try {
-           
+
           // Seleccionar el contenedor de eventos
           const formNewEventContainer = document.querySelector('.grid-events');
           formNewEventContainer.style.scrollbarGutter = 'stable both-edges';
@@ -113,7 +116,7 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           infoSection?.remove();
           const infoGridSection = document.getElementById('info-grid-section');
           infoGridSection?.remove();
-          
+
           if (!formNewEventContainer) {
                throw new Error("No se encontró el contenedor de eventos (.grid-events).");
           }
@@ -130,20 +133,20 @@ export const newEventPage = async (e, route, method, text, title, fields, render
           // Crear el formulario para la creación de un nuevo evento
           const builder = new FormBuilder(fields, text, existingValues);
           const formNewEvent = await builder.createForm();
-          
-          
+
+
           if (!formNewEvent) {
                throw new Error("No se pudo crear el formulario para el nuevo evento");
           }
-      
+
           // Añadir el formulario al contenedor
           formNewEventContainer.appendChild(formNewEvent);
-        
+
           await actionRequest(formNewEvent, builder, route, method, renderAction, formNewEventContainer, textNewEvents, returnRoute);
-          
+
           const buttonContainer = formNewEvent.querySelector('.button-form');
 
-          await actionButton('Volver', returnRoute , buttonContainer)
+          await actionButton('Volver', returnRoute, buttonContainer)
 
 
      } catch (error) {
@@ -156,19 +159,19 @@ export const newEventPage = async (e, route, method, text, title, fields, render
 }
 
 export const eventsUser = async (e, route) => {
-   
+
      const updateImageContainer = document.querySelector('.backgroun-image-preview');
      if (updateImageContainer) {
-          
+
           updateImageContainer.remove();
      }
      const events = await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
-     
+
      if (!events) {
-          
+
           return
      }
- 
+
      const textEventsUser = document.querySelector('.text-events');
      textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
 
@@ -176,19 +179,19 @@ export const eventsUser = async (e, route) => {
 
      events.forEach((event, index) => {
 
-          const eventCard = eventsUserCar[index]; 
+          const eventCard = eventsUserCar[index];
 
           if (!eventCard) return;
 
           const asistentNumber = document.createElement('div');
           asistentNumber.classList.add('flex-container', 'asistent-number');
 
-               asistentNumber.innerHTML = `<div class= "flex-container"><span><i class="bi bi-people-fill"></i></span><span>${event.totalReservedPlaces} asistentes de ${event.maxCapacity}</span></div>`;
-         
+          asistentNumber.innerHTML = `<div class= "flex-container"><span><i class="bi bi-people-fill"></i></span><span>${event.totalReservedPlaces} asistentes de ${event.maxCapacity}</span></div>`;
+
 
           eventCard.appendChild(asistentNumber);
      });
-  
+
 
 
 };
@@ -202,7 +205,7 @@ export const renderNewEvent = async (e, route, requestObject, container = null) 
 
           editIconImage.remove();
      }
-     
+
      const { request, returnRoute } = requestObject;
      const newEventCreated = request.event
 
@@ -212,7 +215,7 @@ export const renderNewEvent = async (e, route, requestObject, container = null) 
 
           finalReturRoute = userEventsRoutes[1]
      }
-    
+
      // Seleccionar el contenedor de eventos y creamos la card del evento para mostrarlo
 
      const cardEvent = createEventsCard(newEventCreated);
@@ -220,13 +223,13 @@ export const renderNewEvent = async (e, route, requestObject, container = null) 
      if (container || !container === null || !container === undefined) {
 
           container.innerHTML = `<h2>Nuevo evento creado</h2>`;
-          
+
      }
-    
+
      formNewEventContainer.innerHTML = '';
      formNewEventContainer.appendChild(cardEvent);
 
-      await actionButton('Volver', finalReturRoute, formNewEventContainer)
+     await actionButton('Volver', finalReturRoute, formNewEventContainer)
 
 
 }

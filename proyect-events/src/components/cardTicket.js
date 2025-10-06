@@ -29,7 +29,7 @@ export const cardTicket = async (request, ticket) => {
       <p><strong>Fecha:</strong> ${startDateFormatted}</p>
       <p><strong>Hora:</strong> ${startTimeFormatted}</p>
       <p><strong>Lugar:</strong> ${event.location}</p>
-      <p> ${event.adress}</p>
+      <p> ${event.address}</p>
       <p> ${event.city}</p>
     </div>
   </div>

@@ -1,4 +1,5 @@
 
+import { buildFullAddress, createMap } from '../utils/logic/createMap';
 import { navigate } from '../utils/logic/navigate';
 import { userRoutes } from '../utils/routes/routes';
 import './itemDetails.css'
@@ -61,7 +62,8 @@ export const itemDetails = (data, keyMapEvent) => {
      }
 
      // Añadimos el mapa si hay datos de ubicacion
-     const map = createEventMap(data);
+     const fullAddress = buildFullAddress(data);
+     const map = createMap(fullAddress);
      if (map) contentContainer.appendChild(map);
 
      return contentContainer; 
@@ -92,44 +94,6 @@ export const actionButton = async (text, routeAction, container, icon = null) =>
 
 };
 
-export function createEventMap(data) {
-     const { location, address, city } = data;
 
-     // Si no hay datos de dirección, no devolvemos nada
-     if (!address && !city && !location) return null;
-
-     // Construimos la dirección completa
-     const fullAddress = [address, city, location].filter(Boolean).join(', ');
-
-     const mapContainer = document.createElement('div');
-     mapContainer.classList.add('event-map' , 'flex-container');
-
-     // Mapa embebido
-     const mapIframe = document.createElement('iframe');
-     mapIframe.width = "100%";
-     mapIframe.height = "300";
-     mapIframe.style.border = "0";
-     mapIframe.loading = "lazy";
-     mapIframe.referrerPolicy = "no-referrer-when-downgrade";
-     mapIframe.src = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
-
-     mapContainer.appendChild(mapIframe);
-
-     // Enlace directo a Google Maps
-     const mapsLink = document.createElement('a');
-     mapsLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
-     mapsLink.target = "_blank";
-     mapsLink.rel = "noopener noreferrer";
-     mapsLink.textContent = "Ver en Google Maps";
-     mapsLink.classList.add('maps-link');
-
-    
-     const mapGroupContainer = document.createElement('div');
-     mapGroupContainer.classList.add('event-map-mapGroupContainer', 'flex-container');
-     mapGroupContainer.appendChild(mapContainer);
-     mapGroupContainer.appendChild(mapsLink);
-
-     return mapGroupContainer;
-}
 
 

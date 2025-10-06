@@ -2,7 +2,7 @@ import { buildFetchJson } from '../api/buildFetch';
 import { createEventsCard } from '../components/cardEvent';
 import { createList } from '../components/list';
 import './events.css';
-import { typesEventsRoutes, userEventsRoutes, userRoutes } from "../utils/routes/routes";
+import { typesEventsRoutes, userEventsRoutes } from "../utils/routes/routes";
 import { createLayout } from '../components/layout';
 import { dateFormat } from '../utils/logic/dateFormat';
 import { actionButton, renderItemDetails } from '../components/itemDetails';
@@ -13,7 +13,7 @@ import { renderHomePage } from './home';
 const keyMapEvent = {
      description: { icon: "bi-info-circle" },
      location: { icon: "bi-geo-alt" },
-     adress: { icon: "bi-buildings" },
+     address: { icon: "bi-buildings" },
      city: { icon: "bi-pin-map" },
      startDateFormatted: { icon: "bi-calendar-event" },
      startTimeFormatted: { icon: "bi-clock" },

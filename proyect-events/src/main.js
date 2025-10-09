@@ -1,9 +1,7 @@
 import "../style.css";
-import { buildFetchJson } from "./api/buildFetch";
 import { createFooter } from "./components/footer";
 import { createHeader } from "./components/header";
 import { renderHomePage } from "./pages/home";
-import { userIsAuth } from "./utils/logic/init";
 import { getRouteFromRegistry, navigate, registerRoute } from "./utils/logic/navigate";
 import { clearPendingRoute, setPendingRoute } from "./utils/routes/routeCache";
 import { allRoutes, loginRoutes, userRoutes } from "./utils/routes/routes";

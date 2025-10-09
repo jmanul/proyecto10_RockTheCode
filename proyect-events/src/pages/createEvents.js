@@ -8,7 +8,16 @@ import { userEventsRoutes } from '../utils/routes/routes.js';
 import { createEventsCard } from '../components/cardEvent.js';
 import { updateEventPage } from './updateEvent.js';
 import { actionButton } from '../components/itemDetails.js';
+import { buildFetchJson } from '../api/buildFetch.js';
 
+//obtenemos la lista de paises disponibles definida en la API
+export const countries = async () => {
+
+     return buildFetchJson({ route: '/countries' })
+};
+
+const countriesList = await countries();
+const countriesNames = countriesList.map(country => country.name)
 
 export const eventFields = [
      { name: 'name', type: 'text', placeholder: 'Nombre del evento', required: true },
@@ -17,9 +26,8 @@ export const eventFields = [
      { name: 'address', type: 'text', placeholder: 'Dirección', required: true },
      { name: 'postalCode', type: 'text', placeholder: 'C.P.', required: true },
      { name: 'city', type: 'text', placeholder: 'Ciudad', required: true },
-     { name: 'country', type: 'select', placeholder: 'Pais', required: true, options: ['España'] },
+     { name: 'country', type: 'select', placeholder: 'Pais', required: false, options: countriesNames },
      { name: 'description', type: 'textarea', placeholder: 'Descripción', required: true },
-     { name: 'isPrivated', type: 'select', placeholder: 'Pais', required: true, options: ['España'] },
      {
           name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true,
           min: (() => {
@@ -63,8 +71,7 @@ export const eventFields = [
 
 
 export const createEventsPage = async (e, route, routeObject) => {
-
-
+     
      try {
           // Crear el layout principal
           const appContainer = document.getElementById('app');

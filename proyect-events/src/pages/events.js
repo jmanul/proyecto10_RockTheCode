@@ -107,6 +107,7 @@ export const renderEvents = async (e, route, options = {}) => {
                const actionContainer = document.createElement('div');
                actionContainer.classList.add('flex-container', 'action-container');
                actionContainer.style.position = 'fixed';
+               actionContainer.style.bottom = '40px';
                gridEvents.appendChild(actionContainer);
 
                if (route.includes('userEventsCreate')) {

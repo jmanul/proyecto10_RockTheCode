@@ -76,6 +76,11 @@ export class FormBuilder {
                          const formattedDate = toLocalDatetimeInput(this.existingValues[field.name]);
                          input.value = formattedDate;
                          input.dataset.originalValue = formattedDate;
+                    } else if (field.type === 'select') { 
+                         // comprobarantes si el valor del select tiene un nombre para cargar el pais
+                         input.value = this.existingValues[field.name].name || this.existingValues[field.name];
+                         input.dataset.originalValue = this.existingValues[field.name].name || this.existingValues[field.name];
+
                     } else {
                          input.value = this.existingValues[field.name];
                          input.dataset.originalValue = this.existingValues[field.name];

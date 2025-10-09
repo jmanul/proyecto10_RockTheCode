@@ -42,33 +42,3 @@ export function createMap(fullAddress) {
      return mapGroupContainer;
 }
 
-
-
-/**
- * Construye una dirección completa a partir de los datos del evento.
- * 
- * @param {Object} data - Datos del evento (address, city, location, postalCode, country)
- * @returns {string|null} Dirección completa formateada o null si no hay datos suficientes.
- */
-export function buildFullAddress(data) {
-     if (!data) return null;
-
-     const { location, address, postalCode, city, country } = data;
-
-     // Si no hay país, evitamos errores
-     const countryCode = country?.code || country?.name || "";
-
-     // Si no hay datos suficientes, no devolvemos nada
-     if (!address && !city && !postalCode && !location && !countryCode) {
-          return null;
-     }
-
-     // Construcción ordenada de los fragmentos de dirección
-     const parts = [address, location, city, postalCode, countryCode]
-          .filter(Boolean) // elimina valores falsy (null, undefined, "")
-          .map(part => part.trim()) // limpia espacios
-          .filter(part => part.length > 0); // evita cadenas vacías
-
-     // Unimos los fragmentos separados por coma
-     return parts.join(', ');
-}

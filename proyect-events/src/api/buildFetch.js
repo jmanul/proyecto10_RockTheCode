@@ -5,7 +5,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const spinner = createSpinner();
 document.body.appendChild(spinner);
 
-export const buildFetchJson = async ({ route, method = "GET", bodyData = null, container }) => {
+export const buildFetchJson = async ({ route, method = "GET", bodyData = null, container = null }) => {
      try {
 
           showSpinner(spinner);    

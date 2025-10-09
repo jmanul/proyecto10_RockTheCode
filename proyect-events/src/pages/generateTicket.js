@@ -1,7 +1,5 @@
 import { buildFetchJson } from "../api/buildFetch";
 import { cardTicket } from "../components/cardTicket";
-import { actionButton } from "../components/itemDetails";
-import { userRoutes } from "../utils/routes/routes";
 import "./generateTicket.css"
 
 

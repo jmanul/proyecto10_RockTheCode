@@ -1,5 +1,5 @@
 
-import { buildFullAddress, createMap } from '../utils/logic/createMap';
+import { createMap } from '../utils/logic/createMap';
 import { navigate } from '../utils/logic/navigate';
 import { userRoutes } from '../utils/routes/routes';
 import './itemDetails.css'
@@ -62,7 +62,7 @@ export const itemDetails = (data, keyMapEvent) => {
      }
 
      // Añadimos el mapa si hay datos de ubicacion
-     const fullAddress = buildFullAddress(data);
+     const fullAddress = data.fullAddress
      const map = createMap(fullAddress);
      if (map) contentContainer.appendChild(map);
 

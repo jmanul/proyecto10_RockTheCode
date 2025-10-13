@@ -53,6 +53,7 @@ export const eventFields = [
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
           }
      },
+        { name: 'isPrivated', type: 'checkbox', placeholder: 'Privado', required: false },
 
      {
           name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false, validate: (inputElement) => {

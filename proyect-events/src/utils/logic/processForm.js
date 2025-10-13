@@ -9,7 +9,7 @@ export const processForm = async (form, route, method, container) => {
 
      Array.from(form.elements).forEach((element) => {
           if (element.name && !element.disabled) {
-               const { name, type, value, files } = element;
+               const { name, type, value, files, checked } = element;
 
                if (type === 'file' && files.length > 0) {
 
@@ -27,7 +27,7 @@ export const processForm = async (form, route, method, container) => {
 
           for (const element of elements) {
                if (element.name && !element.disabled) {
-                    const { name, type, value, files } = element;
+                    const { name, type, value, files, checked } = element;
 
                     if (type === 'file' && files.length > 0) {
                          // Optimizar la imagen y añadirla al FormData
@@ -38,6 +38,10 @@ export const processForm = async (form, route, method, container) => {
                          } catch (error) {
                               console.error("Error optimizando archivo:", error);
                          }
+                    } else if (type === 'checkbox') {
+                       
+                         data.append(name, checked ? 'true' : 'false'); 
+
                     } else if (value.trim() !== '') {
                          
                          data.append(name, value);
@@ -52,9 +56,13 @@ export const processForm = async (form, route, method, container) => {
 
           Array.from(form.elements).forEach((element) => {
                if (element.name && !element.disabled) {
-                    const { name, type, value, files } = element;
+                    const { name, type, value, files, checked } = element;
 
-                    if (type !== 'file' && value.trim() !== '') {
+                    if (type === 'checkbox') {
+                         
+                         data[name] = checked; 
+
+                    } else if (type !== 'file' && value.trim() !== '') {
                          data[name] = value;
                     }
                }

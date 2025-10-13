@@ -23,8 +23,11 @@ export class FormBuilder {
 
                let input;
 
+               // Crear input según el tipo
                if (field.type === 'select') {
                     input = document.createElement('select');
+                    input.classList.add('custom-select');
+
                     const placeholderOption = document.createElement('option');
                     placeholderOption.value = '';
                     placeholderOption.textContent = `Seleccione ${field.placeholder.toLowerCase()}`;
@@ -44,43 +47,49 @@ export class FormBuilder {
                     input.rows = 4;
 
                } else if (field.type === 'file') {
-
-                    // decidimos si incluir file en el formulario
                     if (fileOn) {
-
                          input = document.createElement('input');
                          input.type = 'file';
                          input.id = 'file-input';
                          input.classList.add('file-Input');
-                         label.for = 'file-input';
-
+                         label.htmlFor = 'file-input';
                     } else {
-
                          return; // Saltar este campo
                     }
+
+               } else if (field.type === 'checkbox') {
+                    input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.name = field.name;
+                    input.classList.add('ckeckbox', 'flex-container'); 
+
+                    // Prellenar si hay valor existente
+                    if (this.existingValues[field.name] !== undefined) {
+                         input.checked = !!this.existingValues[field.name];
+                         input.dataset.originalValue = input.checked;
+                    }
+
                } else {
                     input = document.createElement('input');
                     input.type = field.type;
                }
 
+               // Propiedades comunes a todos los inputs
                input.name = field.name;
                input.placeholder = field.placeholder;
                if (field.required) input.required = true;
                if (field.min !== undefined) input.min = field.min;
                if (field.max !== undefined) input.max = field.max;
 
-               // Asignar valor existente si no es archivo
-               if (field.type !== 'file' && this.existingValues[field.name] !== undefined) {
+               // Asignar valor existente si NO es file ni checkbox
+               if (field.type !== 'file' && field.type !== 'checkbox' && this.existingValues[field.name] !== undefined) {
                     if (field.type === 'datetime-local') {
-                         //formateamos la fecha para que sea aceptada por el input
                          const formattedDate = toLocalDatetimeInput(this.existingValues[field.name]);
                          input.value = formattedDate;
                          input.dataset.originalValue = formattedDate;
-                    } else if (field.type === 'select') { 
-                         // comprobarantes si el valor del select tiene un nombre para cargar el pais
+                    } else if (field.type === 'select') {
                          input.value = this.existingValues[field.name].name || this.existingValues[field.name];
-                         input.dataset.originalValue = this.existingValues[field.name].name || this.existingValues[field.name];
-
+                         input.dataset.originalValue = input.value;
                     } else {
                          input.value = this.existingValues[field.name];
                          input.dataset.originalValue = this.existingValues[field.name];
@@ -96,19 +105,21 @@ export class FormBuilder {
                div.appendChild(input);
                div.appendChild(errorSpan);
                this.form.appendChild(div);
-
-
           });
 
+          // Botón de submit
           const buttonContainer = document.createElement('div');
           buttonContainer.classList.add('flex-container', `button-form-${this.formName.toLowerCase()}`, 'button-form');
+
           const submitBtn = document.createElement('button');
           submitBtn.type = 'submit';
           submitBtn.textContent = this.formName;
           submitBtn.classList.add('button');
+
           buttonContainer.appendChild(submitBtn);
           this.form.appendChild(buttonContainer);
 
+          console.log(this.form);
           return this.form;
      }
 
@@ -161,6 +172,7 @@ export class FormBuilder {
                     return input.files.length > 0;
 
                } else if (field.type === 'checkbox') {
+
                     const original = !!this.existingValues[field.name];
                     return input.checked !== original;
 
@@ -173,10 +185,27 @@ export class FormBuilder {
                }
           }).map(field => {
                const input = this.form.querySelector(`[name="${field.name}"]`);
+               
+               // envia 'true' es marcado y si se desmarca se envia 'false'.
+               if (field.type === 'checkbox') {
+                    
+                    return {
+                         ...field,
+                         value: input.checked
+                    };
+               } 
+               let valueToSend;
+               if (field.type === 'file') {
+                    valueToSend = input?.files[0];
+               } else {
+                    valueToSend = input?.value;
+               }
+
                return {
                     ...field,
-                    value: field.type === 'file' ? input?.files[0] : input?.value
+                    value: valueToSend
                };
+          
           });
      }
 
@@ -202,10 +231,11 @@ export class FormBuilder {
                     input.files = dt.files;
 
                } else if (field.type === 'checkbox') {
-                    input.checked = field.value === true || field.value === 'true';
+                   
+                    input.checked = !!field.value;
 
                } else if (field.type === 'datetime-local' && field.value) {
-                   
+
                     input.value = field.value;
 
                } else if (field.value !== undefined) {

@@ -104,7 +104,7 @@
      gap: 2px;
      border-radius:12px;
      box-shadow: var(--box-shadow);
-
+     
 
 }
 
@@ -114,6 +114,7 @@
      max-width: 500px;
      border-radius: 12px;
      overflow: hidden;
+     aspect-ratio: 16/11;
      
 }
 

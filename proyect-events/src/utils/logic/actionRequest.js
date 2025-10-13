@@ -36,7 +36,7 @@ export const actionRequest = async (form, builder, route, method, renderFunction
 
           Array.from(finalForm.elements).forEach((element) => {
      
-               if (element.placeholder === 'Seleccionar Imagen') {
+               if (element.placeholder === 'Subir Imagen') {
                     const { type, files } = element;
 
                     if (type === 'file' && files.length > 0) {

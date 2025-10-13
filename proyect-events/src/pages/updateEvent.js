@@ -10,7 +10,7 @@ import { userEventPasses } from './createPass';
 export const imageFields = [
 
      {
-          name: 'image', type: 'file', placeholder: 'Seleccionar Imagen', required: false, validate: (inputElement) => {
+          name: 'image', type: 'file', placeholder: 'Subir Imagen', required: false, validate: (inputElement) => {
                if (!inputElement || !inputElement.files || inputElement.files.length === 0) return true;
 
                const file = inputElement.files[0];

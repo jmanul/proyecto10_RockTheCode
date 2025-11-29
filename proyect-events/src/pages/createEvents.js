@@ -173,6 +173,14 @@ export const eventsUser = async (e, route) => {
 
           updateImageContainer.remove();
      }
+     
+     // Limpiar el estado del contenedor antes de renderizar
+     const gridEvents = document.querySelector('.grid-events');
+     if (gridEvents) {
+          gridEvents.classList.remove('info-content');
+          gridEvents.style.scrollbarGutter = '';
+     }
+     
      const events = await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
 
      if (!events) {

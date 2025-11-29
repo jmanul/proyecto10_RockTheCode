@@ -78,6 +78,8 @@ export const renderEvents = async (e, route, options = {}) => {
 
           if (!gridEvents) throw new Error("No se encontró el contenedor de eventos (.grid-events).");
 
+          // Limpiar el estado del contenedor (clases y estilos previos)
+          gridEvents.classList.remove('info-content');
           gridEvents.innerHTML = '';
           gridEvents.style.scrollbarGutter = 'stable both-edges';
           gridMain.style.gridTemplateColumns = 'auto auto';

@@ -135,13 +135,13 @@ export const renderLogin = async () => {
 export const onLoginSuccess = async () => {
 
      const route = getPendingRoute();
+     
+     // Limpiar inmediatamente para evitar que quede guardada
+     clearPendingRoute();
 
      await renderHomePage();
 
      if (route) {
-
-          clearPendingRoute();
           await navigate(null, route);
-
      } 
 }

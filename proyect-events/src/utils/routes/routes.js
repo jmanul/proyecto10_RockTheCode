@@ -127,7 +127,7 @@ export const typesEventsRoutes = [
      {
           id: "musica",
           name: "Música",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/musica",
           title: "Eventos de música - PropoySal",
           description: "Descubre conciertos, festivales y eventos musicales en tu ciudad."
@@ -135,7 +135,7 @@ export const typesEventsRoutes = [
      {
           id: "deporte",
           name: "Deporte",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/deporte",
           title: "Eventos deportivos - PropoySal",
           description: "Apúntate a actividades y eventos deportivos para todos los niveles."
@@ -143,7 +143,7 @@ export const typesEventsRoutes = [
      {
           id: "fiesta",
           name: "Fiesta",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/fiesta",
           title: "Fiestas y celebraciones - PropoySal",
           description: "No te pierdas las mejores fiestas y celebraciones cerca de ti."
@@ -151,7 +151,7 @@ export const typesEventsRoutes = [
      {
           id: "formacion",
           name: "Formación",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/formacion",
           title: "Eventos de formación - PropoySal",
           description: "Participa en talleres, cursos y charlas para seguir aprendiendo."
@@ -159,7 +159,7 @@ export const typesEventsRoutes = [
      {
           id: "arte",
           name: "Arte",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/arte",
           title: "Eventos de arte - PropoySal",
           description: "Explora exposiciones, galerías y eventos artísticos en tu zona."
@@ -167,7 +167,7 @@ export const typesEventsRoutes = [
      {
           id: "gastronomia",
           name: "Gastronomía",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/gastronomia",
           title: "Eventos gastronómicos - PropoySal",
           description: "Disfruta de experiencias culinarias, catas y festivales gastronómicos."
@@ -175,7 +175,7 @@ export const typesEventsRoutes = [
      {
           id: "tecnologia",
           name: "Tecnología",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/tecnologia",
           title: "Eventos de tecnología - PropoySal",
           description: "Descubre eventos de innovación, tecnología y emprendimiento digital."
@@ -183,7 +183,7 @@ export const typesEventsRoutes = [
      {
           id: "otros",
           name: "Otros",
-          action: renderEvents,
+          action: eventsPage,
           url: "/events/type/otros",
           title: "Otros eventos - PropoySal",
           description: "Explora eventos variados que no encajan en una sola categoría."

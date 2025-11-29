@@ -5,6 +5,7 @@ import { renderHomePage } from "./pages/home";
 import { getRouteFromRegistry, navigate, registerRoute } from "./utils/logic/navigate";
 import { clearPendingRoute, setPendingRoute } from "./utils/routes/routeCache";
 import { allRoutes, loginRoutes, userRoutes } from "./utils/routes/routes";
+import { initHomeMenu } from "./utils/logic/init";
 
 
 allRoutes.forEach(route => {
@@ -31,47 +32,68 @@ function getMatchingDynamicRoute(path) {
      return null;
 }
 
-window.addEventListener('load', async function () {
-       // Paso 1: siempre renderiza header, footer y scroll
-     createHeader();
-     createFooter();
-     window.scrollTo(0, 0);
+// Función principal de inicialización
+const initApp = async () => {
+     try {
+          // Paso 1: siempre renderiza header, footer y scroll
+          createHeader();
+          createFooter();
+          window.scrollTo(0, 0);
 
-     // Paso 2: detecta si la URL actual coincide con alguna ruta registrada
-     const currentPath = window.location.pathname;
+          // Paso 2: detecta si la URL actual coincide con alguna ruta registrada
+          const currentPath = window.location.pathname;
 
-     // Intentar encontrar una ruta exacta
-     let route = getRouteFromRegistry(currentPath);
+          // Intentar encontrar una ruta exacta
+          let route = getRouteFromRegistry(currentPath);
 
-     // 3.2. Si no existe exacta, buscamos si es dinámica
-     if (!route) {
-          route = getMatchingDynamicRoute(currentPath);
-     }
+          // Si no existe exacta, buscamos si es dinámica
+          if (!route) {
+               route = getMatchingDynamicRoute(currentPath);
+          }
 
-     // 3.3. Si NO está logueado
+          // Paso 3: Verificar autenticación (sin renderizar home todavía)
+          let user = null;
           
-    const user = await renderHomePage();
+          // Si no hay ruta específica o es home, renderizar home completo
+          if (!route || currentPath === '/' || currentPath === '/home') {
+               user = await renderHomePage();
+          } else {
+               // Hay una ruta específica, solo inicializar menú
+               user = await initHomeMenu();
+          }
 
-     if (!user && route) {
-          
+          // Paso 4: Si NO está logueado y hay una ruta específica
+          if (!user && route) {
                // Guardamos la ruta deseada para usarla tras login
-              
                setPendingRoute(route);
-          
-          // Mostramos login
-        
-          await navigate(null, loginRoutes[0]);
-          return
+               // Mostramos login
+               await navigate(null, loginRoutes[0]);
+               return;
+          }
+
+          // Paso 5: Si está logueado y existe ruta específica, navegar a ella
+          if (route) {
+               // Limpiar ruta pendiente antes de navegar
+               clearPendingRoute();
+               await navigate(null, route);
+          }
+     } catch (error) {
+          console.error('💥 ERROR CRÍTICO EN INIT:', error);
+          document.body.innerHTML = `<div style="color: red; padding: 20px;">
+               <h1>Error al cargar la aplicación</h1>
+               <p>${error.message}</p>
+               <pre>${error.stack}</pre>
+          </div>`;
      }
+};
 
-     // Si existe ruta, navega a ella
-     if (route) {
-
-       
-          await navigate(null, route);
-           clearPendingRoute();
-     } 
-});
+// Ejecutar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', initApp);
+} else {
+     // El DOM ya está cargado, ejecutar inmediatamente
+     initApp();
+}
 
 
 

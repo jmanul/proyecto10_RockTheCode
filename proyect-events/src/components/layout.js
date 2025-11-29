@@ -33,7 +33,9 @@ export const createLayout = () => {
      
      main.appendChild(gridMain);
      const footer = document.querySelector('footer');
-     footer.remove();
+     if (footer) {
+          footer.remove();
+     }
      createFooter();
      
      return main;

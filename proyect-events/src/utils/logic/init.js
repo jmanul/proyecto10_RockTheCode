@@ -15,11 +15,10 @@ export const initHomeMenu = async () => {
      }
 
      const request = await userIsAuth();
-     console.log(request);
 
      let routes = loginRoutes; // Por defecto, si no está autenticado
 
-     if (request.isAuth) {
+     if (request && request.isAuth) {
           if (request.user?.roll === 'user') {
                routes = userRoutes;
           } else if (request.user?.roll === 'administrator') {
@@ -31,7 +30,7 @@ export const initHomeMenu = async () => {
      header.append(newMenuHeader);
      createSidebar(routes);
 
-     return request.user || null; 
+     return request?.user || null; 
 };
 
 

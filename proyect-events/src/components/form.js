@@ -119,7 +119,6 @@ export class FormBuilder {
           buttonContainer.appendChild(submitBtn);
           this.form.appendChild(buttonContainer);
 
-          console.log(this.form);
           return this.form;
      }
 

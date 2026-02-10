@@ -1,7 +1,8 @@
 import { createMessage } from "../components/message";
 import { createSpinner, hideSpinner, showSpinner } from "../components/spinner";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// Elimina la barra final si existe para evitar doble barra
+const API_BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') || '';
 const spinner = createSpinner();
 document.body.appendChild(spinner);
 

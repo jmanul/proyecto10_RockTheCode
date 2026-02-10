@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd proyect-events && npm run build",
+  "outputDirectory": "proyect-events/dist",
+  "installCommand": "cd proyect-events && npm install",
+  "framework": "vite"
+}

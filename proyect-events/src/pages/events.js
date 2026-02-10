@@ -9,6 +9,7 @@ import { actionButton, renderItemDetails } from '../components/itemDetails';
 import { navigate } from '../utils/logic/navigate';
 import { renderPassesPage } from './passes';
 import { renderHomePage } from './home';
+import { createInfiniteScroll } from '../utils/logic/infiniteScroll';
 
 const keyMapEvent = {
      description: { icon: "bi-info-circle" },
@@ -61,6 +62,9 @@ export const eventsPage = async (e, route) => {
      }
 };
 
+// Variable global para manejar el infinite scroll activo
+let activeInfiniteScroll = null;
+
 export const renderEvents = async (e, route, options = {}) => {
      try {
           const {
@@ -68,13 +72,18 @@ export const renderEvents = async (e, route, options = {}) => {
                onCardClick = null
           } = options;
 
-          let numberEvents = 0;
+          // Destruir infinite scroll anterior si existe
+          if (activeInfiniteScroll) {
+               activeInfiniteScroll.destroy();
+               activeInfiniteScroll = null;
+          }
 
           // Obtener contenedores del DOM
           const gridEvents = document.querySelector('.grid-events');
           const gridMain = document.querySelector('.grid-main');
           const infoSection = document.getElementById('info-section');
           const infoGridSection = document.getElementById('info-grid-section');
+          const textEvents = document.querySelector('.text-events');
 
           if (!gridEvents) throw new Error("No se encontró el contenedor de eventos (.grid-events).");
 
@@ -87,20 +96,82 @@ export const renderEvents = async (e, route, options = {}) => {
           infoSection?.remove();
           infoGridSection?.remove();
 
-          // Obtener eventos desde la API
-          const request = await buildFetchJson({ route });
-          // Si es un único evento, convertirlo en array
-          const events = Array.isArray(request?.events)
-               ? request.events
-               : (request?.events ? [request.events] : []);
-          const user = request?.user;
-          
-        
-     
+          // Crear contenedor de tarjetas
+          const eventsContainer = document.createElement("div");
+          eventsContainer.classList.add("events-container", "flex-container");
+          gridEvents.appendChild(eventsContainer);
 
-          // Si no hay eventos
-          if (!events || events.length === 0) {
-               gridEvents.innerHTML = `
+          // Variable para almacenar el usuario
+          let currentUser = null;
+
+          // Función para obtener datos paginados
+          const fetchEventsData = async (page) => {
+               const separator = route.includes('?') ? '&' : '?';
+               const paginatedRoute = `${route}${separator}page=${page}&limit=10`;
+               
+               const request = await buildFetchJson({ route: paginatedRoute });
+               
+               if (!request) return null;
+
+               // Guardar el usuario de la primera petición
+               if (page === 1 && request.user) {
+                    currentUser = request.user;
+               }
+
+               const events = Array.isArray(request?.events)
+                    ? request.events
+                    : (request?.events ? [request.events] : []);
+
+               // Filtrar eventos si es necesario
+               const validEvents = events.filter(event =>
+                    (showPastEvents || currentUser?.roll === 'administrator')
+                         ? true
+                         : new Date(event.endDate) > new Date()
+               );
+
+               return {
+                    data: validEvents,
+                    pagination: request.pagination || { hasNextPage: false }
+               };
+          };
+
+          // Función para renderizar cada evento
+          const renderEventItem = (event) => {
+               try {
+                    const eventCard = createEventsCard(event);
+                    
+                    assignEventCardClick(eventCard, {
+                         route, 
+                         textEvents, 
+                         gridEvents, 
+                         onCardClick
+                    }, event);
+
+                    return eventCard;
+               } catch (error) {
+                    console.error(`Error al procesar el evento: ${event?.name}`, error);
+                    return null;
+               }
+          };
+
+          // Crear infinite scroll
+          activeInfiniteScroll = createInfiniteScroll({
+               container: gridEvents,
+               fetchData: fetchEventsData,
+               renderItem: renderEventItem,
+               targetContainer: eventsContainer,
+               initialPage: 1,
+               threshold: 200
+          });
+
+          // Inicializar y cargar primera página
+          await activeInfiniteScroll.init();
+
+          // Verificar si se cargaron eventos
+          const state = activeInfiniteScroll.getState();
+          
+          if (state.totalItems === 0) {
+               eventsContainer.innerHTML = `
                <div class="flex-container not-content image-not-content">
                     <h4>No hay eventos disponibles</h4>
                     <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
@@ -128,49 +199,11 @@ export const renderEvents = async (e, route, options = {}) => {
                return;
           }
 
-          const textEvents = document.querySelector('.text-events');
-          if (!textEvents) throw new Error("No se encontró el contenedor de texto (.text-events).");
-
-          // Crear contenedor de tarjetas
-          const eventsContainer = document.createElement("div");
-          eventsContainer.classList.add("events-container", "flex-container");
-
-          // Filtrar eventos si es necesario
-          const validEvents = events.filter(event =>
-               (showPastEvents || user?.roll === 'administrator')
-                    ? true
-                    : new Date(event.endDate) > new Date()
-          );
-
-          // Iterar y renderizar tarjetas
-          for (const event of validEvents) {
-               try {
-                    const eventCard = createEventsCard(event);
-                    eventsContainer.appendChild(eventCard);
-                    numberEvents++;
-
-                    assignEventCardClick(eventCard, {
-                         route, textEvents, gridEvents, onCardClick
-                    }, event);
-               } catch (error) {
-                    console.error(`Error al procesar el evento: ${event?.name}`, error);
-               }
-          }
-
-          // Mostrar mensaje si no hay eventos válidos
-          if (numberEvents === 0) {
-               eventsContainer.innerHTML = `
-               <div class="flex-container not-content image-not-content">
-                    <h4>Aún no se han creado eventos</h4>
-                    <img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753817663/default/sad-icon-logo_bbyzbd.png" alt="imagen triste">
-               </div>`;
-          } else {
+          if (textEvents) {
                textEvents.innerHTML = `<h2>Eventos encontrados</h2>`;
           }
 
-          // Agregar contenedor al DOM
-          gridEvents.appendChild(eventsContainer);
-          return events;
+          return { user: currentUser, infiniteScroll: activeInfiniteScroll };
 
      } catch (error) {
           console.error("Error en renderEvents:", error);

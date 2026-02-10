@@ -3,7 +3,7 @@ import { FormBuilder } from '../components/form';
 import { actionButton, renderItemDetails } from '../components/itemDetails';
 import { actionRequest } from '../utils/logic/actionRequest';
 import { userEventsRoutes } from '../utils/routes/routes';
-import { eventFields, renderNewEvent } from './createEvents';
+import { getEventFields, renderNewEvent } from './createEvents';
 import { userEventPasses } from './createPass';
 
 
@@ -63,7 +63,8 @@ export const updateEvent = async (e, route, objectRoute) => {
      editIconImage.innerHTML = `<i class="bi bi-camera-fill"></i>`;
      
      try {
-          const builder = new FormBuilder(eventFields, 'Guardar', event);
+          const fields = await getEventFields();
+          const builder = new FormBuilder(fields, 'Guardar', event);
           const updateEventform = await builder.createForm(false);
           editIconImage.addEventListener(`click`, (e) => {
 

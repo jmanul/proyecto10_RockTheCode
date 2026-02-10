@@ -16,17 +16,26 @@ export const countries = async () => {
      return buildFetchJson({ route: '/countries' })
 };
 
-const countriesList = await countries();
-const countriesNames = countriesList.map(country => country.name)
+let countriesNames = [];
 
-export const eventFields = [
+export const loadCountries = async () => {
+     if (countriesNames.length === 0) {
+          const countriesList = await countries();
+          countriesNames = countriesList.map(country => country.name);
+     }
+     return countriesNames;
+};
+
+export const getEventFields = async () => {
+     const countryOptions = await loadCountries();
+     return [
      { name: 'name', type: 'text', placeholder: 'Nombre del evento', required: true },
      { name: 'type', type: 'select', placeholder: 'Tipo de evento', required: false, options: ['musica', 'deporte', 'fiesta', 'formación', 'arte', 'gastronomía', 'tecnología', 'otros'] },
      { name: 'location', type: 'text', placeholder: 'Lugar', required: true },
      { name: 'address', type: 'text', placeholder: 'Dirección', required: true },
      { name: 'postalCode', type: 'text', placeholder: 'C.P.', required: true },
      { name: 'city', type: 'text', placeholder: 'Ciudad', required: true },
-     { name: 'country', type: 'select', placeholder: 'Pais', required: false, options: countriesNames },
+     { name: 'country', type: 'select', placeholder: 'Pais', required: false, options: countryOptions },
      { name: 'description', type: 'textarea', placeholder: 'Descripción', required: true },
      {
           name: 'startDate', type: 'datetime-local', placeholder: 'Fecha de inicio', required: true,
@@ -66,7 +75,8 @@ export const eventFields = [
           }
      }
 
-];
+     ];
+};
 
 
 
@@ -104,8 +114,8 @@ export const createEventsPage = async (e, route, routeObject) => {
 
 export const createEvent = async (e, route) => {
 
-
-     await newEventPage(e, route, 'POST', 'Añadir', 'Nuevo evento', eventFields, renderNewEvent);
+     const fields = await getEventFields();
+     await newEventPage(e, route, 'POST', 'Añadir', 'Nuevo evento', fields, renderNewEvent);
 };
 
 

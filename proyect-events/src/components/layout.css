@@ -155,6 +155,10 @@
           min-height: auto;
      }
 
+             .grid-main img {
+                  aspect-ratio: 1/1
+             }
+
      .grid-main section {
           width: 100%;
           padding: var(--spacing-little-bit);
@@ -180,12 +184,20 @@
           margin-top: 90px;
           padding: var(--spacing-little-bit);
           border-radius: var(--border-radius-small);
+        
+          height: auto;
+          min-height: fit-content;
      }
+
+     .grid-main img {
+       aspect-ratio: 1/1
+     }    
 
      .grid-events {
           min-height: 35dvh;
           max-height: 75dvh;
           padding: var(--spacing-little-bit) 0 var(--spacing-medium);
+        
      }
 
 }

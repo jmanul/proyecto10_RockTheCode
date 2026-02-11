@@ -12,6 +12,7 @@ h1 {
      width: 100%;
      max-width: 100%;
      padding: 0 var(--spacing-small);
+     margin-bottom: var(--spacing-medium);
 }
 
 .image-title {
@@ -40,6 +41,7 @@ h1 {
      border-left: 1px solid var(--white-neon);
      border-right: 1px solid var(--white-neon);
      width: 100%;
+     max-width: 600px;
      height: 20px;
      border-top-left-radius: var(--border-radius-big);
      border-top-right-radius: var(--border-radius-big);
@@ -50,6 +52,8 @@ h1 {
 
     
      width:max-content;
+
+  
      
 }
 
@@ -57,6 +61,7 @@ h1 {
 
      flex-direction: row;
      width: 100%;
+     max-width: 600px;
      justify-content: space-between;
      position: absolute;
      
@@ -68,8 +73,10 @@ h1 {
      
      border-bottom: 3px solid var(--white-neon);
      width: 47%;
-     height: 230px;
+     max-width: 300px;
+     height: 300px;
      border-radius: var(--border-radius-circle);
+     margin-bottom: 50px;
 
 }
 
@@ -77,10 +84,7 @@ h1 {
 
 /* Tablet */
 @media (max-width: 1024px) {
-     .title-section {
-          margin-top: 150px;
-          padding: 0 var(--spacing-little-bit);
-     }
+    
 
      .image-title {
           width: 20%;
@@ -89,7 +93,7 @@ h1 {
 
      .left-down,
      .right-down {
-          height: 150px;
+          height: 250px;
      }
 }
 
@@ -97,6 +101,7 @@ h1 {
 @media (max-width: 768px) {
      .title-section {
           margin-top: 100px;
+          
           flex-direction: row;
           flex-wrap: nowrap;
           gap: var(--spacing-little-bit);
@@ -105,17 +110,21 @@ h1 {
           justify-content: center;
      }
 
+     .grid-main {
+          margin-top: 50px;
+     }
+
      h1 {
-          font-size: clamp(0.8rem, 4vw, 1.8rem);
+          font-size: clamp(1.8rem, 5vw, 3.8rem);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
      }
 
      .image-title {
-          width: 15%;
-          min-width: 40px;
-          max-width: 70px;
+          width: 30%;
+          min-width: 70px;
+          max-width: 150px;
           flex-shrink: 0;
      }
 
@@ -126,37 +135,44 @@ h1 {
      }
 
      .title-up {
-          height: 8px;
+          height: 10px;
           border-width: 2px;
+          width: 100%;
      }
 
      .left-down,
      .right-down {
-          height: 60px;
+          max-height: 210px;
           width: 45%;
      }
 
-     .title-down {
-          display: none;
-     }
+ 
 }
 
 /* Móvil pequeño */
 @media (max-width: 480px) {
      .title-section {
           margin-top: 85px;
+          width: 100%;
           gap: 4px;
           padding: 0 var(--spacing-little-bit);
+
+          
      }
 
+              .grid-main {
+                   margin-top: 30px;
+              }
+
      h1 {
-          font-size: clamp(0.7rem, 5vw, 1.2rem);
+          font-size: clamp(0.7rem, 5vw, 2.5rem);
      }
 
      .image-title {
-          width: 12%;
-          min-width: 30px;
-          max-width: 50px;
+          width: 25%;
+          min-width: 50px;
+          max-width: 150px;
+        
      }
 
      .title-container {
@@ -169,5 +185,11 @@ h1 {
           border-left: 1px solid var(--white-neon);
           border-right: 1px solid var(--white-neon);
      }
+
+            .left-down,
+            .right-down {
+                 max-height: 150px;
+                 width: 45%;
+            }
 }
 

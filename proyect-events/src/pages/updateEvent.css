@@ -187,5 +187,50 @@
      z-index: 1;
 }
 
+/* ===================== MEDIA QUERIES UPDATE EVENT ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     .edit-icon-img {
+          height: 2.5rem;
+          width: 2.5rem;
+          bottom: 1rem;
+     }
+
+     .edit-icon-img i {
+          font-size: 1.2rem;
+          height: 2.2rem;
+          width: 2.2rem;
+     }
+
+     .form-image input[type="file"] {
+          width: 90%;
+     }
+
+     .form-image span {
+          width: 90%;
+          font-size: 0.9rem;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .edit-icon-img {
+          height: 2rem;
+          width: 2rem;
+          bottom: 0.8rem;
+     }
+
+     .edit-icon-img i {
+          font-size: 1rem;
+          height: 1.8rem;
+          width: 1.8rem;
+     }
+
+     .form-image span {
+          font-size: 0.85rem;
+     }
+}
+
 
 

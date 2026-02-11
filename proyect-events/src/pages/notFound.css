@@ -1,0 +1,101 @@
+.not-found-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 60vh;
+}
+
+.not-found-content {
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+     padding: var(--spacing-big);
+     background: var(--background-color-transparent);
+     border-radius: var(--border-radius-big);
+     box-shadow: var(--box-shadow);
+     max-width: 500px;
+     gap: var(--spacing-medium);
+}
+
+.not-found-number {
+     font-size: 8rem;
+     font-weight: bold;
+     background: linear-gradient(135deg, var(--neon-magenta), var(--neon-blue));
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+     margin: 0;
+     line-height: 1;
+     text-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+}
+
+.not-found-icon {
+     width: 120px;
+     height: auto;
+     opacity: 0.8;
+     animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+     0%, 100% {
+          transform: translateY(0);
+     }
+     50% {
+          transform: translateY(-10px);
+     }
+}
+
+.not-found-message {
+     font-size: 1.5rem;
+     color: var(--text-color);
+     margin: 0;
+     font-family: var(--font-regulat-itim);
+}
+
+.not-found-description {
+     font-size: 1rem;
+     color: var(--text-color-secondary);
+     margin: 0;
+     max-width: 400px;
+     line-height: 1.5;
+}
+
+.not-found-btn {
+     padding: var(--spacing-small) var(--spacing-medium);
+     font-size: 1rem;
+     font-family: var(--font-regulat-itim);
+     background: linear-gradient(135deg, var(--neon-magenta), var(--neon-blue));
+     color: white;
+     border: none;
+     border-radius: var(--border-radius-big);
+     cursor: pointer;
+     transition: transform 0.2s, box-shadow 0.2s;
+     box-shadow: 0 4px 15px rgba(255, 0, 255, 0.3);
+}
+
+.not-found-btn:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 6px 20px rgba(255, 0, 255, 0.4);
+}
+
+.not-found-btn:active {
+     transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+     .not-found-number {
+          font-size: 5rem;
+     }
+
+     .not-found-icon {
+          width: 80px;
+     }
+
+     .not-found-message {
+          font-size: 1.2rem;
+     }
+
+     .not-found-description {
+          font-size: 0.9rem;
+     }
+}

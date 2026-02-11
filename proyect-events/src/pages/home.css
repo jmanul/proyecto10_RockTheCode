@@ -44,3 +44,62 @@
 
 }
 
+/* ===================== MEDIA QUERIES HOME ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .grid-events img,
+  .div-passes img,
+  .div-grid-passes img {
+    aspect-ratio: 16 / 12;
+  }
+
+  .text-events h2,
+  .text-passes h2,
+  .text-grid-passes h2 {
+    padding: var(--spacing-small);
+    font-size: 1.3rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .grid-events img,
+  .div-passes img,
+  .div-grid-passes img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .text-events,
+  .text-passes,
+  .text-grid-passes {
+    text-align: center;
+  }
+
+  .text-events h2,
+  .text-passes h2,
+  .text-grid-passes h2 {
+    padding: var(--spacing-little-bit);
+    font-size: 1.1rem;
+  }
+
+  .grid-events.home-hover {
+    min-height: 200px;
+  }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+  .grid-events img,
+  .div-passes img,
+  .div-grid-passes img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .text-events h2,
+  .text-passes h2,
+  .text-grid-passes h2 {
+    font-size: 1rem;
+  }
+}
+

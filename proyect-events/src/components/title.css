@@ -1,38 +1,38 @@
 h1 {
-
      font-family: var(--font-rock);
-     color:var(--white-neon);
+     color: var(--white-neon);
+     font-size: clamp(1.5rem, 5vw, 4rem);
+     text-align: center;
+     white-space: nowrap;
 }
 
-
-
 .title-section {
-
      flex-direction: row;
      margin-top: 220px;
-     
+     width: 100%;
+     max-width: 100%;
+     padding: 0 var(--spacing-small);
 }
 
 .image-title {
-
-   
      width: 25%;
-
+     max-width: 200px;
+     flex-shrink: 0;
 }
 
 .image-title img {
-
-     aspect-ratio: 16 / 16;
+     aspect-ratio: 1 / 1;
      width: 100%;
-     
+     height: auto;
+     object-fit: contain;
 }
 
- .title-container {
-
-      position: relative;
-      height: max-content;
-
- }
+.title-container {
+     position: relative;
+     height: max-content;
+     flex: 1;
+     min-width: 0;
+}
 
 
 .title-up {
@@ -71,5 +71,103 @@ h1 {
      height: 230px;
      border-radius: var(--border-radius-circle);
 
+}
+
+/* ===================== MEDIA QUERIES TITLE ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .title-section {
+          margin-top: 150px;
+          padding: 0 var(--spacing-little-bit);
+     }
+
+     .image-title {
+          width: 20%;
+          max-width: 150px;
+     }
+
+     .left-down,
+     .right-down {
+          height: 150px;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .title-section {
+          margin-top: 100px;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          gap: var(--spacing-little-bit);
+          padding: 0 var(--spacing-little-bit);
+          align-items: center;
+          justify-content: center;
+     }
+
+     h1 {
+          font-size: clamp(0.8rem, 4vw, 1.8rem);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+     }
+
+     .image-title {
+          width: 15%;
+          min-width: 40px;
+          max-width: 70px;
+          flex-shrink: 0;
+     }
+
+     .title-container {
+          flex: 1;
+          min-width: 0;
+          max-width: 70%;
+     }
+
+     .title-up {
+          height: 8px;
+          border-width: 2px;
+     }
+
+     .left-down,
+     .right-down {
+          height: 60px;
+          width: 45%;
+     }
+
+     .title-down {
+          display: none;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .title-section {
+          margin-top: 85px;
+          gap: 4px;
+          padding: 0 var(--spacing-little-bit);
+     }
+
+     h1 {
+          font-size: clamp(0.7rem, 5vw, 1.2rem);
+     }
+
+     .image-title {
+          width: 12%;
+          min-width: 30px;
+          max-width: 50px;
+     }
+
+     .title-container {
+          max-width: 76%;
+     }
+
+     .title-up {
+          height: 6px;
+          border-top: 1px solid var(--white-neon);
+          border-left: 1px solid var(--white-neon);
+          border-right: 1px solid var(--white-neon);
+     }
 }
 

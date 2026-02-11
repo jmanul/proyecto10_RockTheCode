@@ -33,3 +33,38 @@ footer {
      font-family: var(--font-regulat-itim);
      color: var(--light-gray);
 }
+
+/* ===================== MEDIA QUERIES FOOTER ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     footer {
+          padding: var(--spacing-little-bit);
+     }
+
+     .making {
+          height: auto;
+          padding: var(--spacing-little-bit) 0;
+     }
+
+     .making>span {
+          flex-wrap: wrap;
+          text-align: center;
+          gap: var(--spacing-little-bit);
+     }
+
+     .pasttri-logo {
+          height: 20px;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .making>span {
+          font-size: 0.75rem;
+     }
+
+     .pasttri-logo {
+          height: 18px;
+     }
+}

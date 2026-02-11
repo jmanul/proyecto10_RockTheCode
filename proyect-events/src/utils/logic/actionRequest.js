@@ -19,6 +19,7 @@ export const actionRequest = async (form, builder, route, method, renderFunction
           }
 
           let finalForm = form;
+          let finalBuilder = builder;
 
           if (method === 'PUT') {
                
@@ -48,7 +49,7 @@ export const actionRequest = async (form, builder, route, method, renderFunction
           });
 
           try {
-               const request = await processForm(finalForm, route, method, container);
+               const request = await processForm(finalForm, route, method, container, finalBuilder);
 
                if (request) {
 

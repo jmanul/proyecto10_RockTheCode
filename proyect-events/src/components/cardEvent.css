@@ -1,8 +1,6 @@
 .event-card {
      position: relative;
-     /* Necesario para contener el ::before */
      z-index: 1;
-     /* Asegura que el contenido esté encima */
      border: 1px solid var(--light-gray);
      border-radius: var(--border-radius-small);
      box-shadow: var(--box-shadow);
@@ -10,51 +8,51 @@
      min-width: 20rem;
      height: auto;
      text-align: center;
-     transition: transform 0.3s ease;
      gap: 0;
      cursor: pointer;
 
+     /* Animación de entrada con scroll */
      opacity: 0;
      transform: translateY(30px);
-     animation-name: card-appear-bounce-animation;
+     animation: card-appear-animation 0.5s ease forwards;
      animation-timeline: view(block);
-     animation-range: entry 0% cover 50%;
-     animation-fill-mode: forwards;
-     transition: .2s;
+     animation-range: entry 10% cover 40%;
+     transition: box-shadow 0.2s, border 0.2s;
 
      &:hover {
-
           box-shadow: var(--hover-shadow);
           border: 3px solid var(--neon-cyan);
-
-
      }
 }
 
-
-@keyframes card-appear-bounce-animation {
-     0% {
-          opacity: 0;
-          transform: translateY(150px);
-          /* Mucho más abajo al inicio */
-     }
-
-     25% {
-          opacity: 0;
-          transform: translateY(120px);
-          /* Mucho más abajo al inicio */
-     }
-
-     75% {
+/* Fallback para navegadores sin soporte de scroll-timeline */
+@supports not (animation-timeline: view()) {
+     .event-card {
           opacity: 1;
           transform: translateY(0);
-          /* Sobrepasa ligeramente la posición final */
+          animation: card-appear-fallback 0.4s ease forwards;
      }
+}
 
+@keyframes card-appear-animation {
+     0% {
+          opacity: 0;
+          transform: translateY(50px);
+     }
      100% {
           opacity: 1;
           transform: translateY(0);
-          /* Vuelve a la posición final estable */
+     }
+}
+
+@keyframes card-appear-fallback {
+     0% {
+          opacity: 0;
+          transform: translateY(20px);
+     }
+     100% {
+          opacity: 1;
+          transform: translateY(0);
      }
 }
 
@@ -221,4 +219,160 @@
 
      height: 100%;
      padding: 5px;
+}
+
+/* Indicador de evento privado */
+.private-indicator {
+     position: absolute;
+     top: var(--spacing-small);
+     right: var(--spacing-small);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 35px;
+     height: 35px;
+     border-radius: var(--border-radius-circle);
+     background: rgba(30, 30, 40, 0.9);
+     color: white;
+     font-size: 1rem;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+     z-index: 10;
+     border: 2px solid var(--neon-magenta);
+}
+
+.private-indicator i {
+     font-size: 1rem;
+     color: white;
+     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Estilo adicional para tarjeta de evento privado */
+.event-card.private-event {
+     border: 2px solid var(--neon-magenta);
+}
+
+.event-card.private-event::after {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     border-radius: var(--border-radius-small);
+     background: linear-gradient(135deg, rgba(255, 0, 255, 0.05), rgba(0, 255, 255, 0.05));
+     pointer-events: none;
+     z-index: 0;
+}
+
+/* ===================== MEDIA QUERIES CARD EVENT ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .event-card {
+          max-width: 18rem;
+          min-width: 18rem;
+     }
+
+     .text-container {
+          height: 14rem;
+     }
+
+     .event-name {
+          font-size: 1.2rem;
+     }
+
+     .type-container span {
+          font-size: 1rem;
+     }
+
+     .event-city,
+     .event-date {
+          font-size: 1rem;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .event-card {
+          max-width: 100%;
+          min-width: 100%;
+          width: 100%;
+     }
+
+     .text-container {
+          height: auto;
+          min-height: 12rem;
+          padding: var(--spacing-small);
+     }
+
+     .event-name {
+          font-size: 1.3rem;
+          margin: 8px 0 4px;
+     }
+
+     .type-container {
+          flex-wrap: wrap;
+          gap: var(--spacing-little-bit);
+     }
+
+     .type-container span {
+          font-size: 0.95rem;
+     }
+
+     .event-city,
+     .event-date {
+          font-size: 1.1rem;
+     }
+
+     .event-type {
+          font-size: 0.9rem;
+     }
+
+     .share-btn {
+          top: var(--spacing-little-bit);
+          left: var(--spacing-little-bit);
+          height: 30px;
+          width: 30px;
+     }
+
+     .private-indicator {
+          top: var(--spacing-little-bit);
+          right: var(--spacing-little-bit);
+          width: 30px;
+          height: 30px;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .event-card {
+          border-radius: var(--border-radius-small);
+     }
+
+     .text-container {
+          min-height: 10rem;
+          padding: var(--spacing-little-bit);
+     }
+
+     .event-name {
+          font-size: 1.1rem;
+     }
+
+     .type-container span {
+          font-size: 0.85rem;
+          padding: 3px;
+     }
+
+     .event-city,
+     .event-date {
+          font-size: 1rem;
+     }
+
+     .asistent-number {
+          bottom: 3px;
+     }
+
+     .asistent-number img {
+          aspect-ratio: 16/5;
+     }
 }

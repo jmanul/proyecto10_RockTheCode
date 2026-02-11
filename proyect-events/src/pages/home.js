@@ -43,11 +43,13 @@ export const renderHomePage = async () => {
                const userPerfilImg = document.querySelector('img.perfil');
                const userPerfilName = document.querySelector('p.perfil');
 
-               userPerfilImg.src = user.avatar;
-               userPerfilName.innerText = user.userName;
-               userPerfilName.style.color = '#ff00ff';
+               if (userPerfilImg) userPerfilImg.src = user.avatar;
+               if (userPerfilName) {
+                    userPerfilName.innerText = user.userName;
+                    userPerfilName.style.color = '#ff00ff';
+               }
 
-               if (user.roll === 'user') {
+                  if (user.roll === 'user') {
                    // Crear el menú de tipos de eventos
                             const eventsTypeMenu = createList('events-type-menu', typesEventsRoutes);
                             if (!eventsTypeMenu) {

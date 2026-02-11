@@ -39,6 +39,15 @@ export const createPassCard = (pass, showActions = true) => {
 
      passContainer.appendChild(contentContainer);
 
+     // Añadir indicador de pase privado
+     if (pass.isPrivated) {
+          const privateIndicator = document.createElement('div');
+          privateIndicator.classList.add('private-indicator', 'pass-private');
+          privateIndicator.innerHTML = '<i class="bi bi-lock-fill"></i>';
+          privateIndicator.title = 'Solo usuarios invitados pueden comprar este pase';
+          passContainer.appendChild(privateIndicator);
+     }
+
      // Agregar clase adicional si no está disponible
      if (!showActions) {
 
@@ -184,14 +193,33 @@ export const renderPassesPage = async (e, route, routeObject) => {
 
                          const reservedPlacesInput = passCard.querySelector('.number-tickets');
                          const errorMessage = passCard.querySelector('.error-message');
+                         const addPassButton = passCard.querySelector('.button-añadir');
+                         const defaultErrorMessage = "El valor debe estar entre 1 y 5";
 
-                         const addPassButton = document.querySelector('.button-añadir');
+                         // Resetear mensaje de error cuando el usuario cambie el valor
+                         reservedPlacesInput.addEventListener('input', () => {
+                              errorMessage.style.display = "none";
+                              errorMessage.textContent = defaultErrorMessage;
+                         });
 
                          addPassButton.addEventListener('click', (e) => {
                               const reservedPlaces = parseInt(reservedPlacesInput.value);
                               if (reservedPlaces < 1 || reservedPlaces > 5) {
                                    errorMessage.style.display = "block";
                                    return;
+                              }
+
+                              // Validar límite de entradas para pases privados
+                              if (pass.isPrivated && pass.userRemainingTickets !== undefined) {
+                                   if (reservedPlaces > pass.userRemainingTickets) {
+                                        if (pass.userRemainingTickets <= 0) {
+                                             errorMessage.textContent = `Ya has obtenido todas tus entradas asignadas (${pass.userMaxTickets})`;
+                                        } else {
+                                             errorMessage.textContent = `Solo puedes obtener ${pass.userRemainingTickets} entrada(s) más. Ya tienes ${pass.userTicketsObtained} de ${pass.userMaxTickets} permitidas.`;
+                                        }
+                                        errorMessage.style.display = "block";
+                                        return;
+                                   }
                               }
 
                               const freePlaces = calculateFreePlaces(maxCapacity, totalReservedPlaces, reservedPlaces);

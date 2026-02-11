@@ -85,39 +85,45 @@
 
 .passes-container .select-card {
      max-width: 700px;
+     position: relative;
+     overflow: hidden;
 
-opacity: 0;
+     opacity: 0;
      transform: translateY(30px);
-     animation-name: card-appear-bounce-animation;
+     animation: card-appear-animation 0.5s ease forwards;
      animation-timeline: view(block);
-     animation-range: entry 0% cover 30%;
-     animation-fill-mode: forwards;
-     transition: .2s;
+     animation-range: entry 10% cover 40%;
+     transition: box-shadow 0.2s;
 }
 
-@keyframes card-appear-bounce-animation {
-     0% {
-          opacity: 0;
-          transform: translateY(150px);
-          /* Mucho más abajo al inicio */
-     }
-
-     25% {
-          opacity: 0;
-          transform: translateY(120px);
-          /* Mucho más abajo al inicio */
-     }
-
-     75% {
+/* Fallback para navegadores sin soporte de scroll-timeline */
+@supports not (animation-timeline: view()) {
+     .passes-container .select-card {
           opacity: 1;
           transform: translateY(0);
-          /* Sobrepasa ligeramente la posición final */
+          animation: card-appear-fallback 0.4s ease forwards;
      }
+}
 
+@keyframes card-appear-animation {
+     0% {
+          opacity: 0;
+          transform: translateY(50px);
+     }
      100% {
           opacity: 1;
           transform: translateY(0);
-          /* Vuelve a la posición final estable */
+     }
+}
+
+@keyframes card-appear-fallback {
+     0% {
+          opacity: 0;
+          transform: translateY(20px);
+     }
+     100% {
+          opacity: 1;
+          transform: translateY(0);
      }
 }
 
@@ -194,4 +200,159 @@ opacity: 0;
      font-size: 1.5rem;
     
      
+}
+
+/* Indicador de pase privado */
+.private-indicator.pass-private {
+     position: absolute;
+     top: 0.5rem;
+     right: 0.5rem;
+     background: #1a1a2e;
+     color: var(--neon-magenta);
+     padding: 0.35rem;
+     border-radius: var(--border-radius-small);
+     font-size: 0.85rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 10;
+     border: 1px solid var(--neon-magenta);
+}
+
+.private-indicator.pass-private i {
+     font-size: 0.85rem;
+}
+
+/* ===================== MEDIA QUERIES PASSES ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .passes-container {
+          max-width: 100%;
+          width: 100%;
+          min-height: 45dvh;
+          max-height: 70dvh;
+     }
+
+     .passes-container .select-card {
+          max-width: 100%;
+          width: 100%;
+     }
+
+     .icon-row {
+          gap: 1rem;
+     }
+
+     .number-tickets {
+          width: 50px;
+          padding: 6px;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .passes-container {
+          min-height: 40dvh;
+          max-height: 65dvh;
+          padding: var(--spacing-little-bit);
+          max-width: 100%;
+          width: 100%;
+     }
+
+     .passes-container .select-card {
+          padding: var(--spacing-small);
+          width: 100%;
+          max-width: 100%;
+          min-width: 100%;
+     }
+
+     .select-card .select-card>div:first-child,
+     .select-card .select-card>.icon-row:first-child>i {
+          font-size: 2rem;
+          gap: 0.5rem;
+     }
+
+     .icon-row {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+     }
+
+     .reserved-places-group {
+          flex-wrap: wrap;
+          gap: var(--spacing-little-bit);
+          justify-content: center;
+     }
+
+     .add-passes-container {
+          flex-direction: column;
+          gap: var(--spacing-little-bit);
+     }
+
+     .number-tickets {
+          width: 70px;
+     }
+
+     .error-message {
+          left: 0;
+          text-align: center;
+          width: 100%;
+          font-size: 0.9rem;
+     }
+
+     .not-content h4 {
+          font-size: 1.2rem;
+          padding: 0 10px;
+     }
+
+     .not-content>img {
+          width: 60%;
+          right: 20%;
+     }
+
+     .asistent-number-pass i {
+          font-size: 1.2rem;
+     }
+
+     .private-indicator.pass-private {
+          top: 0.3rem;
+          right: 0.3rem;
+          padding: 0.25rem;
+          font-size: 0.75rem;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .passes-container {
+          min-height: 35dvh;
+          max-height: 55dvh;
+          width: 100%;
+          max-width: 100%;
+     }
+
+     .passes-container .select-card {
+          padding: var(--spacing-little-bit);
+          width: 100%;
+          max-width: 100%;
+     }
+
+     .select-card .select-card>div:first-child,
+     .select-card .select-card>.icon-row:first-child>i {
+          font-size: 1.5rem;
+     }
+
+     .icon-row {
+          gap: 0.5rem;
+          font-size: 0.9rem;
+     }
+
+     .not-content h4 {
+          font-size: 1rem;
+     }
+
+     .not-content>img {
+          width: 70%;
+          right: 15%;
+     }
 }

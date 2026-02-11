@@ -61,3 +61,81 @@
      height: auto;
      flex-direction: row;
 }
+
+/* ===================== MEDIA QUERIES CARD TICKET ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .event-ticket {
+          width: 90%;
+     }
+
+     .ticket-qr {
+          width: 8rem;
+     }
+
+     .ticket-name>span {
+          font-size: 1rem;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .event-ticket {
+          width: 95%;
+     }
+
+     .ticket-image-container {
+          height: 7rem;
+     }
+
+     .ticket-qr-container {
+          padding-top: var(--spacing-small);
+     }
+
+     .ticket-qr {
+          width: 7rem;
+     }
+
+     .ticket-name>span {
+          font-size: 0.9rem;
+          padding: 0 var(--spacing-little-bit);
+     }
+
+     .qr-caption {
+          font-size: 0.7em;
+     }
+
+     .container-button {
+          flex-wrap: wrap;
+          gap: var(--spacing-little-bit);
+          justify-content: center;
+     }
+
+     .container-button button {
+          min-width: 120px;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .event-ticket {
+          width: 100%;
+     }
+
+     .ticket-image-container {
+          height: 6rem;
+     }
+
+     .ticket-qr {
+          width: 6rem;
+     }
+
+     .ticket-name>span {
+          font-size: 0.8rem;
+     }
+
+     .ticket-details {
+          font-size: 0.9rem;
+     }
+}

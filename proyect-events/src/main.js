@@ -2,9 +2,10 @@ import "../style.css";
 import { createFooter } from "./components/footer";
 import { createHeader } from "./components/header";
 import { renderHomePage } from "./pages/home";
+import { renderNotFoundPage } from "./pages/notFound";
 import { getRouteFromRegistry, navigate, registerRoute } from "./utils/logic/navigate";
 import { clearPendingRoute, setPendingRoute } from "./utils/routes/routeCache";
-import { allRoutes, loginRoutes, userRoutes } from "./utils/routes/routes";
+import { allRoutes, loginRoutes, userRoutes, notFoundRoute } from "./utils/routes/routes";
 import { initHomeMenu } from "./utils/logic/init";
 
 
@@ -76,6 +77,9 @@ const initApp = async () => {
                // Limpiar ruta pendiente antes de navegar
                clearPendingRoute();
                await navigate(null, route);
+          } else if (user && currentPath !== '/' && currentPath !== '/home') {
+               // Paso 6: Si está logueado pero la ruta no existe, mostrar 404
+               await navigate(null, notFoundRoute);
           }
      } catch (error) {
           console.error('💥 ERROR CRÍTICO EN INIT:', error);

@@ -80,6 +80,26 @@ export function createPassFields(eventStartDate, eventEndDate, reservedPlaces = 
 
                     return true;
                }
+          },
+
+          {
+               name: 'isPrivated',
+               type: 'select',
+               placeholder: 'Tipo de pase',
+               required: false,
+               options: [
+                    { value: 'false', label: 'Público' },
+                    { value: 'true', label: 'Privado (solo invitados)' }
+               ]
+          },
+
+          {
+               name: 'guestList',
+               type: 'guestList',
+               placeholder: 'Lista de invitados',
+               required: false,
+               dependsOn: 'isPrivated',
+               showWhen: 'true'
           }
      ];
 }

@@ -13,3 +13,29 @@
      display:none;
      color: var(--text-color);
 }
+
+/* ===================== MEDIA QUERIES SIDEBAR ===================== */
+
+/* Móvil - El sidebar se convierte en un menú desplegable */
+@media (max-width: 768px) {
+     .menu-lateral {
+          width: 100%;
+          max-width: 280px;
+          padding: var(--spacing-medium);
+          left: -100%;
+          transition: left 0.3s ease;
+     }
+
+     .menu-lateral.open {
+          left: 0;
+          display: flex;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .menu-lateral {
+          max-width: 250px;
+          padding: var(--spacing-small);
+     }
+}

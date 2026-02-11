@@ -71,14 +71,11 @@
      max-height: 90dvh;
      overflow-y: auto;
      scroll-behavior: smooth;
-     scrollbar-width: 10px;
+     scrollbar-width: thin;
      scrollbar-color: var(--neon-magenta) transparent;
      scrollbar-gutter: stable both-edges;
-
-     scroll-timeline-name: --grid-events-scroll;
-     scroll-timeline-axis: block;
-
-
+     /* Añadir padding inferior para evitar que el último elemento quede cortado */
+     padding-bottom: var(--spacing-medium);
 }
 
 .grid-events {
@@ -119,5 +116,75 @@
      height: auto;
 
 
+}
+
+/* ===================== MEDIA QUERIES LAYOUT ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .grid-main {
+          margin-top: 150px;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          grid-template-areas:
+               "area1 area1"
+               "area2 area3";
+          padding: var(--spacing-medium) var(--spacing-little-bit);
+          gap: var(--spacing-small);
+     }
+
+     .grid-events {
+          min-height: 50dvh;
+          max-height: 70dvh;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .grid-main {
+          margin-top: 100px;
+          grid-template-columns: 1fr;
+          grid-template-rows: auto;
+          grid-template-areas:
+               "area1"
+               "area2"
+               "area3";
+          padding: var(--spacing-small);
+          gap: var(--spacing-small);
+          max-height: none;
+          min-height: auto;
+     }
+
+     .grid-main section {
+          width: 100%;
+          padding: var(--spacing-little-bit);
+     }
+
+     .grid-events {
+          min-height: 40dvh;
+          max-height: 60dvh;
+          padding-bottom: var(--spacing-medium);
+     }
+
+     .events-section,
+     .info-section,
+     .info-grid-section {
+          width: 100%;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .grid-main {
+          margin-top: 90px;
+          padding: var(--spacing-little-bit);
+          border-radius: var(--border-radius-small);
+     }
+
+     .grid-events {
+          min-height: 35dvh;
+          max-height: 50dvh;
+          padding: var(--spacing-little-bit) 0 var(--spacing-medium);
+     }
 }
 

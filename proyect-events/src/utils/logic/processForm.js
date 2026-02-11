@@ -1,7 +1,7 @@
 import { buildFetchFormdata, buildFetchJson } from "../../api/buildFetch";
 import { optimizeImage } from "./optimizeImagen";
 
-export const processForm = async (form, route, method, container) => {
+export const processForm = async (form, route, method, container, builder = null) => {
 
      let hasFiles = false;
      let data;
@@ -19,6 +19,9 @@ export const processForm = async (form, route, method, container) => {
                }
           }
      });
+
+     // Obtener datos de guestList si existe el builder
+     const guestListData = builder?.getGuestListData?.() || [];
 
      if (hasFiles) {
           data = new FormData();
@@ -42,11 +45,19 @@ export const processForm = async (form, route, method, container) => {
                        
                          data.append(name, checked ? 'true' : 'false'); 
 
+                    } else if (name === 'guestList') {
+                         // Saltar el input hidden de guestList, se procesará aparte
+                         continue;
                     } else if (value.trim() !== '') {
                          
                          data.append(name, value);
                     }
                }
+          }
+
+          // Añadir guestList como JSON string si hay invitados
+          if (guestListData.length > 0) {
+               data.append('guestList', JSON.stringify(guestListData));
           }
 
           request = await buildFetchFormdata({ route, method, dataForm: data, container });
@@ -62,11 +73,19 @@ export const processForm = async (form, route, method, container) => {
                          
                          data[name] = checked; 
 
+                    } else if (name === 'guestList') {
+                         // Saltar el input hidden de guestList, se procesará aparte
+                         return;
                     } else if (type !== 'file' && value.trim() !== '') {
                          data[name] = value;
                     }
                }
           });
+
+          // Añadir guestList como array si hay invitados
+          if (guestListData.length > 0) {
+               data.guestList = guestListData;
+          }
 
           request = await buildFetchJson({ route, method, bodyData: data, container });
          

@@ -4,6 +4,7 @@ import { createEvent, createEventsPage, eventsUser } from "../../pages/createEve
 import { renderEvents, eventsPage } from "../../pages/events";
 import { oneEventPage } from "../../pages/oneEventPage";
 import { renderRegisterLoginPage } from "../../pages/registerLogin";
+import { renderNotFoundPage } from "../../pages/notFound";
 import { logout } from "../logic/logout";
 
 
@@ -220,7 +221,15 @@ export const dinamicRoutes = [
                title: "Evento - PropoySal",
                description: "vista del evento"
           }
-] 
+];
 
-export const allRoutes = [ ...typesEventsRoutes, ...dinamicRoutes];
+// Ruta 404
+export const notFoundRoute = {
+     action: renderNotFoundPage,
+     url: '/404',
+     title: "Página no encontrada - PropoySal",
+     description: "La página que buscas no existe o ha sido movida."
+};
+
+export const allRoutes = [ ...typesEventsRoutes, ...dinamicRoutes, notFoundRoute];
 

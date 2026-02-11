@@ -200,5 +200,189 @@ option {
  
 }
 
+/* Estilos para la lista de invitados */
+.guest-list-container {
+  width: 100%;
+  background: var(--background-color-secondary, rgba(0, 0, 0, 0.1));
+  border-radius: var(--border-radius-small);
+  padding: var(--spacing-small);
+  border: 1px solid var(--light-gray);
+}
+
+.guest-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-small) 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.guest-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-small);
+  background: var(--background-color);
+  border-radius: var(--border-radius-small);
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--light-gray);
+  gap: var(--spacing-small);
+}
+
+.guest-name {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.guest-tickets {
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+}
+
+.remove-guest-btn {
+  background: transparent;
+  border: none;
+  color: var(--error-color, #ff4444);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.remove-guest-btn:hover {
+  transform: scale(1.2);
+}
+
+.add-guest-container {
+  display: flex;
+  gap: var(--spacing-small);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.guest-username-input {
+  flex: 2;
+  min-width: 150px;
+}
+
+.guest-max-tickets-input {
+  flex: 1;
+  min-width: 80px;
+  max-width: 100px;
+}
+
+.add-guest-btn {
+  padding: var(--spacing-xs, 0.5rem) var(--spacing-small);
+  font-size: 1.2rem;
+  font-weight: bold;
+  min-width: 40px;
+}
+
+/* ===================== MEDIA QUERIES FORM ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .create-form {
+    padding: var(--spacing-small);
+    gap: var(--spacing-small);
+  }
+
+  .form-group {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .create-form {
+    flex-direction: column;
+    padding: var(--spacing-small);
+    gap: var(--spacing-small);
+    margin: var(--spacing-small);
+    width: calc(100% - var(--spacing-medium));
+  }
+
+  .form-group {
+    width: 100%;
+    min-width: 100%;
+    align-items: stretch;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .button-form {
+    flex-direction: column;
+    gap: var(--spacing-small);
+  }
+
+  .button-form button {
+    width: 100%;
+  }
+
+  .create-form .form-group label {
+    font-size: 1rem;
+  }
+
+  /* Lista de invitados responsive */
+  .guest-list-container {
+    padding: var(--spacing-little-bit);
+  }
+
+  .guest-item {
+    flex-wrap: wrap;
+    gap: var(--spacing-little-bit);
+  }
+
+  .add-guest-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .guest-username-input,
+  .guest-max-tickets-input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .add-guest-btn {
+    width: 100%;
+  }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+  .create-form {
+    padding: var(--spacing-little-bit);
+    border-radius: var(--border-radius-small);
+  }
+
+  .form-group {
+    gap: var(--spacing-little-bit);
+  }
+
+  .create-form .form-group label {
+    font-size: 0.95rem;
+  }
+
+  .error-msg {
+    font-size: 0.8em;
+  }
+}
+
 
 

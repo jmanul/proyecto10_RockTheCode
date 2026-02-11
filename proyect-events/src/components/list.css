@@ -30,3 +30,25 @@ li .item-text {
      
           }
 }
+
+/* ===================== MEDIA QUERIES LIST ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     .active-route {
+          border-radius: var(--border-radius-small);
+          border-right: none;
+          border-bottom: 3px solid var(--neon-cyan);
+     }
+
+     li .item-text {
+          font-size: 1rem;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     li .item-text {
+          font-size: 0.95rem;
+     }
+}

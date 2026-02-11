@@ -8,6 +8,11 @@ export function createEventsCard(event) {
      card.classList.add('event-card', 'flex-container');
      card.style.setProperty('--bg-url', `url(${event.image})`);
 
+     // Añadir clase si es evento privado
+     if (event.isPrivated) {
+          card.classList.add('private-event');
+     }
+
      const image = document.createElement('img');
      image.src = event.image; 
      image.alt = event.name;
@@ -43,6 +48,14 @@ export function createEventsCard(event) {
      if (event.maxCapacity > 0 && event.totalReservedPlaces === event.maxCapacity) {
   
           asistentNumber.innerHTML = `<img src="https://res.cloudinary.com/dn6utw1rl/image/upload/v1753813877/default/event-soldOut_xg5nxb.png" alt="soldOut">`;
+     }
+
+     // Icono de evento privado
+     const privateIndicator = document.createElement('div');
+     privateIndicator.classList.add('private-indicator');
+     if (event.isPrivated) {
+          privateIndicator.innerHTML = `<i class="bi bi-lock-fill"></i>`;
+          privateIndicator.title = 'Evento privado - Solo con invitación';
      }
 
      const shareButton = document.createElement('div');
@@ -88,6 +101,9 @@ export function createEventsCard(event) {
 
      card.appendChild(image);
      card.appendChild(asistentNumber);
+     if (event.isPrivated) {
+          card.appendChild(privateIndicator);
+     }
      card.appendChild(textContainer);
      textContainer.appendChild(typeContainer);
      typeContainer.append(type, status);

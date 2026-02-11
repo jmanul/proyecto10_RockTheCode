@@ -28,9 +28,9 @@ export const buildFetchJson = async ({ route, method = "GET", bodyData = null, c
 
           const data = await response.json();
 
-          if (!response.ok && data.message) {
+          if (!response.ok && (data.message || data.error)) {
 
-                createMessage(data.message, 'error', container);
+                createMessage(data.message || data.error, 'error', container);
                 
                return;
 

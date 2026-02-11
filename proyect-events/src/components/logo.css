@@ -19,3 +19,34 @@
      cursor: pointer;
 
 }
+
+/* ===================== MEDIA QUERIES LOGO ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+     .logo {
+          width: 90px;
+          height: 90px;
+          left: 20px;
+          margin: 15px 0;
+     }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+     .logo {
+          position: static;
+          width: 55px;
+          height: 55px;
+          margin: 0;
+          flex-shrink: 0;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .logo {
+          width: 45px;
+          height: 45px;
+     }
+}

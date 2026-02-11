@@ -8,6 +8,7 @@
      position: fixed;
      top: 15px;
      right: 20px;
+     z-index: 200;
      background: var(--dark-gray);
      border: none;
      padding: 1px 5px 1px 1px;
@@ -19,7 +20,6 @@
      gap: 1px;
      box-shadow: var(--box-shadow-4);
      color: var(--light-gray);
-     
 }
 
 .dark-theme-button {
@@ -48,4 +48,38 @@
 
      width: 2px;
      height: 2px;
+}
+
+/* ===================== MEDIA QUERIES THEME BUTTON ===================== */
+
+/* Móvil - el botón está dentro del menú, quitar position fixed */
+@media (max-width: 768px) {
+     .light-theme-button,
+     .dark-theme-button {
+          position: static !important;
+          top: auto !important;
+          bottom: auto !important;
+          right: auto !important;
+          left: auto !important;
+          transform: none !important;
+     }
+
+     .light-theme-button button,
+     .dark-theme-button button {
+          padding: 8px;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .light-theme-button,
+     .dark-theme-button {
+          bottom: 15px;
+          right: 15px;
+     }
+
+     .light-theme-button button,
+     .dark-theme-button button {
+          padding: 6px;
+     }
 }

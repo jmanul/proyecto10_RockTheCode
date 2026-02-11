@@ -4,7 +4,8 @@ import { renderLoginPage } from './login.js';
 import { actionRequest } from '../utils/logic/actionRequest.js';
 import { renderHomePage } from './home.js';
 import { clearPendingRoute, getPendingRoute } from '../utils/routes/routeCache.js';
-import { navigate } from '../utils/logic/navigate.js';
+import { getRouteFromRegistry, navigate } from '../utils/logic/navigate.js';
+import { allRoutes } from '../utils/routes/routes.js';
 
 
 
@@ -134,14 +135,36 @@ export const renderLogin = async () => {
 
 export const onLoginSuccess = async () => {
 
-     const route = getPendingRoute();
+     const pendingRouteData = getPendingRoute();
      
      // Limpiar inmediatamente para evitar que quede guardada
      clearPendingRoute();
 
      await renderHomePage();
 
-     if (route) {
-          await navigate(null, route);
+     if (pendingRouteData && pendingRouteData.url) {
+          // Intentar encontrar la ruta en el registro
+          let route = getRouteFromRegistry(pendingRouteData.url);
+          
+          // Si no está registrada pero es una ruta dinámica (como /events/:id)
+          if (!route) {
+               // Buscar la ruta base en allRoutes
+               for (const registeredRoute of allRoutes) {
+                    if (registeredRoute.url.includes(':')) {
+                         const baseRoute = registeredRoute.url.split('/:')[0];
+                         if (pendingRouteData.url.startsWith(baseRoute)) {
+                              route = {
+                                   ...registeredRoute,
+                                   url: pendingRouteData.url
+                              };
+                              break;
+                         }
+                    }
+               }
+          }
+          
+          if (route) {
+               await navigate(null, route);
+          }
      } 
 }

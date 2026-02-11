@@ -1,3 +1,5 @@
+import { clearPendingRoute } from "../routes/routeCache";
+
 // Mapa de rutas registradas en memoria
 const routeRegistry = new Map();
 
@@ -17,6 +19,12 @@ export const navigate = async (e, route, ...rest) => {
      if (!route || !route.url) {
           console.error('Error: ruta inválida', route);
           return;
+     }
+
+     // Limpiar ruta pendiente cuando el usuario navega manualmente
+     // (excepto cuando es una navegación a login para guardar la ruta pendiente)
+     if (!route.url.includes('/login') && !route.url.includes('/register')) {
+          clearPendingRoute();
      }
 
      const fullRoute = { ...route, rest };

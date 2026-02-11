@@ -16,6 +16,11 @@ export const generateTicket = async (e, route, routeObject) => {
      // añadir las entradas del evento y generar los tickets
      const request = await buildFetchJson({ route: url, method: 'PUT', bodyData: { reservedPlaces: reservedPlaces } });
 
+     // Si hay error, el mensaje ya se mostró en buildFetchJson, no continuar
+     if (!request) {
+          return;
+     }
+
      await renderTicket(request, ticketsContainer)
 
 

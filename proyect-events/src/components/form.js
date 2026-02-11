@@ -18,6 +18,13 @@ export class FormBuilder {
                const div = document.createElement('div');
                div.classList.add('form-group', 'flex-container');
 
+               // Configurar atributos de dependencia
+               if (field.dependsOn) {
+                    div.dataset.dependsOn = field.dependsOn;
+                    div.dataset.showWhen = field.showWhen;
+                    div.style.display = 'none';
+               }
+
                const label = document.createElement('label');
                label.textContent = field.placeholder;
 
@@ -37,9 +44,20 @@ export class FormBuilder {
 
                     field.options.forEach(opt => {
                          const option = document.createElement('option');
-                         option.value = opt;
-                         option.textContent = opt;
+                         // Soportar opciones como objetos {value, label} o como strings
+                         if (typeof opt === 'object' && opt.value !== undefined) {
+                              option.value = opt.value;
+                              option.textContent = opt.label;
+                         } else {
+                              option.value = opt;
+                              option.textContent = opt;
+                         }
                          input.appendChild(option);
+                    });
+
+                    // Añadir listener para campos dependientes
+                    input.addEventListener('change', () => {
+                         this.handleDependentFields(field.name, input.value);
                     });
 
                } else if (field.type === 'textarea') {
@@ -69,6 +87,10 @@ export class FormBuilder {
                          input.dataset.originalValue = input.checked;
                     }
 
+               } else if (field.type === 'guestList') {
+                    // Tipo especial para lista de invitados
+                    input = this.createGuestListInput(field);
+
                } else {
                     input = document.createElement('input');
                     input.type = field.type;
@@ -76,13 +98,15 @@ export class FormBuilder {
 
                // Propiedades comunes a todos los inputs
                input.name = field.name;
-               input.placeholder = field.placeholder;
+               if (field.type !== 'guestList') {
+                    input.placeholder = field.placeholder;
+               }
                if (field.required) input.required = true;
                if (field.min !== undefined) input.min = field.min;
                if (field.max !== undefined) input.max = field.max;
 
-               // Asignar valor existente si NO es file ni checkbox
-               if (field.type !== 'file' && field.type !== 'checkbox' && this.existingValues[field.name] !== undefined) {
+               // Asignar valor existente si NO es file ni checkbox ni guestList
+               if (field.type !== 'file' && field.type !== 'checkbox' && field.type !== 'guestList' && this.existingValues[field.name] !== undefined) {
                     if (field.type === 'datetime-local') {
                          const formattedDate = toLocalDatetimeInput(this.existingValues[field.name]);
                          input.value = formattedDate;
@@ -99,7 +123,9 @@ export class FormBuilder {
                const errorSpan = document.createElement('span');
                errorSpan.classList.add('error-msg');
 
-               input.addEventListener('input', () => this.validateField(input, field, errorSpan));
+               if (field.type !== 'guestList') {
+                    input.addEventListener('input', () => this.validateField(input, field, errorSpan));
+               }
 
                div.appendChild(label);
                div.appendChild(input);
@@ -120,6 +146,116 @@ export class FormBuilder {
           this.form.appendChild(buttonContainer);
 
           return this.form;
+     }
+
+     handleDependentFields(fieldName, value) {
+          const dependentDivs = this.form.querySelectorAll(`[data-depends-on="${fieldName}"]`);
+          dependentDivs.forEach(div => {
+               const showWhen = div.dataset.showWhen;
+               if (value === showWhen) {
+                    div.style.display = 'flex';
+               } else {
+                    div.style.display = 'none';
+               }
+          });
+     }
+
+     createGuestListInput(field) {
+          const container = document.createElement('div');
+          container.classList.add('guest-list-container');
+          container.dataset.name = field.name;
+
+          // Lista de invitados
+          const guestListUl = document.createElement('ul');
+          guestListUl.classList.add('guest-list');
+
+          // Contenedor para añadir nuevo invitado
+          const addGuestContainer = document.createElement('div');
+          addGuestContainer.classList.add('add-guest-container', 'flex-container');
+
+          const usernameInput = document.createElement('input');
+          usernameInput.type = 'text';
+          usernameInput.placeholder = 'Nombre de usuario';
+          usernameInput.classList.add('guest-username-input');
+
+          const maxTicketsInput = document.createElement('input');
+          maxTicketsInput.type = 'number';
+          maxTicketsInput.placeholder = 'Máx. entradas';
+          maxTicketsInput.min = 1;
+          maxTicketsInput.value = 1;
+          maxTicketsInput.classList.add('guest-max-tickets-input');
+
+          const addBtn = document.createElement('button');
+          addBtn.type = 'button';
+          addBtn.textContent = '+';
+          addBtn.classList.add('button', 'add-guest-btn');
+
+          addBtn.addEventListener('click', () => {
+               const userName = usernameInput.value.trim();
+               const maxTickets = parseInt(maxTicketsInput.value) || 1;
+
+               if (!userName) return;
+
+               // Verificar si ya existe
+               const existingItems = guestListUl.querySelectorAll('.guest-item');
+               for (const item of existingItems) {
+                    if (item.dataset.username === userName) {
+                         alert('Este usuario ya está en la lista');
+                         return;
+                    }
+               }
+
+               // Crear item de invitado
+               const guestItem = document.createElement('li');
+               guestItem.classList.add('guest-item', 'flex-container');
+               guestItem.dataset.username = userName;
+               guestItem.dataset.maxTickets = maxTickets;
+
+               guestItem.innerHTML = `
+                    <span class="guest-name">${userName}</span>
+                    <span class="guest-tickets">(${maxTickets} entradas)</span>
+                    <button type="button" class="remove-guest-btn">×</button>
+               `;
+
+               const removeBtn = guestItem.querySelector('.remove-guest-btn');
+               removeBtn.addEventListener('click', () => guestItem.remove());
+
+               guestListUl.appendChild(guestItem);
+
+               // Limpiar inputs
+               usernameInput.value = '';
+               maxTicketsInput.value = 1;
+          });
+
+          addGuestContainer.appendChild(usernameInput);
+          addGuestContainer.appendChild(maxTicketsInput);
+          addGuestContainer.appendChild(addBtn);
+
+          container.appendChild(guestListUl);
+          container.appendChild(addGuestContainer);
+
+          // Hidden input para almacenar los datos
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = field.name;
+          container.appendChild(hiddenInput);
+
+          return container;
+     }
+
+     getGuestListData() {
+          const guestListContainer = this.form.querySelector('.guest-list-container');
+          if (!guestListContainer) return [];
+
+          const guests = [];
+          const items = guestListContainer.querySelectorAll('.guest-item');
+          items.forEach(item => {
+               guests.push({
+                    userName: item.dataset.username,
+                    maxTickets: parseInt(item.dataset.maxTickets) || 1
+               });
+          });
+          return guests;
      }
 
      validateField(input, field, errorSpan) {

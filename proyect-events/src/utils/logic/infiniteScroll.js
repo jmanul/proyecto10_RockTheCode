@@ -25,7 +25,8 @@ export const createInfiniteScroll = ({
           currentPage: initialPage,
           isLoading: false,
           hasMore: true,
-          totalItems: 0
+          totalItems: 0,
+          items: [] // Array para almacenar todos los elementos cargados
      };
 
      let observer = null;
@@ -61,6 +62,9 @@ export const createInfiniteScroll = ({
                const { data, pagination } = result;
 
                if (data && data.length > 0) {
+                    // Guardar items en el estado
+                    state.items = [...state.items, ...data];
+                    
                     // Renderizar cada elemento
                     data.forEach(item => {
                          const element = renderItem(item);
@@ -126,7 +130,8 @@ export const createInfiniteScroll = ({
                currentPage: initialPage,
                isLoading: false,
                hasMore: true,
-               totalItems: 0
+               totalItems: 0,
+               items: []
           };
 
           // Limpiar contenedor pero mantener el sentinel

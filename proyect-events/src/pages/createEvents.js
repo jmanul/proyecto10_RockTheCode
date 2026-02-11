@@ -62,7 +62,13 @@ export const getEventFields = async () => {
                return end <= start ? 'La fecha de fin debe ser posterior a la de inicio.' : true;
           }
      },
-        { name: 'isPrivated', type: 'checkbox', placeholder: 'Privado', required: false },
+     { 
+          name: 'isPrivated', 
+          type: 'checkbox', 
+          placeholder: 'Evento privado (solo accesible con invitación)', 
+          required: false,
+          description: 'Los eventos privados solo serán visibles para usuarios con código de invitación'
+     },
 
      {
           name: 'image', type: 'file', placeholder: 'Imagen del evento', required: false, validate: (inputElement) => {
@@ -82,10 +88,10 @@ export const getEventFields = async () => {
 
 
 export const createEventsPage = async (e, route, routeObject) => {
+     const appContainer = document.getElementById('app');
      
      try {
           // Crear el layout principal
-          const appContainer = document.getElementById('app');
           if (!appContainer) {
                throw new Error("No se encontró el contenedor principal (#app).");
           }
@@ -191,35 +197,39 @@ export const eventsUser = async (e, route) => {
           gridEvents.style.scrollbarGutter = '';
      }
      
-     const events = await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
+     const result = await renderEvents(e, route, { showPastEvents: true, onCardClick: updateEventPage });
 
-     if (!events) {
-
-          return
+     if (!result) {
+          return;
      }
 
      const textEventsUser = document.querySelector('.text-events');
-     textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
+     if (textEventsUser) {
+          textEventsUser.innerHTML = `<h2>Eventos creados</h2>`;
+     }
 
-     const eventsUserCar = document.querySelectorAll('.event-card');
+     // Obtener los eventos cargados del infinite scroll
+     if (result.infiniteScroll) {
+          const state = result.infiniteScroll.getState();
+          const events = state.items || [];
+          const eventsUserCards = document.querySelectorAll('.event-card');
 
-     events.forEach((event, index) => {
+          events.forEach((event, index) => {
+               const eventCard = eventsUserCards[index];
 
-          const eventCard = eventsUserCar[index];
+               if (!eventCard) return;
 
-          if (!eventCard) return;
+               // Evitar duplicar el contador de asistentes
+               if (eventCard.querySelector('.asistent-number')) return;
 
-          const asistentNumber = document.createElement('div');
-          asistentNumber.classList.add('flex-container', 'asistent-number');
+               const asistentNumber = document.createElement('div');
+               asistentNumber.classList.add('flex-container', 'asistent-number');
 
-          asistentNumber.innerHTML = `<div class= "flex-container"><span><i class="bi bi-people-fill"></i></span><span>${event.totalReservedPlaces} asistentes de ${event.maxCapacity}</span></div>`;
+               asistentNumber.innerHTML = `<div class="flex-container"><span><i class="bi bi-people-fill"></i></span><span>${event.totalReservedPlaces} asistentes de ${event.maxCapacity}</span></div>`;
 
-
-          eventCard.appendChild(asistentNumber);
-     });
-
-
-
+               eventCard.appendChild(asistentNumber);
+          });
+     }
 };
 
 export const renderNewEvent = async (e, route, requestObject, container = null) => {

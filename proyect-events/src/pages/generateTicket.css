@@ -5,5 +5,21 @@
      
 }
 
+/* ===================== MEDIA QUERIES GENERATE TICKET ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     .ticket-qr-container img {
+          width: 40%;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .ticket-qr-container img {
+          width: 50%;
+     }
+}
+
 
  

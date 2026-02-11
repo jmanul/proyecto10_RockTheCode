@@ -21,3 +21,23 @@
 
 }
 
+/* ===================== MEDIA QUERIES CREATE EVENTS ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     .asistent-number div {
+          width: 95%;
+     }
+
+     .asistent-number i {
+          font-size: 1.2rem;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .asistent-number i {
+          font-size: 1rem;
+     }
+}
+

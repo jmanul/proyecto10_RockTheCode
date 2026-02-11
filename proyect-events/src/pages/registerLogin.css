@@ -42,3 +42,62 @@
   margin: 140px 0 0 0;
 
 }
+
+/* ===================== MEDIA QUERIES REGISTER/LOGIN ===================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .register-login-container {
+    margin: 120px 0 0 0;
+    padding: var(--spacing-medium);
+  }
+
+  .register-login-group {
+    max-width: 350px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .register-login-container {
+    margin: 100px 0 0 0;
+    padding: var(--spacing-small);
+    min-height: calc(100vh - 100px);
+  }
+
+  .register-login-group {
+    max-width: 100%;
+    width: 100%;
+    margin: 10px;
+  }
+
+  .login-register-page .create-form {
+    padding: var(--spacing-small);
+  }
+
+  .register-login-group h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+  .register-login-container {
+    margin: 80px 0 0 0;
+    padding: var(--spacing-little-bit);
+  }
+
+  .register-login-group {
+    padding: var(--spacing-little-bit);
+    border-radius: var(--border-radius-small);
+  }
+
+  .login-register-page .create-form {
+    padding: var(--spacing-little-bit);
+    border-radius: var(--border-radius-small);
+  }
+
+  .register-login-group h2 {
+    font-size: 1.1rem;
+  }
+}

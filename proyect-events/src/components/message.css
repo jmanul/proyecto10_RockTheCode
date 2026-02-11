@@ -38,3 +38,32 @@
     
      border: 3px solid var(--neon-magenta);
 }
+
+/* ===================== MEDIA QUERIES MESSAGE ===================== */
+
+/* Móvil */
+@media (max-width: 768px) {
+     .message-container {
+          padding: 1rem;
+          max-width: 90vw;
+          gap: 15px;
+     }
+
+     .message-container p {
+          font-size: 1rem;
+          text-align: center;
+     }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+     .message-container {
+          padding: 0.8rem;
+          max-width: 95vw;
+          gap: 10px;
+     }
+
+     .message-container p {
+          font-size: 0.9rem;
+     }
+}

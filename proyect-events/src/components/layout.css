@@ -149,15 +149,15 @@
                "area1"
                "area2"
                "area3";
-          padding: var(--spacing-small);
-          gap: var(--spacing-small);
+          padding: var(--spacing-little-bit);
+          gap: var(--spacing-little-bit);
           max-height: none;
           min-height: auto;
      }
 
-             .grid-main img {
-                  aspect-ratio: 1/1
-             }
+     .grid-main img {
+          aspect-ratio: 1/1;
+     }
 
      .grid-main section {
           width: 100%;
@@ -165,9 +165,9 @@
      }
 
      .grid-events {
-          min-height: 40dvh;
-          max-height: 60dvh;
-          padding-bottom: var(--spacing-medium);
+          min-height: 30dvh;
+          max-height: 70dvh;
+          padding-bottom: var(--spacing-small);
      }
 
      .events-section,

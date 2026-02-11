@@ -294,38 +294,38 @@
 /* Móvil */
 @media (max-width: 768px) {
      .event-card {
-          max-width: 100%;
-          min-width: 100%;
-          width: 100%;
+          max-width: 48%;
+          min-width: 45%;
+          width: 48%;
      }
 
      .text-container {
           height: auto;
-          min-height: 12rem;
-          padding: var(--spacing-small);
+          min-height: 9rem;
+          padding: var(--spacing-little-bit);
      }
 
      .event-name {
-          font-size: 1.3rem;
-          margin: 8px 0 4px;
+          font-size: 1rem;
+          margin: 4px 0 2px;
      }
 
      .type-container {
           flex-wrap: wrap;
-          gap: var(--spacing-little-bit);
+          gap: 2px;
      }
 
      .type-container span {
-          font-size: 0.95rem;
+          font-size: 0.8rem;
      }
 
      .event-city,
      .event-date {
-          font-size: 1.1rem;
+          font-size: 0.85rem;
      }
 
      .event-type {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
      }
 
      .share-btn {
@@ -346,11 +346,14 @@
 /* Móvil pequeño */
 @media (max-width: 480px) {
      .event-card {
+          max-width: 100%;
+          min-width: 100%;
+          width: 100%;
           border-radius: var(--border-radius-small);
      }
 
      .text-container {
-          min-height: 10rem;
+          min-height: 8rem;
           padding: var(--spacing-little-bit);
      }
 

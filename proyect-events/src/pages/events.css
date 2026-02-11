@@ -182,43 +182,43 @@ h2 {
 /* Móvil */
 @media (max-width: 768px) {
 
-    .dark-theme-button {
-        padding: 0.4rem;
-        font-size: 1rem;
-        width: 70px;
-        margin-top: 20px;
-    
-      }
+    .light-theme-button,.dark-theme-button {
+    padding: 0.4rem;
+    font-size: 1rem;
+    width: 70px;
+    margin-top: 20px;
+  }
+
   .nav-events-type-menu,
   .nav-events-user-menu {
     position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    margin-top: 0;
-    padding: 0 var(--spacing-little-bit);
-    width: 95%;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+    width: 92%;
     max-width: none;
-    margin: 0 10px 0 10px;
     z-index: 90;
     background: var(--background-color-transparent);
     backdrop-filter: blur(50px);
-    border-bottom: 1px solid var(--light-gray-slow);
+    border-radius: 0 0 var(--border-radius-big) var(--border-radius-big);
+    /* Sacar del flujo: no empujar grid-main */
+    height: auto;
   }
 
   .dropdown-toggle {
     font-size: 0.95rem;
     padding: 0.5rem var(--spacing-small);
-    border-radius: 0;
+    border-radius: 0 0 var(--border-radius-big) var(--border-radius-big);
     border: none;
-    border-bottom: 1px solid var(--light-gray-slow);
-    box-shadow: none;
+    box-shadow: var(--box-shadow);
   }
 
   .events-type-menu,
   .events-user-menu {
-    position: fixed;
-    top: calc(70px + 42px);
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     border-radius: 0 0 var(--border-radius-big) var(--border-radius-big);
@@ -235,20 +235,25 @@ h2 {
     margin: var(--spacing-little-bit) 0;
   }
 
-  /* grid-main justo debajo del header + dropdown toggle */
+  /* grid-main empieza debajo del header + botón toggle fijo */
   .grid-main {
-    margin-top: calc(70px + 42px + var(--spacing-little-bit));
-    min-height: calc(100dvh - 70px - 42px - var(--spacing-little-bit));
+    margin-top: calc(70px + 42px) !important;
+    min-height: calc(100dvh - 70px - 42px);
+    padding-top: var(--spacing-little-bit) !important;
   }
 
   .events-container {
     padding: var(--spacing-little-bit);
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-little-bit);
+    justify-content: center;
   }
 
   .grid-events {
     min-width: 100%;
     width: 100%;
+    height: 100%;
   }
 
   h2 {
@@ -259,48 +264,35 @@ h2 {
 
 /* Móvil pequeño */
 @media (max-width: 480px) {
+
+  .nav-events-type-menu,
+  .nav-events-user-menu {
+    top: 60px;
+    width: 94%;
+  }
+
   .dropdown-toggle {
     width: 100%;
-    border-radius: var(--border-radius-big);
-  }
-  .nav-events-type-menu,
-  .nav-events-user-menu{
-    top: 70px;
-  
-    width: 95%;
-    margin: 0 10px 0 10px;
-    border-radius:  var(--border-radius-big);
+    font-size: 0.9rem;
+    padding: 0.4rem var(--spacing-small);
+    border-radius: 0 0 var(--border-radius-big) var(--border-radius-big);
   }
 
-  .events-type-menu{
+  .events-type-menu,
+  .events-user-menu {
+    position: absolute;
+    top: 100%;
+    border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
+    width: 100%;
     background: var(--background-color);
-  ;
   }
 
+  .light-theme-button,
   .dark-theme-button {
     padding: 0.4rem;
     font-size: 1rem;
     width: 70px;
     margin-top: 20px;
-    
-  }
-
-  .events-type-menu,
-  .events-user-menu {
-    top:42px;
-    border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
-   
-        width: 100%;
-  }
-
-  .dropdown-toggle {
-    font-size: 0.9rem;
-    padding: 0.4rem var(--spacing-small);
-  }
-  .events-type-menu ul{
-
-    gap: 5px;
-
   }
 
   .events-type-menu li,
@@ -312,8 +304,8 @@ h2 {
   }
 
   .grid-main {
-    margin-top: calc(60px + 38px + var(--spacing-little-bit));
-    min-height: calc(100dvh - 60px - 38px - var(--spacing-little-bit));
+    margin-top: calc(60px + 45px) !important;
+    min-height: calc(100dvh - 60px - 45px);
   }
 
   h2 {

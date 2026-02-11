@@ -8,6 +8,28 @@ export const createList = (nameClass, list) => {
      const nav = document.createElement('nav');
      nav.id = `nav-${nameClass}`;
      nav.className = `nav-${nameClass}`;
+
+     // Botón toggle para menús desplegables (events-type-menu y events-user-menu)
+     const isDropdown = nameClass === 'events-type-menu' || nameClass === 'events-user-menu';
+     if (isDropdown) {
+          const toggleBtn = document.createElement('button');
+          toggleBtn.className = 'dropdown-toggle flex-container';
+          toggleBtn.type = 'button';
+          const label = nameClass === 'events-type-menu' ? 'Categorías' : 'Opciones';
+          toggleBtn.innerHTML = `<span>${label}</span><i class="bi bi-chevron-down dropdown-arrow"></i>`;
+          toggleBtn.addEventListener('click', () => {
+               nav.classList.toggle('open');
+          });
+          nav.appendChild(toggleBtn);
+
+          // Cerrar si se hace clic fuera
+          document.addEventListener('click', (e) => {
+               if (!nav.contains(e.target)) {
+                    nav.classList.remove('open');
+               }
+          });
+     }
+
      const ulList = document.createElement('ul');
      ulList.classList.add(nameClass, 'flex-container');
      ulList.id = nameClass;
@@ -30,6 +52,15 @@ export const createList = (nameClass, list) => {
                activeOption?.classList.remove('active-route');
                
                a.classList.add('active-route');
+
+               // Cerrar el desplegable tras seleccionar
+               if (isDropdown) {
+                    nav.classList.remove('open');
+                    // Actualizar texto del botón
+                    const toggleLabel = nav.querySelector('.dropdown-toggle span');
+                    if (toggleLabel) toggleLabel.textContent = item.name;
+               }
+
                return navigate(e, item);
               
           });

@@ -37,21 +37,15 @@
 
 }
 
-.grid-events {
+/* Solo aplica estilos específicos cuando tiene la clase info-content */
+.grid-events.info-content {
 
      width: 100%;
      border-radius: var(--border-radius-big);
      padding: var(--spacing-small) 0;
-     max-height:fit-content;
-
-}
-
-.grid-events.info-content {
-
-     overflow: inherit;
      margin-bottom: 70px;
      height: fit-content;
-
+     /* No sobrescribir overflow ni max-height para mantener scroll del layout.css */
 
 }
 

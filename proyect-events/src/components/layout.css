@@ -170,6 +170,7 @@
      .info-section,
      .info-grid-section {
           width: 100%;
+        
      }
 }
 
@@ -183,8 +184,9 @@
 
      .grid-events {
           min-height: 35dvh;
-          max-height: 50dvh;
+          max-height: 75dvh;
           padding: var(--spacing-little-bit) 0 var(--spacing-medium);
      }
+
 }
 

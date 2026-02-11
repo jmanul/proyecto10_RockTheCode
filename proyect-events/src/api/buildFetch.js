@@ -57,7 +57,7 @@ export const buildFetchJson = async ({ route, method = "GET", bodyData = null, c
      } catch (error) {
           
           console.error("Error en la solicitud:", error.message);
-          throw error;
+          return null;
          
 
      } finally {

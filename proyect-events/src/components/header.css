@@ -5,18 +5,23 @@ header {
      min-height:140px;
      width: 100%;
      z-index: 100;
-     background-color: transparent;
+     background-color: var(--dark-gray);
+     -webkit-backdrop-filter: blur(52px);
      backdrop-filter: blur(52px);
      color: var(--light-gray);
      box-shadow: var(--box-shadow-6);
      border-bottom-left-radius: var(--border-radius-big);
      border-bottom-right-radius: var(--border-radius-big);
-     animation: header-transparent linear both;
-     animation-timeline: scroll();
-     animation-range: 0px 200px;
      view-transition-name: header;
-     
-   
+}
+
+@supports (animation-timeline: scroll()) {
+     header {
+          background-color: transparent;
+          animation: header-transparent linear both;
+          animation-timeline: scroll();
+          animation-range: 0px 200px;
+     }
 }
 
 @keyframes header-transparent {
@@ -42,10 +47,14 @@ header {
      
      width: 90%;
      margin: var(--spacing-large) 0 var(--spacing-small);
-     animation: menu-spacing linear both;
+}
+
+@supports (animation-timeline: scroll()) {
+     .nav-menu-header-web {
+          animation: menu-spacing linear both;
           animation-timeline: scroll();
           animation-range: 0px 200px;
-    
+     }
 }
 
 @keyframes menu-spacing {
@@ -260,6 +269,7 @@ header {
           left: 0 !important;
           right: 0 !important;
           background: var(--background-color) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
           backdrop-filter: blur(20px) !important;
           padding: var(--spacing-medium) !important;
           margin: 0 !important;

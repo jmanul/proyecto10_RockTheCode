@@ -23,7 +23,8 @@ export const navigate = async (e, route, ...rest) => {
 
      // Limpiar ruta pendiente cuando el usuario navega manualmente
      // (excepto cuando es una navegación a login para guardar la ruta pendiente)
-     if (!route.url.includes('/login') && !route.url.includes('/register')) {
+     const routeUrl = typeof route.url === 'string' ? route.url : '';
+     if (!routeUrl.includes('/login') && !routeUrl.includes('/register')) {
           clearPendingRoute();
      }
 

@@ -1,5 +1,4 @@
 
-import { actionButton } from "./itemDetails";
 import './cardTicket.css';
 import { dateFormat } from "../utils/logic/dateFormat";
 import { printTicket } from "../utils/logic/printTicket";
@@ -41,21 +40,21 @@ export const cardTicket = async (request, ticket) => {
   </div>
 </div>`
      
-     const ticketRoute = {
-          url: {
-               url: `/tickets/${ticket._id}`, ticket: ticket
-          }, action: printTicket
-     };
-     
-
-  // Crear el botón de acción
-  
+  // Crear el botón de descarga (sin navigate, para no re-renderizar el DOM)
   const containerButton = document.createElement('div');
   containerButton.classList.add('flex-container', 'container-button');
   ticketContainer.appendChild(containerButton);
 
-  const button = await actionButton('Descargar', ticketRoute, containerButton);
-  
+  const button = document.createElement('button');
+  button.textContent = 'Descargar';
+  button.classList.add('button-descargar', 'button-action');
+  containerButton.appendChild(button);
+
+  button.addEventListener('click', async (e) => {
+       e.preventDefault();
+       await printTicket(ticket, ticketContainer);
+  });
+
      return ticketContainer;
 
 }

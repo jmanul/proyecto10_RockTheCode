@@ -2,11 +2,9 @@ import "../style.css";
 import { createFooter } from "./components/footer";
 import { createHeader } from "./components/header";
 import { renderHomePage } from "./pages/home";
-import { renderNotFoundPage } from "./pages/notFound";
 import { getRouteFromRegistry, navigate, registerRoute } from "./utils/logic/navigate";
 import { clearPendingRoute, setPendingRoute } from "./utils/routes/routeCache";
-import { allRoutes, loginRoutes, userRoutes, notFoundRoute } from "./utils/routes/routes";
-import { initHomeMenu } from "./utils/logic/init";
+import { allRoutes, loginRoutes, userRoutes } from "./utils/routes/routes";
 
 
 allRoutes.forEach(route => {
@@ -52,16 +50,8 @@ const initApp = async () => {
                route = getMatchingDynamicRoute(currentPath);
           }
 
-          // Paso 3: Verificar autenticación (sin renderizar home todavía)
-          let user = null;
-          
-          // Si no hay ruta específica o es home, renderizar home completo
-          if (!route || currentPath === '/' || currentPath === '/home') {
-               user = await renderHomePage();
-          } else {
-               // Hay una ruta específica, solo inicializar menú
-               user = await initHomeMenu();
-          }
+          // Paso 3: Siempre renderizar home primero (crea layout, menú, etc.)
+          const user = await renderHomePage();
 
           // Paso 4: Si NO está logueado y hay una ruta específica
           if (!user && route) {
@@ -74,20 +64,11 @@ const initApp = async () => {
 
           // Paso 5: Si está logueado y existe ruta específica, navegar a ella
           if (route) {
-               // Limpiar ruta pendiente antes de navegar
                clearPendingRoute();
                await navigate(null, route);
-          } else if (user && currentPath !== '/' && currentPath !== '/home') {
-               // Paso 6: Si está logueado pero la ruta no existe, mostrar 404
-               await navigate(null, notFoundRoute);
           }
      } catch (error) {
           console.error('💥 ERROR CRÍTICO EN INIT:', error);
-          document.body.innerHTML = `<div style="color: red; padding: 20px;">
-               <h1>Error al cargar la aplicación</h1>
-               <p>${error.message}</p>
-               <pre>${error.stack}</pre>
-          </div>`;
      }
 };
 
